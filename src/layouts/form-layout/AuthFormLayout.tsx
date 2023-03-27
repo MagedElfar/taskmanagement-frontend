@@ -2,7 +2,8 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import { Avatar, Typography } from '@mui/material';
 import { Link, useLocation } from "react-router-dom";
-import style from "./AuthFormLayout.module.css"
+import style from "./AuthFormLayout.module.css";
+import { useAppSelector } from "./../../hooks/store.hook"
 
 type Props = {
     children?: React.ReactNode,
@@ -12,7 +13,8 @@ type Props = {
 const AuthFormLayout: React.FC<Props> = ({ children, title }) => {
     const { pathname } = useLocation();
 
-    console.log(pathname)
+    const authStep = useAppSelector(state => state.auth.step)
+
     return (
         <Box component="div" sx={{
             px: 4,
@@ -21,11 +23,12 @@ const AuthFormLayout: React.FC<Props> = ({ children, title }) => {
             borderRadius: "8px",
             boxShadow: "0 5px 20px 0 rgba(109, 110, 111, 0.08)"
         }}>
-            <Avatar
-                alt="logo"
-                src="/logo.svg"
-                sx={{ width: 70, height: "auto", mb: 6, marginX: "auto" }}
-            />
+            {authStep === 1 ?
+                <Avatar
+                    alt="logo"
+                    src="/logo.svg"
+                    sx={{ width: 70, height: "auto", mb: 6, marginX: "auto" }}
+                /> : null}
 
             <Typography variant="h1" component="h1" sx={{
                 fontSize: 32,
@@ -41,7 +44,7 @@ const AuthFormLayout: React.FC<Props> = ({ children, title }) => {
             <Box
                 component="div"
             >
-                {pathname === "/signup" || pathname === "/login" ?
+                {authStep === 1 ?
                     <Typography
                         component="p"
                         sx={{

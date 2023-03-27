@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import AuthRoot from "../routes/AuthRoot";
-import Root from "../routes/AuthRoot";
+import Root from "../routes/Root";
 import Login from "../routes/Login";
 import Signup from "../routes/Signup";
 

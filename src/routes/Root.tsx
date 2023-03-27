@@ -1,5 +1,6 @@
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import withGuard from '../utilities/withGuard'
 
 const Root = () => {
     return (
@@ -9,4 +10,4 @@ const Root = () => {
     )
 }
 
-export default Root
+export default withGuard(Root)

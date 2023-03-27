@@ -1,18 +1,22 @@
+import { SignupCredentials } from './../interfaces/auth';
 import axios from "axios";
+import { LoginCredentials } from "../interfaces/auth";
+import { Profile } from '../interfaces/user';
 
-const baseURL: string = "http://localhost:500/api";
+const baseURL: string = "http://localhost:5000/api";
 
 const API = axios.create({ baseURL });
 
-// API.interceptors.request.use((req:any) => {
+API.interceptors.request.use((req: any) => {
 
-//     if(token){
-//         req.headers.Authorization = `Bearer ${token}`;
-//     } else {
-//         req.headers.Authorization = `Bearer `;
-//     }
-//     return req;
-// });
+    const token = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")!) : null
+    if (token) {
+        req.headers.Authorization = `Bearer ${token}`;
+    } else {
+        req.headers.Authorization = `Bearer `;
+    }
+    return req;
+});
 
 
 let config = {
@@ -20,4 +24,12 @@ let config = {
 };
 
 //auth
-export const login = (data: { email: string, password: string }) => API.post("/login", data)
+export const login = (data: LoginCredentials) => API.post("/login", data)
+
+export const signup = (data: SignupCredentials) => API.post("/signup", data)
+
+//user
+export const getUser = () => API.get("/users")
+
+export const createUserProfile = (data: Partial<Profile>) => API.post("/users/profile", data)
+
