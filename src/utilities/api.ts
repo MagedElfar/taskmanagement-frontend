@@ -28,8 +28,18 @@ export const login = (data: LoginCredentials) => API.post("/login", data)
 
 export const signup = (data: SignupCredentials) => API.post("/signup", data)
 
+export const forgotPasswordSendMail = (data: { email: string }) => API.post("/forget-password/send-mail", data)
+
+export const forgotPasswordRest = (data: {
+    token: string,
+    password: string,
+    password_confirmation: string
+}) => API.post("/forget-password/rest", data)
+
+
 //user
 export const getUser = () => API.get("/users")
 
 export const createUserProfile = (data: Partial<Profile>) => API.post("/users/profile", data)
 
+export const uploadUserImage = (data: any) => API.post("/users/image", data, config)

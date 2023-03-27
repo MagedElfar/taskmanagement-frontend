@@ -3,10 +3,10 @@ import Stack from '@mui/material/Stack';
 import Alert from '@mui/material/Alert';
 
 type Props = {
-    errors: any[]
+    text: string
 };
 
-const Errors: React.FC<Props> = ({ errors }) => {
+const Success: React.FC<Props> = ({ text }) => {
     return (
         <Stack sx={{
             width: '100%',
@@ -14,10 +14,10 @@ const Errors: React.FC<Props> = ({ errors }) => {
             marginBottom: 3
         }} spacing={2}>
             {
-                errors.map((error, index) => <Alert key={index} severity="error">{error}</Alert>)
+                text ? <Alert severity="success">{text}</Alert> : null
             }
         </Stack>
     );
 }
 
-export default Errors
+export default Success

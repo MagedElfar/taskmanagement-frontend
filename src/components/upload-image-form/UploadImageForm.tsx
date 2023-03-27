@@ -1,16 +1,17 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
-import { signup } from '../../store/slices/auth.slice';
 import Errors from '../errors/Errors';
 import { Avatar, Badge } from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { uploadProfilePicture } from "./../../store/thunk-actions/user-action"
 const UploadImageForm = () => {
 
     const userStat = useAppSelector((state) => state.user)
+    const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
     const [file, setFile] = useState(null)
@@ -22,7 +23,8 @@ const UploadImageForm = () => {
     }
 
     const onSubmit = (e: any) => {
-        e.preventDefault()
+        e.preventDefault();
+        dispatch(uploadProfilePicture(file)).unwrap().then(() => navigate("/", { replace: true }))
     }
     return (
 

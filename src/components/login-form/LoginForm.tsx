@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -8,8 +8,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
-import { login } from '../../store/slices/auth.slice';
+import { login } from '../../store/thunk-actions/auth-actions';
 import Errors from '../errors/Errors';
+import Typography from '@mui/material/Typography';
 
 const schema = yup.object({
     email: yup.string().required("email is required").email("invalid email format"),
@@ -91,6 +92,37 @@ const LoginForm = () => {
                         }}
                     />}
                 </Button>
+
+                <Typography
+                    component="p"
+                    sx={{
+                        textAlign: "center",
+                        marginTop: 4,
+                        color: "#6d6e6f",
+                        fontSize: "14px"
+                    }}
+                >
+
+                    <Link className={`ml-2 underline text-blue-500`} to={"/forgot-password"}>
+                        Forgot Password
+                    </Link>
+                </Typography>
+
+                <Typography
+                    component="p"
+                    sx={{
+                        textAlign: "center",
+                        marginTop: 4,
+                        color: "#6d6e6f",
+                        fontSize: "14px"
+                    }}
+                >
+                    Don't have an account?
+
+                    <Link className={`ml-2 underline text-blue-500`} to="/signup">
+                        Sign up
+                    </Link>
+                </Typography>
             </Box>
         </>
     )

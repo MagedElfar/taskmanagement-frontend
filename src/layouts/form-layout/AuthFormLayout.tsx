@@ -2,7 +2,6 @@ import React from 'react'
 import Box from '@mui/material/Box';
 import { Avatar, Typography } from '@mui/material';
 import { Link, useLocation } from "react-router-dom";
-import style from "./AuthFormLayout.module.css";
 import { useAppSelector } from "./../../hooks/store.hook"
 
 type Props = {
@@ -40,30 +39,6 @@ const AuthFormLayout: React.FC<Props> = ({ children, title }) => {
             </Typography>
 
             {children}
-
-            <Box
-                component="div"
-            >
-                {authStep === 1 ?
-                    <Typography
-                        component="p"
-                        sx={{
-                            textAlign: "center",
-                            marginTop: 4,
-                            color: "#6d6e6f",
-                            fontSize: "14px"
-                        }}
-                    >
-                        {pathname === "/signup" ? "Do have an account?" : "Don't have an account?"}
-
-                        <Link className={`${style.link} ml-2 underline text-blue-500`} to={pathname === "/signup" ? "/login" : "/signup"}>
-                            {pathname === "/signup" ? "Login" : "Sign up"}
-                        </Link>
-                    </Typography>
-                    : null}
-
-            </Box>
-
 
         </Box>
     )

@@ -1,44 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { login, signup } from "./auth.slice";
-import * as api from "./../../utilities/api"
-import { Profile, User } from "../../interfaces/user";
+import { login, signup } from "./../thunk-actions/auth-actions";
+import { createUserProfile, getUser, uploadProfilePicture } from "../thunk-actions/user-action";
+import { apiErrorFormat } from "../../utilities/error-format";
 
-//get user
-export const getUser = createAsyncThunk<
-    User,
-    void,
-    {
-        rejectValue?: unknown
-    }
->("users/getUser", async (_, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
-    try {
-        const token = localStorage.getItem("token")
-        if (!token) throw "";
-        const { data } = await api.getUser()
-        return data;
-    } catch (error) {
-        console.log(error)
-        return rejectWithValue(error)
-    }
-})
 
-//create profile
-export const createUserProfile = createAsyncThunk<
-    Profile,
-    Profile,
-    {
-        rejectValue?: unknown
-    }
->("users/createProfile", async (body, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
-    try {
-        await api.createUserProfile(body)
-        return body;
-    } catch (error) {
-        return rejectWithValue(error)
-    }
-})
 const initialState = {
     isLoggedIn: false,
     loading: false,
@@ -76,12 +41,14 @@ const slice = createSlice({
         })
         builder.addCase(getUser.rejected, (state, action) => {
             state.loading = false;
-            state.isLoggedIn = false
+            state.isLoggedIn = false;
+            localStorage.removeItem("token")
         })
 
         //create user profile
         builder.addCase(createUserProfile.pending, (state, action) => {
             state.loading = true;
+            state.errors = [];
         })
         builder.addCase(createUserProfile.fulfilled, (state, action) => {
             state.loading = false;
@@ -89,6 +56,22 @@ const slice = createSlice({
         })
         builder.addCase(createUserProfile.rejected, (state, action) => {
             state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //upload user Image
+        builder.addCase(uploadProfilePicture.pending, (state, action) => {
+            state.loading = true;
+            state.errors = [];
+        })
+        builder.addCase(uploadProfilePicture.fulfilled, (state, action) => {
+            state.loading = false;
+            state.user.image = action.payload.image_url!;
+            state.isLoggedIn = true
+        })
+        builder.addCase(uploadProfilePicture.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
         })
 
         //login
@@ -100,7 +83,6 @@ const slice = createSlice({
         //signup
         builder.addCase(signup.fulfilled, (state, action) => {
             state.user = action.payload.user;
-            state.isLoggedIn = true
         })
     }
 })

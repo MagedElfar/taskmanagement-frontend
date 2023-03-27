@@ -3,6 +3,7 @@ import AuthRoot from "../routes/AuthRoot";
 import Root from "../routes/Root";
 import Login from "../routes/Login";
 import Signup from "../routes/Signup";
+import ForgotPassword from "../routes/ForgotPassword";
 
 const routes = createBrowserRouter([
     {
@@ -26,6 +27,10 @@ const routes = createBrowserRouter([
             {
                 path: "login",
                 element: <Login />
+            },
+            {
+                path: "forgot-password",
+                element: <ForgotPassword />
             }
         ]
     },

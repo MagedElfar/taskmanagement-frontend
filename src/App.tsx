@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { RouterProvider } from "react-router-dom";
 import Loading from './components/loading/Loading';
 import { useAppDispatch } from './hooks/store.hook';
-import { getUser } from './store/slices/user.slice';
+import { getUser } from './store/thunk-actions/user-action';
 import routes from './utilities/routes';
 
 

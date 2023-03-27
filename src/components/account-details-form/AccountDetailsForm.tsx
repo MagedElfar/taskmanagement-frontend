@@ -8,7 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
 import * as yup from "yup";
-import { signup } from '../../store/slices/auth.slice';
+import { createUserProfile } from "../../store/thunk-actions/user-action"
 import Errors from '../errors/Errors';
 import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup } from '@mui/material';
 
@@ -21,7 +21,7 @@ const schema = yup.object({
 
 const AccountDetailsForm = () => {
 
-    const authState = useAppSelector((state) => state.auth)
+    const userState = useAppSelector((state) => state.user)
     const dispatch = useAppDispatch()
 
     const { control, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
@@ -38,12 +38,12 @@ const AccountDetailsForm = () => {
 
     const onSubmit = (data: any) => {
         console.log("data = ", data)
-        // dispatch(signup(data)).unwrap().then(() => navigate("/", { replace: true }))
+        dispatch(createUserProfile(data))
     }
     return (
 
         <>
-            {authState.errors.length > 0 && <Errors errors={authState.errors} />}
+            {userState.errors.length > 0 && <Errors errors={userState.errors} />}
 
             <Box
                 component="form"
@@ -132,7 +132,7 @@ const AccountDetailsForm = () => {
                     fullWidth variant="contained"
                 >
                     Continue
-                    {authState.loading && <CircularProgress
+                    {userState.loading && <CircularProgress
                         size={22}
                         sx={{
                             color: "#fff",

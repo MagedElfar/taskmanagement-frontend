@@ -1,58 +1,14 @@
-import { LoginCredentials, SignupCredentials } from './../../interfaces/auth';
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { User } from "../../interfaces/user";
-import * as api from "./../../utilities/api"
+import { createSlice } from "@reduxjs/toolkit";
 import { apiErrorFormat } from '../../utilities/error-format';
-import { createUserProfile } from './user.slice';
+import { login, signup } from "../thunk-actions/auth-actions";
+import { createUserProfile, uploadProfilePicture } from './../thunk-actions/user-action';
 
-//login
-export const login = createAsyncThunk<
-    {
-        user: User,
-        accessToken: string
-    },
-    LoginCredentials,
-    {
-        rejectValue?: unknown
-    }
->("auth/login", async (credentials, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
-    try {
-        const { data } = await api.login(credentials);
-        localStorage.setItem("token", JSON.stringify(data.accessToken))
-        return data;
-    } catch (error) {
-        console.log(error)
-        return rejectWithValue(error)
-    }
-})
 
-//sign up
-export const signup = createAsyncThunk<
-    {
-        user: User,
-        accessToken: string
-    },
-    SignupCredentials,
-    {
-        rejectValue?: unknown
-    }
->("auth/signup", async (credentials, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
-    try {
-        const { data } = await api.signup(credentials);
-        localStorage.setItem("token", JSON.stringify(data.accessToken))
-        return data;
-    } catch (error) {
-        console.log(error)
-        return rejectWithValue(error)
-    }
-})
 
 const initialState = {
     loading: false,
     errors: [],
-    step: 3
+    step: 1
 }
 
 const slice = createSlice({
@@ -95,6 +51,11 @@ const slice = createSlice({
         builder.addCase(createUserProfile.fulfilled, (state, action) => {
             state.step = 3
         })
+
+        builder.addCase(uploadProfilePicture.fulfilled, (state, action) => {
+            state.step = 1
+        })
+
     }
 })
 

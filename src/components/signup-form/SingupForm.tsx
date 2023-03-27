@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -11,8 +11,9 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
 import * as yup from "yup";
-import { signup } from '../../store/slices/auth.slice';
+import { signup } from '../../store/thunk-actions/auth-actions';
 import Errors from '../errors/Errors';
+import { Typography } from '@mui/material';
 
 const schema = yup.object({
     username: yup.string().required("username is required"),
@@ -22,8 +23,6 @@ const schema = yup.object({
 }).required();
 
 const SingupForm = () => {
-
-    const navigate = useNavigate();
 
     const authState = useAppSelector((state) => state.auth)
     const dispatch = useAppDispatch()
@@ -126,6 +125,22 @@ const SingupForm = () => {
                         }}
                     />}
                 </Button>
+
+                <Typography
+                    component="p"
+                    sx={{
+                        textAlign: "center",
+                        marginTop: 4,
+                        color: "#6d6e6f",
+                        fontSize: "14px"
+                    }}
+                >
+                    Do have an account?
+
+                    <Link className={`ml-2 underline text-blue-500`} to="/login">
+                        Login
+                    </Link>
+                </Typography>
 
             </Box>
         </>
