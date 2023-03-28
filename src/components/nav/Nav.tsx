@@ -20,7 +20,7 @@ type Props = {
 };
 
 const Nav: React.FC<Props> = ({ open, onClick }) => {
-    const { user: userState, them } = useAppSelector(s => s)
+    const { user: userState, them, space } = useAppSelector(s => s)
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const dispatch = useAppDispatch();
@@ -59,15 +59,19 @@ const Nav: React.FC<Props> = ({ open, onClick }) => {
                         }}
 
                     >
-                        <MenuIcon />
+                        <MenuIcon sx={{ color: them.colors.fourthColor }} />
                     </IconButton>
                     <Typography
                         variant="h6"
                         noWrap
                         component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' }, color: them.colors.fourthColor }}
+                        sx={{
+                            display: { xs: 'none', sm: 'block' },
+                            color: them.colors.fourthColor,
+                            textTransform: "capitalize"
+                        }}
                     >
-                        space name
+                        {space.name}
                     </Typography>
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center" }}>
@@ -115,7 +119,7 @@ const Nav: React.FC<Props> = ({ open, onClick }) => {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            <MenuItem sx={{ width: "150px" }}>
+                            <MenuItem sx={{ width: "150px" }} onClick={handleCloseUserMenu}>
                                 <Link to='/profile'>
                                     <AccountCircle sx={{ mr: 1 }} />
                                     Profile

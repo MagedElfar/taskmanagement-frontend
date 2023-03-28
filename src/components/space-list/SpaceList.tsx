@@ -1,10 +1,11 @@
 import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material';
-import { ListItemButton, ListItemIcon, ListItemText, MenuItem, alpha, Menu, MenuProps, styled } from '@mui/material';
+import { ListItemButton, ListItemIcon, ListItemText, MenuItem, alpha, Menu, MenuProps, styled, Avatar, Badge } from '@mui/material';
 import List from '@mui/material/List';
 import React, { useState } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
 import { useAppSelector } from '../../hooks/store.hook';
 import SearchInput from '../search-input/SearchInput';
+import { deepOrange } from '@mui/material/colors';
 
 const StyledMenu = styled((props: MenuProps) => (
     <Menu
@@ -50,7 +51,7 @@ const SpaceList = () => {
 
 
 
-    const { them } = useAppSelector(s => s)
+    const { them, space } = useAppSelector(s => s)
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -64,10 +65,36 @@ const SpaceList = () => {
     return (
         <List>
             <ListItemButton onClick={handleClick}>
-                <ListItemIcon>
-                    <HomeIcon sx={{ color: them.colors.firstColor }} />
-                </ListItemIcon>
-                <ListItemText primary="workspace" sx={{ color: them.colors.firstColor }} />
+                <Badge
+                    overlap="circular"
+                    anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+                    sx={{
+                        mr: 2
+                    }}
+                    badgeContent={
+                        <HomeIcon sx={{ color: them.colors.firstColor, fontSize: "15px" }} />
+                    }
+                >
+                    <Avatar
+                        sx={{
+                            bgcolor: deepOrange[500],
+                            width: "20px",
+                            height: "20px",
+                            fontSize: "12px",
+                        }}
+                        variant="rounded">
+                        {space.name[0]?.toUpperCase() || "W"}
+                    </Avatar>
+                </Badge>
+
+                <ListItemText
+                    primary={space.name}
+                    sx={{
+                        color: them.colors.firstColor,
+                        whiteSpace: "pre-wrap",
+                        textTransform: "capitalize"
+                    }}
+                />
                 {open ? <ExpandLess sx={{ color: them.colors.firstColor }} /> : <ExpandMore sx={{ color: them.colors.firstColor }} />}
             </ListItemButton>
             <StyledMenu
@@ -79,7 +106,7 @@ const SpaceList = () => {
                 open={open}
                 onClose={handleClose}
             >
-                <MenuItem disableRipple>
+                <MenuItem disableRipple style={{ backgroundColor: 'transparent' }}>
                     <SearchInput placeHolder='Search for a workspace' />
                 </MenuItem>
             </StyledMenu>

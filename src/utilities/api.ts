@@ -61,3 +61,5 @@ export const changeUserPassword = (data: {
     new_password_confirmation: string
 }) => API.patch("/users/password", data)
 
+//workspace
+export const getInitSpace = () => API.get("/spaces/user/init")

@@ -3,7 +3,7 @@ import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
 import { styled, Theme, CSSObject } from '@mui/material/styles';
 import store from '../../store';
 
-const drawerWidth = 240;
+const drawerWidth = 300;
 
 const { them } = store.getState()
 

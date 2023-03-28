@@ -1,14 +1,17 @@
 import { configureStore } from '@reduxjs/toolkit';
 import user from "./slices/user.slice";
 import auth from "./slices/auth.slice";
-import them from "./slices/them.slice"
+import them from "./slices/them.slice";
+import space from "./slices/space.slice"
+
 // ...
 
 const store = configureStore({
     reducer: {
         auth,
         user,
-        them
+        them,
+        space
     },
 })
 

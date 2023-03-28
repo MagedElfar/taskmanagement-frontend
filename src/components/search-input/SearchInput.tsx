@@ -8,7 +8,7 @@ const { them } = store.getState()
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
-    border: `2px solid ${them.colors.firstColor}`,
+    border: `2px solid #DDD`,
 
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
