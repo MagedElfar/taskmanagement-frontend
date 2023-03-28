@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { apiErrorFormat } from '../../utilities/error-format';
-import { login, signup } from "../thunk-actions/auth-actions";
+import { login, logout, signup } from "../thunk-actions/auth-actions";
 import { createUserProfile, uploadProfilePicture } from './../thunk-actions/user-action';
 
 
@@ -43,6 +43,22 @@ const slice = createSlice({
         });
 
         builder.addCase(signup.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //logout
+        builder.addCase(logout.pending, (state, action) => {
+            state.loading = true;
+            state.errors = []
+        });
+
+        builder.addCase(logout.fulfilled, (state, action) => {
+            state.loading = false;
+            state.step = 1
+        });
+
+        builder.addCase(logout.rejected, (state, action) => {
             state.loading = false;
             state.errors = apiErrorFormat(action.payload);
         })

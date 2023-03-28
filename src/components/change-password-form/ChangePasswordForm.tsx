@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm, Controller } from "react-hook-form";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
@@ -12,38 +12,45 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import Success from '../success/Success';
 import { apiErrorFormat } from '../../utilities/error-format';
-import { forgotPasswordRest } from '../../utilities/api';
+import { changeUserPassword } from '../../utilities/api';
 import { InputAdornment } from '@mui/material';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks/store.hook';
 
 const schema = yup.object({
-    password: yup.string().required('password is required')
+    password: yup.string().required('password is required'),
+    new_password: yup.string().required('password is required')
         .matches(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*\W)(?!.* ).{8,16}$/, 'Invalid Password Format Provided ( Must be at 8 characters, 1 uppercase, 1 lowercase, 1 number, and 1 special character )'),
-    password_confirmation: yup.string()
-        .oneOf([yup.ref('password')], 'Passwords must match')
+    new_password_confirmation: yup.string()
+        .oneOf([yup.ref('new_password')], 'Passwords must match')
 
 }).required();
 
-const ForgotPassword2 = () => {
+const ChangePasswordForm = () => {
 
-    const [searchParams, setSearchParams] = useSearchParams();
-
-    const token = searchParams.get("token")
+    const { them } = useAppSelector(s => s)
 
     const [err, setErrors] = useState([])
     const [success, setSuccess] = useState('')
     const [loading, setLoading] = useState(false)
     const [showPassword, setShowPassword] = useState(false)
-    const [showPasswordConfirmation, setShowPasswordConfirmation] = useState(false)
+    const [showNewPassword, setNewShowPassword] = useState(false)
+    const [showNewPasswordConfirmation, setNewShowPasswordConfirmation] = useState(false)
 
+    useEffect(() => {
+        if (success === "") return;
 
+        const successTimeOut = setTimeout(() => setSuccess(""), 10000)
+
+        return () => clearTimeout(successTimeOut)
+    }, [success])
 
     const { control, handleSubmit, reset, formState: { errors, isDirty, isValid } } = useForm({
         mode: "onChange",
         resolver: yupResolver(schema),
         defaultValues: {
             password: '',
-            password_confirmation: ''
+            new_password: '',
+            new_password_confirmation: ''
         }
     });
 
@@ -53,13 +60,10 @@ const ForgotPassword2 = () => {
             setLoading(true)
             setSuccess('')
 
-            await forgotPasswordRest({
-                ...data,
-                token
-            });
+            await changeUserPassword(data);
 
             reset()
-            setSuccess("Password is rest successfully")
+            setSuccess("Password is changed successfully")
 
         } catch (error) {
             setErrors(apiErrorFormat(error))
@@ -77,11 +81,24 @@ const ForgotPassword2 = () => {
                 onSubmit={handleSubmit(onSubmit)}
             >
 
+                <Typography
+                    variant="h6"
+                    component="h6"
+                    sx={{
+                        color: them.colors.fourthColor,
+                        backgroundColor: "transparent",
+                        fontSize: "18px",
+                        mb: 2
+                    }}
+                >
+                    Change Password:
+                </Typography>
+
                 <Controller
                     name="password"
                     control={control}
                     render={({ formState, field }) => <TextField
-                        sx={{ display: "block", width: 350, mb: 3 }}
+                        sx={{ display: "block", mb: 3 }}
                         InputProps={{
                             endAdornment: <InputAdornment
                                 sx={{ cursor: "pointer" }}
@@ -93,7 +110,7 @@ const ForgotPassword2 = () => {
                         }}
                         error={!!formState.errors?.password}
                         helperText={errors.password?.message}
-                        label="Password"
+                        label="New Password"
                         variant="outlined"
                         type={showPassword ? "text" : "password"}
                         fullWidth
@@ -103,24 +120,49 @@ const ForgotPassword2 = () => {
                 />
 
                 <Controller
-                    name="password_confirmation"
+                    name="new_password"
                     control={control}
                     render={({ formState, field }) => <TextField
-                        sx={{ display: "block", width: 350, mb: 3 }}
+                        sx={{ display: "block", mb: 3 }}
                         InputProps={{
                             endAdornment: <InputAdornment
                                 sx={{ cursor: "pointer" }}
-                                onClick={() => setShowPasswordConfirmation(!showPasswordConfirmation)}
+                                onClick={() => setNewShowPassword(!showNewPassword)}
                                 position="end"
                             >
-                                {!showPasswordConfirmation ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                                {!showNewPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
                             </InputAdornment>,
                         }}
-                        error={!!formState.errors?.password_confirmation}
-                        helperText={errors.password_confirmation?.message}
-                        label="Password Confirmation"
+                        error={!!formState.errors?.new_password}
+                        helperText={errors.new_password?.message}
+                        label="New Password"
                         variant="outlined"
-                        type={showPasswordConfirmation ? "text" : "password"}
+                        type={showNewPassword ? "text" : "password"}
+                        fullWidth
+                        {...field}
+                    />
+                    }
+                />
+
+                <Controller
+                    name="new_password_confirmation"
+                    control={control}
+                    render={({ formState, field }) => <TextField
+                        sx={{ display: "block", mb: 3 }}
+                        InputProps={{
+                            endAdornment: <InputAdornment
+                                sx={{ cursor: "pointer" }}
+                                onClick={() => setNewShowPasswordConfirmation(!showNewPasswordConfirmation)}
+                                position="end"
+                            >
+                                {!showNewPasswordConfirmation ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                            </InputAdornment>,
+                        }}
+                        error={!!formState.errors?.new_password_confirmation}
+                        helperText={errors.new_password_confirmation?.message}
+                        label="New Password Confirmation"
+                        variant="outlined"
+                        type={showNewPasswordConfirmation ? "text" : "password"}
                         fullWidth
                         {...field}
                     />
@@ -141,26 +183,9 @@ const ForgotPassword2 = () => {
                         }}
                     />}
                 </Button>
-
-                <Typography
-                    component="p"
-                    sx={{
-                        textAlign: "center",
-                        marginTop: 4,
-                        color: "#6d6e6f",
-                        fontSize: "14px"
-                    }}
-                >
-                    Back to
-
-                    <Link className={`ml-2 underline text-blue-500`} to="/login">
-                        Login
-                    </Link>
-                </Typography>
-
             </Box>
         </>
     )
 }
 
-export default ForgotPassword2
+export default ChangePasswordForm

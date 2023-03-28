@@ -1,16 +1,13 @@
 
 import * as React from 'react';
-import { useTheme } from '@mui/material/styles';
-import {
-    Box, Avatar, IconButton, Divider, CssBaseline, Toolbar
-} from '@mui/material';
+import { Box, Avatar, IconButton, Divider, CssBaseline } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-
 import withGuard from '../utilities/withGuard'
-import { Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { AppBar, Drawer, DrawerHeader } from '../layouts/main-layout/MainLayoute';
 import SpaceList from '../components/space-list/SpaceList';
 import { useAppSelector } from '../hooks/store.hook';
+import Nav from '../components/nav/Nav';
 
 
 
@@ -30,21 +27,7 @@ function Root() {
         <Box sx={{ display: 'flex' }}>
             <CssBaseline />
             <AppBar position="fixed" open={open}>
-                <Toolbar>
-                    <IconButton
-                        color="inherit"
-                        aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        edge="start"
-                        sx={{
-                            marginRight: 5,
-                            ...(open && { display: 'none' }),
-                        }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                    r
-                </Toolbar>
+                <Nav open={open} onClick={handleDrawerOpen} />
             </AppBar>
             <Drawer
                 variant="permanent"
@@ -54,14 +37,17 @@ function Root() {
                 }}
             >
                 <DrawerHeader>
-                    <Avatar
-                        alt="logo"
-                        src="/logo.svg"
-                        sx={{
-                            width: "30px",
-                            height: "30px"
-                        }}
-                    />
+                    <Link to="/">
+                        <Avatar
+                            alt="logo"
+                            src="/logo.svg"
+                            sx={{
+                                width: "30px",
+                                height: "30px",
+                                ...(!open && { display: 'none' }),
+                            }}
+                        />
+                    </Link>
                     <IconButton
                         aria-label="open drawer"
                         onClick={handleDrawerClose}
@@ -83,7 +69,7 @@ function Root() {
             </Drawer>
             <Box
                 component="main"
-                sx={{ flexGrow: 1, p: 3, backgroundColor: them.colors.firstColor, height: "100vh" }}
+                sx={{ flexGrow: 1, p: 3, backgroundColor: them.colors.firstColor, minHeight: "100vh" }}
             >
                 <DrawerHeader />
                 <Outlet />

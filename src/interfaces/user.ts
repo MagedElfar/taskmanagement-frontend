@@ -16,3 +16,12 @@ export interface Profile {
 interface Image {
     image_url: string
 }
+
+export interface updateUserDto {
+    username: string,
+    email: string,
+    first_name: string,
+    last_name: string,
+    phone: string,
+    gender: string,
+}

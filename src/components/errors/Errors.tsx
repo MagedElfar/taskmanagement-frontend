@@ -10,7 +10,7 @@ const Errors: React.FC<Props> = ({ errors }) => {
     return (
         <Stack sx={{
             width: '100%',
-            maxWidth: "350px",
+            maxWidth: "100%",
             marginBottom: 3
         }} spacing={2}>
             {

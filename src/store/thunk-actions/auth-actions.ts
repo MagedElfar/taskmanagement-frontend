@@ -46,3 +46,22 @@ export const signup = createAsyncThunk<
         return rejectWithValue(error)
     }
 })
+
+//login
+export const logout = createAsyncThunk<
+    void,
+    void,
+    {
+        rejectValue?: unknown
+    }
+>("auth/logout", async (_, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+        await api.logout();
+        localStorage.clear()
+        return;
+    } catch (error) {
+        console.log(error)
+        return rejectWithValue(error)
+    }
+})
