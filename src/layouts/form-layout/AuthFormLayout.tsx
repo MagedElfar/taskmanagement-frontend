@@ -10,7 +10,8 @@ type Props = {
 };
 
 const AuthFormLayout: React.FC<Props> = ({ children, title }) => {
-    const { pathname } = useLocation();
+
+    const { them } = useAppSelector(s => s);
 
     const authStep = useAppSelector(state => state.auth.step)
 
@@ -30,7 +31,7 @@ const AuthFormLayout: React.FC<Props> = ({ children, title }) => {
                 /> : null}
 
             <Typography variant="h1" component="h1" sx={{
-                fontSize: 32,
+                fontSize: them.fonSize.title,
                 fontWeight: 500,
                 mb: 4,
                 textAlign: "center"

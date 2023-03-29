@@ -5,10 +5,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import withGuard from '../utilities/withGuard'
 import { Link, Outlet } from 'react-router-dom';
 import { AppBar, Drawer, DrawerHeader } from '../layouts/main-layout/MainLayoute';
-import SpaceList from '../components/space-list/SpaceList';
 import { useAppDispatch, useAppSelector } from '../hooks/store.hook';
-import Nav from '../components/nav/Nav';
+import Nav from '../components/layouts/Nav';
 import { getInitSpace } from '../store/thunk-actions/space-actions';
+import Navigation from '../components/layouts/Navigation';
 
 
 
@@ -69,11 +69,8 @@ function Root() {
 
                 <Divider sx={{ backgroundColor: them.colors.firstColor }} />
                 {open ? <>
-                    <SpaceList />
+                    <Navigation />
                 </> : null}
-
-                <Divider sx={{ backgroundColor: them.colors.firstColor }} />
-
 
             </Drawer>
             <Box

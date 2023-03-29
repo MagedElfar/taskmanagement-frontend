@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
 import { login } from '../../store/thunk-actions/auth-actions';
-import Errors from '../errors/Errors';
+import Errors from '../layouts/Errors';
 import Typography from '@mui/material/Typography';
 
 const schema = yup.object({

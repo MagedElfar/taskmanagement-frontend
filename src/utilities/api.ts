@@ -2,6 +2,7 @@ import { SignupCredentials } from './../interfaces/auth';
 import axios from "axios";
 import { LoginCredentials } from "../interfaces/auth";
 import { Profile, updateUserDto } from '../interfaces/user';
+import { createSpaceDto } from '../interfaces/space';
 
 const baseURL: string = "http://localhost:5000/api";
 
@@ -62,4 +63,10 @@ export const changeUserPassword = (data: {
 }) => API.patch("/users/password", data)
 
 //workspace
+export const getSpaces = (query: string) => API.get(`/spaces${query}`)
+
+export const getSpace = (id: number) => API.get(`/spaces/${id}`)
+
 export const getInitSpace = () => API.get("/spaces/user/init")
+
+export const createSpace = (data: createSpaceDto) => API.post("/spaces", data)

@@ -6,9 +6,9 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import Errors from '../errors/Errors';
+import Errors from '../layouts/Errors';
 import Typography from '@mui/material/Typography';
-import Success from '../success/Success';
+import Success from '../layouts/Success';
 import { apiErrorFormat } from '../../utilities/error-format';
 import { forgotPasswordSendMail } from '../../utilities/api';
 

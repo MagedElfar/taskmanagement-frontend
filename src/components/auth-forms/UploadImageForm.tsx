@@ -4,10 +4,10 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
-import Errors from '../errors/Errors';
+import Errors from '../layouts/Errors';
 import { Avatar, Badge } from '@mui/material';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { uploadProfilePicture } from "./../../store/thunk-actions/user-action"
+import { uploadProfilePicture } from "../../store/thunk-actions/user-action"
 const UploadImageForm = () => {
 
     const userStat = useAppSelector((state) => state.user)

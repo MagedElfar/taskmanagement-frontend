@@ -1,9 +1,9 @@
 import React from 'react'
 import AuthFormLayout from '../layouts/form-layout/AuthFormLayout'
 import { useAppSelector } from '../hooks/store.hook'
-import SingupForm from '../components/signup-form/SingupForm'
-import AccountDetailsForm from '../components/account-details-form/AccountDetailsForm'
-import UploadImageForm from '../components/upload-image-form/UploadImageForm'
+import SingupForm from '../components/auth-forms/SingupForm'
+import AccountDetailsForm from '../components/auth-forms/AccountDetailsForm'
+import UploadImageForm from '../components/auth-forms/UploadImageForm'
 
 const Signup = () => {
     const step = useAppSelector(s => s.auth.step)

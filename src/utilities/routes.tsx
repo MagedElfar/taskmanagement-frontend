@@ -8,6 +8,7 @@ import Profile from "../routes/Profile";
 import PersonalInformation from "../routes/PersonalInformation";
 import ProfilePhoto from "../routes/ProfilePhoto";
 import Privacy from "../routes/Privacy";
+import Space from "../routes/Space";
 
 const routes = createBrowserRouter([
     {
@@ -35,6 +36,10 @@ const routes = createBrowserRouter([
                         element: <Privacy />
                     }
                 ]
+            },
+            {
+                path: "space",
+                element: <Space />
             }
         ]
     },

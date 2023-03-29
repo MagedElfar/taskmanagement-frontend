@@ -1,5 +1,5 @@
 import React from 'react'
-import ChangePasswordForm from '../components/change-password-form/ChangePasswordForm'
+import ChangePasswordForm from '../components/user-forms/ChangePasswordForm'
 import ProfileLayout from '../layouts/profile-layout/ProfileLayout'
 
 const Privacy = () => {

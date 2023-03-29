@@ -1,8 +1,8 @@
 import React from 'react'
-import ForgotPassword1 from '../components/forgot-password-form/ForgotPassword1'
+import ForgotPassword1 from '../components/auth-forms/ForgotPassword1'
 import AuthFormLayout from '../layouts/form-layout/AuthFormLayout'
 import { useSearchParams } from 'react-router-dom';
-import ForgotPassword2 from '../components/forgot-password-form/ForgotPassword2';
+import ForgotPassword2 from '../components/auth-forms/ForgotPassword2';
 
 const ForgotPassword = () => {
     const [searchParams, setSearchParams] = useSearchParams();

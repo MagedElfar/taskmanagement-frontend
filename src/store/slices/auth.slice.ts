@@ -7,7 +7,7 @@ import { createUserProfile, uploadProfilePicture } from './../thunk-actions/user
 
 const initialState = {
     loading: false,
-    errors: [],
+    errors: [] as string[],
     step: 1
 }
 

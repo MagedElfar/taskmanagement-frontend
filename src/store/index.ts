@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 import user from "./slices/user.slice";
 import auth from "./slices/auth.slice";
 import them from "./slices/them.slice";
-import space from "./slices/space.slice"
+import space from "./slices/space.slice";
+import model from "./slices/model.slice"
 
 // ...
 
@@ -11,7 +12,8 @@ const store = configureStore({
         auth,
         user,
         them,
-        space
+        space,
+        model
     },
 })
 
