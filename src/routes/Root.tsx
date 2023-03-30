@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/store.hook';
 import Nav from '../components/layouts/Nav';
 import { getInitSpace } from '../store/thunk-actions/space-actions';
 import Navigation from '../components/layouts/Navigation';
+import Models from '../models/Models';
 
 
 
@@ -31,56 +32,62 @@ function Root() {
     };
 
     return (
-        <Box sx={{ display: 'flex' }}>
-            <CssBaseline />
-            <AppBar position="fixed" open={open}>
-                <Nav open={open} onClick={handleDrawerOpen} />
-            </AppBar>
-            <Drawer
-                variant="permanent"
-                open={open}
-                sx={{
-                    backgroundColor: them.colors.firstColor
-                }}
-            >
-                <DrawerHeader>
-                    <Link to="/">
-                        <Avatar
-                            alt="logo"
-                            src="/logo.svg"
+        <>
+            <Models />
+            <Box sx={{ display: 'flex' }}>
+                <CssBaseline />
+                <AppBar position="fixed" open={open}>
+                    <Nav open={open} onClick={handleDrawerOpen} />
+                </AppBar>
+                <Drawer
+                    variant="permanent"
+                    open={open}
+                    sx={{
+                        backgroundColor: them.colors.firstColor
+                    }}
+                >
+                    <DrawerHeader>
+                        <Link to="/">
+                            <Avatar
+                                alt="logo"
+                                src="/logo.svg"
+                                sx={{
+                                    width: "30px",
+                                    height: "30px",
+                                    ...(!open && { display: 'none' }),
+                                }}
+                            />
+                        </Link>
+                        <IconButton
+                            aria-label="open drawer"
+                            onClick={handleDrawerClose}
+                            edge="start"
                             sx={{
-                                width: "30px",
-                                height: "30px",
-                                ...(!open && { display: 'none' }),
+                                color: them.colors.firstColor
                             }}
-                        />
-                    </Link>
-                    <IconButton
-                        aria-label="open drawer"
-                        onClick={handleDrawerClose}
-                        edge="start"
-                        sx={{
-                            color: them.colors.firstColor
-                        }}
-                    >
-                        <MenuIcon />
-                    </IconButton>
-                </DrawerHeader>
+                        >
+                            <MenuIcon />
+                        </IconButton>
+                    </DrawerHeader>
 
-                <Divider sx={{ backgroundColor: them.colors.firstColor }} />
-                {open ? <>
-                    <Navigation />
-                </> : null}
+                    <Divider sx={{ backgroundColor: them.colors.firstColor }} />
+                    {open ? <>
+                        <Navigation />
+                    </> : null}
 
-            </Drawer>
-            <Box
-                component="main"
-                sx={{ flexGrow: 1, p: 3, backgroundColor: them.colors.firstColor, minHeight: "100vh" }}
-            >
-                <DrawerHeader />
-                <Outlet />
+                </Drawer>
+                <Box
+                    component="main"
+                    sx={{ flexGrow: 1, p: 3, backgroundColor: them.colors.firstColor, minHeight: "100vh" }}
+                >
+                    <DrawerHeader />
+                    <DrawerHeader />
+                    <Outlet />
+                </Box>
             </Box>
-        </Box>
+
+        </>
+
     );
 }
 

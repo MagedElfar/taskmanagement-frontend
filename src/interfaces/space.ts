@@ -3,6 +3,11 @@ export interface Space {
     id: number,
 }
 
+export interface Project {
+    name: string,
+    id: number,
+}
+
 export interface createSpaceDto {
     name: string
 }

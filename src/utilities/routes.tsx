@@ -9,6 +9,7 @@ import PersonalInformation from "../routes/PersonalInformation";
 import ProfilePhoto from "../routes/ProfilePhoto";
 import Privacy from "../routes/Privacy";
 import Space from "../routes/Space";
+import LoadingPage from "../routes/LoadingPage";
 
 const routes = createBrowserRouter([
     {
@@ -60,6 +61,11 @@ const routes = createBrowserRouter([
                 element: <ForgotPassword />
             }
         ]
+    },
+
+    {
+        path: "loading",
+        element: <LoadingPage />
     },
 
     {

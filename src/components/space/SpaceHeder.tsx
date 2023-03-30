@@ -43,6 +43,7 @@ const SpaceHeder = () => {
                 </Grid>
                 <Grid item sx={{ display: "flex", alignItems: "center" }}>
                     <Typography
+                        component="span"
                         variant='h2'
                         sx={{
                             fontWeight: 500,

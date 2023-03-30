@@ -20,8 +20,6 @@ const App = () => {
     return (
         <>
             {isLoading ? <Loading /> : <RouterProvider router={routes} />}
-
-            <Models />
         </>
     )
 }

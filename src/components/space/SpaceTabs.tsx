@@ -24,8 +24,8 @@ function TabPanel(props: TabPanelProps) {
             {...other}
         >
             {value === index && (
-                <Box sx={{ pt: 5 }}>
-                    <Typography>{children}</Typography>
+                <Box component="div" sx={{ pt: 5 }}>
+                    {children}
                 </Box>
             )}
         </div>
@@ -55,8 +55,10 @@ const SpaceTabs = () => {
                     <Tab sx={{ color: them.colors.fourthColor }} label="Team" {...a11yProps(1)} />
                 </Tabs>
             </Box>
+
             <TabPanel value={value} index={0}>
                 <UpdateSpaceForm />
+
             </TabPanel>
             <TabPanel value={value} index={1}>
                 Item Two

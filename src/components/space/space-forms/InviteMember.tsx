@@ -6,33 +6,32 @@ import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
-import { useAppSelector, useAppDispatch } from '../../../hooks/store.hook';
+import { useAppSelector } from '../../../hooks/store.hook';
 import Errors from '../../layouts/Errors';
-import { updateSpace } from '../../../store/thunk-actions/space-actions';
-import { Grid } from '@mui/material';
-import DeleteIcon from '@mui/icons-material/Delete';
+import { Grid, Typography } from '@mui/material';
 import Success from '../../layouts/Success';
-import { toggleDeleteSpaceModel } from '../../../store/slices/model.slice';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
+import { apiErrorFormat } from '../../../utilities/error-format';
+import { invite } from '../../../utilities/api';
 
 const schema = yup.object({
-    name: yup.string().required('work space name is required')
+    email: yup.string().email().required('email is required')
 }).required();
 
-const UpdateSpaceForm = () => {
-
+const InviteMember = () => {
 
     const { them, space } = useAppSelector((state) => state)
 
-    const dispatch = useAppDispatch()
-
-    const { control, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
+    const { control, reset, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
         mode: "onChange",
         resolver: yupResolver(schema),
         defaultValues: {
-            name: space.name,
+            email: ""
         }
     });
 
+    const [loading, setLoading] = useState(false)
+    const [err, setErrors] = useState([])
     const [success, setSuccess] = useState('')
 
     useEffect(() => {
@@ -44,16 +43,48 @@ const UpdateSpaceForm = () => {
     }, [success])
 
 
-    const onSubmit = (data: any) => {
-        dispatch(updateSpace({
-            id: +space.id!,
-            name: data.name
-        })).unwrap().then(() => setSuccess("Space is update successfully"))
+    const onSubmit = async (data: any) => {
+        try {
+            setErrors([])
+            setLoading(true)
+            setSuccess('')
+
+            await invite({
+                space: +space.id,
+                email: data.email
+            });
+
+            reset()
+            setSuccess("Invitation email is sent successfully")
+
+        } catch (error) {
+            setErrors(apiErrorFormat(error))
+        } finally {
+            setLoading(false)
+        }
     }
+
     return (
         <>
-            {space.errors.length > 0 && <Errors errors={space.errors} />}
+            {err.length > 0 && <Errors errors={err} />}
             <Success text={success} />
+
+            <Typography variant="h1" component="h1" sx={{
+                fontSize: them.fonSize.title,
+                fontWeight: 500,
+                mb: 4,
+                textAlign: "left"
+            }}>
+                Invite new member to {space.name}
+            </Typography>
+
+            <Typography variant="body1" component="div" sx={{
+                mb: 1,
+                textAlign: "left"
+            }}>
+                <EmailOutlinedIcon sx={{ fontSize: "20px", mr: 1 }} />
+                Invite with email
+            </Typography>
 
             <Box
                 component="form"
@@ -62,15 +93,16 @@ const UpdateSpaceForm = () => {
             >
 
                 <Controller
-                    name="name"
+                    name="email"
                     control={control}
                     render={({ formState, field }) => <TextField
                         sx={{ display: "block", mb: 5 }}
-                        error={!!formState.errors?.name}
-                        helperText={errors.name?.message}
-                        label="name"
+                        error={!!formState.errors?.email}
+                        helperText={errors.email?.message}
+                        label="email"
                         variant="standard"
                         type="text"
+                        placeholder='Enter email address'
                         fullWidth
                         {...field}
                     />
@@ -79,18 +111,13 @@ const UpdateSpaceForm = () => {
 
                 <Grid container spacing={1} sx={{ justifyContent: "flex-end" }}>
                     <Grid item>
-                        <Button onClick={() => dispatch(toggleDeleteSpaceModel())} variant="contained" color="error" startIcon={<DeleteIcon />}>
-                            Delete
-                        </Button>
-                    </Grid>
-                    <Grid item>
                         <Button
                             disabled={!isValid}
                             type='submit'
                             variant="contained"
                         >
-                            Update
-                            {space.loading && <CircularProgress
+                            Invite
+                            {loading && <CircularProgress
                                 size={22}
                                 sx={{
                                     color: "#fff",
@@ -105,5 +132,4 @@ const UpdateSpaceForm = () => {
     )
 }
 
-export default UpdateSpaceForm
-
+export default InviteMember

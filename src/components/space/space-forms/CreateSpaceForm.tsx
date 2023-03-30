@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm, Controller } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -18,6 +18,8 @@ const schema = yup.object({
 
 const CreateSpaceForm = () => {
 
+    const navigate = useNavigate()
+
     const { them, space } = useAppSelector((state) => state)
     const dispatch = useAppDispatch()
 
@@ -30,7 +32,9 @@ const CreateSpaceForm = () => {
     });
 
     const onSubmit = (data: any) => {
-        dispatch(createSpace(data))
+        dispatch(createSpace(data)).unwrap().then(() => {
+            navigate("/space")
+        })
     }
     return (
         <>
@@ -41,7 +45,7 @@ const CreateSpaceForm = () => {
                 mb: 4,
                 textAlign: "center"
             }}>
-                Crete Workspace
+                Create a New Workspace
             </Typography>
             <Box
                 component="form"

@@ -10,7 +10,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 600,
+    width: 650,
     borderRadius: "12px",
     bgcolor: "#fff",
     border: "none",

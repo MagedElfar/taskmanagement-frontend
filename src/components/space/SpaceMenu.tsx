@@ -66,7 +66,6 @@ const SpaceMenu = () => {
     const [spaces, setSpaces] = useState([]);
 
     useEffect(() => {
-        console.log("test")
         getUserSpaces()
     }, [space])
 

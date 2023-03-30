@@ -1,4 +1,5 @@
-import { getInitSpace, createSpace } from './../thunk-actions/space-actions';
+import { addMember } from './../thunk-actions/team-action';
+import { getInitSpace, createSpace, getSpace } from './../thunk-actions/space-actions';
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { login, logout, signup } from "./../thunk-actions/auth-actions";
 import { createUserProfile, deleteProfilePicture, getUser, updateUser, uploadProfilePicture } from "../thunk-actions/user-action";
@@ -129,6 +130,14 @@ const slice = createSlice({
 
         //update user role
         builder.addCase(getInitSpace.fulfilled, (state, action) => {
+            if (!action.payload.team.length) return;
+            const { role } = action.payload.team.find((member: Member) => member.userId === state.user.id);
+
+            state.role = role;
+        })
+
+        builder.addCase(getSpace.fulfilled, (state, action) => {
+            if (!action.payload.team.length) return;
             const { role } = action.payload.team.find((member: Member) => member.userId === state.user.id);
 
             state.role = role;
@@ -138,6 +147,11 @@ const slice = createSlice({
             const { role } = action.payload.team.find((member: Member) => member.userId === state.user.id);
 
             state.role = role;
+        })
+
+        //add member
+        builder.addCase(addMember.fulfilled, (state, action) => {
+            state.role = "member";
         })
     }
 })

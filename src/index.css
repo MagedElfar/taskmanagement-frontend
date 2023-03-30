@@ -6,3 +6,9 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+
+.avatar-group .MuiAvatarGroup-avatar{
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+}

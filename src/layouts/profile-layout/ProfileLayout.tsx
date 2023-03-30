@@ -10,7 +10,7 @@ type props = {
 const ProfileLayout: React.FC<props> = ({ title, children }) => {
     const { them } = useAppSelector(s => s)
     return (
-        <Box sx={{ width: '100%', backgroundColor: them.colors.thirdColor, p: 2 }}>
+        <Box component="div" sx={{ width: '100%', backgroundColor: them.colors.thirdColor, p: 2 }}>
             <Typography
                 variant="h5"
                 component="h5"

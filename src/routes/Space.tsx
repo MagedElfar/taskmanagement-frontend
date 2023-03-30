@@ -1,7 +1,8 @@
-import { Box, Container } from '@mui/material'
+import { Container } from '@mui/material'
 import React from 'react'
 import SpaceHeder from '../components/space/SpaceHeder'
 import SpaceTabs from '../components/space/SpaceTabs'
+import withRole from '../utilities/whisRole'
 
 const Space = () => {
     return (
@@ -12,4 +13,4 @@ const Space = () => {
     )
 }
 
-export default Space
+export default withRole(Space)

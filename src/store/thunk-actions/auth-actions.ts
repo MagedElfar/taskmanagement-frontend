@@ -31,14 +31,17 @@ export const signup = createAsyncThunk<
         user: User,
         accessToken: string
     },
-    SignupCredentials,
+    {
+        credentials: SignupCredentials,
+        query?: string
+    },
     {
         rejectValue?: unknown
     }
->("auth/signup", async (credentials, thunkApi) => {
+>("auth/signup", async ({ credentials, query = "" }, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-        const { data } = await api.signup(credentials);
+        const { data } = await api.signup(credentials, query);
         localStorage.setItem("token", JSON.stringify(data.accessToken))
         return data;
     } catch (error) {

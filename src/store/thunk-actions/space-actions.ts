@@ -1,12 +1,13 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createSpaceDto, Member, Space } from "../../interfaces/space";
+import { createSpaceDto, Member, Project, Space } from "../../interfaces/space";
 import * as api from "./../../utilities/api"
 
 //get user
 export const getInitSpace = createAsyncThunk<
     {
         space: Space,
-        team: Member[]
+        team: Member[],
+        projects: Project[]
     },
     void,
     {
@@ -16,8 +17,6 @@ export const getInitSpace = createAsyncThunk<
     const { rejectWithValue } = thunkApi;
     try {
         const { data } = await api.getInitSpace()
-
-        console.log("data", data)
         return data;
     } catch (error) {
         console.log(error)
@@ -29,7 +28,8 @@ export const getInitSpace = createAsyncThunk<
 export const getSpace = createAsyncThunk<
     {
         space: Space,
-        team: Member[]
+        team: Member[],
+        projects: Project[]
     },
     number,
     {
@@ -46,11 +46,34 @@ export const getSpace = createAsyncThunk<
     }
 })
 
+//update space
+export const updateSpace = createAsyncThunk<
+    {
+        name: string,
+    },
+    {
+        id: number,
+        name: string
+    },
+    {
+        rejectValue?: unknown
+    }
+>("spaces/updateSpace", async ({ id, name }, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+        await api.updateSpace(id, { name })
+
+        return { name };
+    } catch (error) {
+        return rejectWithValue(error)
+    }
+})
+
 //create space
 export const createSpace = createAsyncThunk<
     {
         space: Space,
-        team: Member[]
+        team: Member[],
     },
     createSpaceDto,
     {

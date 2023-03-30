@@ -5,9 +5,6 @@ import { useAppSelector } from '../hooks/store.hook';
 const guardRequired = (Component: React.FC) => {
     const WrappedComponent = (props: any) => {
         const userState = useAppSelector((state) => state.user);
-
-        console.log("user = ", userState)
-
         return (
             <>
                 {userState.isLoggedIn ? <Component {...props} /> : <Navigate to="/login" replace={true} />}

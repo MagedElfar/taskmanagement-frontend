@@ -3,7 +3,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-    openCreateSpaceModel: false
+    openCreateSpaceModel: false,
+    deleteSpaceModel: false,
+    inviteModel: false
 }
 
 const slice = createSlice({
@@ -12,7 +14,15 @@ const slice = createSlice({
     reducers: {
         toggleCreateSpaceModel: (state) => {
             state.openCreateSpaceModel = !state.openCreateSpaceModel
-        }
+        },
+
+        toggleDeleteSpaceModel: (state) => {
+            state.deleteSpaceModel = !state.deleteSpaceModel
+        },
+
+        toggleInviteModel: (state) => {
+            state.inviteModel = !state.inviteModel
+        },
     },
 
     extraReducers: (builder) => {
@@ -24,8 +34,14 @@ const slice = createSlice({
 
 export default slice.reducer;
 
-const { toggleCreateSpaceModel } = slice.actions;
+const {
+    toggleCreateSpaceModel,
+    toggleDeleteSpaceModel,
+    toggleInviteModel
+} = slice.actions;
 
 export {
-    toggleCreateSpaceModel
+    toggleCreateSpaceModel,
+    toggleDeleteSpaceModel,
+    toggleInviteModel
 }

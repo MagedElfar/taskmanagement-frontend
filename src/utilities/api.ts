@@ -31,7 +31,7 @@ let authConfig = {
 //auth
 export const login = (data: LoginCredentials) => API.post("/login", data, authConfig)
 
-export const signup = (data: SignupCredentials) => API.post("/signup", data, authConfig)
+export const signup = (data: SignupCredentials, query: string = "") => API.post(`/signup${query}`, data, authConfig)
 
 export const logout = () => API.post("/logout", {}, authConfig)
 
@@ -67,6 +67,15 @@ export const getSpaces = (query: string) => API.get(`/spaces${query}`)
 
 export const getSpace = (id: number) => API.get(`/spaces/${id}`)
 
+export const deleteSpace = (id: number) => API.delete(`/spaces/${id}`)
+
+export const updateSpace = (id: number, data: { name: string }) => API.put(`/spaces/${id}`, data)
+
 export const getInitSpace = () => API.get("/spaces/user/init")
 
 export const createSpace = (data: createSpaceDto) => API.post("/spaces", data)
+
+//team
+export const invite = (data: { space: number, email: string }) => API.post("/teams/invite", data)
+
+export const acceptInvite = (token: string) => API.post(`/teams/add?token=${token}`)
