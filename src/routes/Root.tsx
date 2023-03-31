@@ -6,7 +6,7 @@ import withGuard from '../utilities/withGuard'
 import { Link, Outlet } from 'react-router-dom';
 import { AppBar, Drawer, DrawerHeader } from '../layouts/main-layout/MainLayoute';
 import { useAppDispatch, useAppSelector } from '../hooks/store.hook';
-import Nav from '../components/layouts/Nav';
+import Nav from '../components/layouts/nav/Nav';
 import { getInitSpace } from '../store/thunk-actions/space-actions';
 import Navigation from '../components/layouts/Navigation';
 import Models from '../models/Models';
@@ -78,7 +78,7 @@ function Root() {
                 </Drawer>
                 <Box
                     component="main"
-                    sx={{ flexGrow: 1, p: 3, backgroundColor: them.colors.firstColor, minHeight: "100vh" }}
+                    sx={{ position: "relative", flexGrow: 1, p: 3, backgroundColor: them.colors.firstColor, minHeight: "100vh" }}
                 >
                     <DrawerHeader />
                     <DrawerHeader />

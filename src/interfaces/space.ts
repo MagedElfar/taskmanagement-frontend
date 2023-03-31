@@ -18,5 +18,7 @@ export interface Member {
     role: string,
     userImage: string,
     username: string,
-    userEmail: string
+    userEmail: string,
+    firstName: string,
+    lastName: string,
 }

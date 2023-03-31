@@ -1,4 +1,4 @@
-import { addMember } from './../thunk-actions/team-action';
+import { addMember, deleteMember, updateMember } from './../thunk-actions/team-action';
 import { Member, Project } from './../../interfaces/space';
 import { createSpace, getInitSpace, getSpace, updateSpace } from './../thunk-actions/space-actions';
 import { createSlice } from "@reduxjs/toolkit";
@@ -50,6 +50,42 @@ const slice = createSlice({
             state.team = action.payload.team;
             state.projects = action.payload.projects
         })
+
+        //member update
+        builder.addCase(updateMember.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(updateMember.fulfilled, (state, action) => {
+            state.loading = false;
+            state.team = state.team.map((member: Member) => {
+                if (member.id === action.payload.memberId) {
+                    member.role = action.payload.role
+                }
+
+                return member
+            });
+        })
+
+        builder.addCase(updateMember.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //member delete
+        builder.addCase(deleteMember.pending, (state, action) => {
+            state.errors = [];
+        })
+
+        builder.addCase(deleteMember.fulfilled, (state, action) => {
+            state.team = state.team.filter((member: Member) => member.id !== action.payload.memberId);
+        })
+
+        builder.addCase(deleteMember.rejected, (state, action) => {
+            state.errors = apiErrorFormat(action.payload);
+        })
+
 
         //create space
         builder.addCase(createSpace.pending, (state, action) => {

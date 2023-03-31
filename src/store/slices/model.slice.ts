@@ -1,3 +1,4 @@
+import { number } from 'yup';
 import { createSpace } from './../thunk-actions/space-actions';
 import { createSlice } from "@reduxjs/toolkit";
 
@@ -5,7 +6,13 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     openCreateSpaceModel: false,
     deleteSpaceModel: false,
-    inviteModel: false
+    inviteModel: false,
+    spaceSearchModel: false,
+    deleteMemberModel: {
+        isOpen: false,
+        memberId: 0
+    }
+
 }
 
 const slice = createSlice({
@@ -23,6 +30,16 @@ const slice = createSlice({
         toggleInviteModel: (state) => {
             state.inviteModel = !state.inviteModel
         },
+
+        toggleSpaceSearchModel: (state) => {
+            state.spaceSearchModel = !state.spaceSearchModel
+        },
+
+        toggleDeleteMemberModel: (state, action) => {
+            state.deleteMemberModel.isOpen = !state.deleteMemberModel.isOpen;
+            state.deleteMemberModel.memberId = action.payload
+            console.log(action)
+        },
     },
 
     extraReducers: (builder) => {
@@ -37,11 +54,15 @@ export default slice.reducer;
 const {
     toggleCreateSpaceModel,
     toggleDeleteSpaceModel,
-    toggleInviteModel
+    toggleInviteModel,
+    toggleDeleteMemberModel,
+    toggleSpaceSearchModel
 } = slice.actions;
 
 export {
     toggleCreateSpaceModel,
     toggleDeleteSpaceModel,
-    toggleInviteModel
+    toggleInviteModel,
+    toggleDeleteMemberModel,
+    toggleSpaceSearchModel
 }

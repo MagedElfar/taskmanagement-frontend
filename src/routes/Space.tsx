@@ -9,7 +9,7 @@ const Space = () => {
         <Container>
             <SpaceHeder />
             <SpaceTabs />
-        </Container>
+        </Container >
     )
 }
 

@@ -6,7 +6,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hook';
 import { deepOrange } from '@mui/material/colors';
 import AddIcon from '@mui/icons-material/Add';
-import { toggleCreateSpaceModel } from '../../store/slices/model.slice';
+import { toggleCreateSpaceModel, toggleSpaceSearchModel } from '../../store/slices/model.slice';
 import { Link } from 'react-router-dom';
 import SettingsIcon from '@mui/icons-material/Settings';
 import SpaceList from './SpaceList';
@@ -67,7 +67,7 @@ const SpaceMenu = () => {
 
     useEffect(() => {
         getUserSpaces()
-    }, [space])
+    }, [])
 
     const getUserSpaces = async () => {
         try {
@@ -211,7 +211,7 @@ const SpaceMenu = () => {
                         <Button
                             fullWidth
                             variant="text"
-                            onClick={() => dispatch(toggleCreateSpaceModel())}
+                            onClick={() => dispatch(toggleSpaceSearchModel())}
                             sx={{
                                 color: them.colors.fourthColor,
                                 fontSize: "12px",

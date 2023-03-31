@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hook';
 import UpdateSpaceForm from './space-forms/UpdateSpaceForm';
+import SpaceTeam from './SpaceTeam';
 
 interface TabPanelProps {
     children?: React.ReactNode;
@@ -61,7 +62,7 @@ const SpaceTabs = () => {
 
             </TabPanel>
             <TabPanel value={value} index={1}>
-                Item Two
+                <SpaceTeam />
             </TabPanel>
         </Box>
     );

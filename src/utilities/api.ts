@@ -79,3 +79,7 @@ export const createSpace = (data: createSpaceDto) => API.post("/spaces", data)
 export const invite = (data: { space: number, email: string }) => API.post("/teams/invite", data)
 
 export const acceptInvite = (token: string) => API.post(`/teams/add?token=${token}`)
+
+export const updateMember = (memberId: number, role: string) => API.patch(`/teams/${memberId}`, { role })
+
+export const deleteMember = (memberId: number) => API.delete(`/teams/${memberId}`)

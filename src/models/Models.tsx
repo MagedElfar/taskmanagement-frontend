@@ -5,10 +5,14 @@ import InviteMember from '../components/space/space-forms/InviteMember'
 import { useAppDispatch, useAppSelector } from '../hooks/store.hook'
 import {
     toggleCreateSpaceModel,
+    toggleDeleteMemberModel,
     toggleDeleteSpaceModel,
-    toggleInviteModel
+    toggleInviteModel,
+    toggleSpaceSearchModel
 } from '../store/slices/model.slice'
 import Model from './Model'
+import DeleteMember from '../components/space/DeleteMember'
+import SlidingModel from './SlidingModel'
 
 const Models = () => {
     const { model } = useAppSelector(s => s)
@@ -27,6 +31,14 @@ const Models = () => {
             <Model open={model.inviteModel} toggleOpen={() => dispatch(toggleInviteModel())}>
                 <InviteMember />
             </Model>
+
+            <Model open={model.deleteMemberModel.isOpen} toggleOpen={() => dispatch(toggleDeleteMemberModel(model.deleteMemberModel.memberId))}>
+                <DeleteMember />
+            </Model>
+
+            <SlidingModel open={model.spaceSearchModel} toggleOpen={() => dispatch(toggleSpaceSearchModel())}>
+                model
+            </SlidingModel>
         </>
     )
 }
