@@ -11,8 +11,6 @@ import { getInitSpace } from '../store/thunk-actions/space-actions';
 import Navigation from '../components/layouts/Navigation';
 import Models from '../models/Models';
 
-
-
 function Root() {
     const { them } = useAppSelector(s => s)
     const [open, setOpen] = React.useState(true);

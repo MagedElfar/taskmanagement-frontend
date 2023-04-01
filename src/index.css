@@ -12,3 +12,13 @@
     height: 30px;
     font-size: 13px;
 }
+
+.nav-add-button .MuiSpeedDial-actions{
+    position: absolute;
+    top: 35px
+}
+
+.nav-add-button .css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab{
+    width: 45px;
+    height: 45px;
+}

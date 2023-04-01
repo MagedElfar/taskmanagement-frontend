@@ -2,7 +2,7 @@ import { SignupCredentials } from './../interfaces/auth';
 import axios from "axios";
 import { LoginCredentials } from "../interfaces/auth";
 import { Profile, updateUserDto } from '../interfaces/user';
-import { createSpaceDto } from '../interfaces/space';
+import { CreateProjectDto, createSpaceDto } from '../interfaces/space';
 
 const baseURL: string = "http://localhost:5000/api";
 
@@ -83,3 +83,7 @@ export const acceptInvite = (token: string) => API.post(`/teams/add?token=${toke
 export const updateMember = (memberId: number, role: string) => API.patch(`/teams/${memberId}`, { role })
 
 export const deleteMember = (memberId: number) => API.delete(`/teams/${memberId}`)
+
+
+//projects
+export const createProject = (data: CreateProjectDto) => API.post("/projects", data)

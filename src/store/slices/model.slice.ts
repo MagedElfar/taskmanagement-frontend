@@ -1,10 +1,12 @@
 import { number } from 'yup';
 import { createSpace } from './../thunk-actions/space-actions';
 import { createSlice } from "@reduxjs/toolkit";
+import { createProject } from '../thunk-actions/project-actions';
 
 
 const initialState = {
     openCreateSpaceModel: false,
+    openCreateProjectModel: false,
     deleteSpaceModel: false,
     inviteModel: false,
     spaceSearchModel: false,
@@ -21,6 +23,10 @@ const slice = createSlice({
     reducers: {
         toggleCreateSpaceModel: (state) => {
             state.openCreateSpaceModel = !state.openCreateSpaceModel
+        },
+
+        toggleCreateProjectModel: (state) => {
+            state.openCreateProjectModel = !state.openCreateProjectModel
         },
 
         toggleDeleteSpaceModel: (state) => {
@@ -46,6 +52,10 @@ const slice = createSlice({
         builder.addCase(createSpace.fulfilled, (state, action) => {
             state.openCreateSpaceModel = !state.openCreateSpaceModel
         })
+
+        builder.addCase(createProject.fulfilled, (state, action) => {
+            state.openCreateProjectModel = !state.openCreateProjectModel
+        })
     }
 })
 
@@ -56,7 +66,8 @@ const {
     toggleDeleteSpaceModel,
     toggleInviteModel,
     toggleDeleteMemberModel,
-    toggleSpaceSearchModel
+    toggleSpaceSearchModel,
+    toggleCreateProjectModel
 } = slice.actions;
 
 export {
@@ -64,5 +75,6 @@ export {
     toggleDeleteSpaceModel,
     toggleInviteModel,
     toggleDeleteMemberModel,
-    toggleSpaceSearchModel
+    toggleSpaceSearchModel,
+    toggleCreateProjectModel
 }

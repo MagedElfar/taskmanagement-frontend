@@ -1,5 +1,5 @@
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
-import { ListItemButton, ListItemText, MenuItem, alpha, Menu, MenuProps, styled, Avatar, Badge, Button, Typography, Divider, Box } from '@mui/material';
+import { ListItemButton, ListItemText, MenuItem, alpha, Menu, MenuProps, styled, Avatar, Badge, Button, Typography, Divider, Box, LinearProgress } from '@mui/material';
 import List from '@mui/material/List';
 import React, { useState, useEffect } from 'react'
 import HomeIcon from '@mui/icons-material/Home';
@@ -12,6 +12,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import SpaceList from './SpaceList';
 import GridViewIcon from '@mui/icons-material/GridView';
 import { getSpaces } from '../../utilities/api';
+import { useQuery } from '@tanstack/react-query'
+import { Space } from '../../interfaces/space';
 
 
 const StyledMenu = styled((props: MenuProps) => (
@@ -63,22 +65,22 @@ const SpaceMenu = () => {
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
-    const [spaces, setSpaces] = useState([]);
 
-    useEffect(() => {
-        getUserSpaces()
-    }, [])
 
-    const getUserSpaces = async () => {
+    const getUserSpaces = async (): Promise<Space[]> => {
         try {
-            const { data } = await getSpaces("?limit=3");
-            setSpaces(data.data.spaces)
+            const { data } = await getSpaces("?limit=3&page=1");
+            return data.data.spaces
         } catch (error) {
             console.log(error)
         }
 
     }
 
+    const { error, isLoading, data } = useQuery({
+        queryKey: ['spaces'],
+        queryFn: getUserSpaces
+    })
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -182,7 +184,17 @@ const SpaceMenu = () => {
                         My workspaces
                     </Typography>
 
-                    <SpaceList spaces={spaces} />
+                    {isLoading ?
+                        <LinearProgress /> :
+                        data?.length > 0 ?
+                            <SpaceList spaces={data} /> :
+                            <Typography variant='body1' align='center'
+                                sx={{ color: them.colors.fourthColor, fontSize: "12px", mt: 14 }}>
+                                No result found
+                            </Typography>
+
+                    }
+
                 </MenuItem>
 
                 <Divider />

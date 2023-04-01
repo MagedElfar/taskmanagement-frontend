@@ -41,6 +41,15 @@ const routes = createBrowserRouter([
             {
                 path: "space",
                 element: <Space />
+            },
+            {
+                path: "projects",
+                children: [
+                    {
+                        path: ":id",
+                        element: <div>home</div>
+                    }
+                ]
             }
         ]
     },

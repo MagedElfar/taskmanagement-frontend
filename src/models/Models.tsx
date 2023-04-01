@@ -4,6 +4,7 @@ import CreateSpaceForm from '../components/space/space-forms/CreateSpaceForm'
 import InviteMember from '../components/space/space-forms/InviteMember'
 import { useAppDispatch, useAppSelector } from '../hooks/store.hook'
 import {
+    toggleCreateProjectModel,
     toggleCreateSpaceModel,
     toggleDeleteMemberModel,
     toggleDeleteSpaceModel,
@@ -13,6 +14,8 @@ import {
 import Model from './Model'
 import DeleteMember from '../components/space/DeleteMember'
 import SlidingModel from './SlidingModel'
+import FindSpace from '../components/space/FindSpace'
+import CreateProjectForm from '../components/projects/CreateProjectForm'
 
 const Models = () => {
     const { model } = useAppSelector(s => s)
@@ -22,6 +25,10 @@ const Models = () => {
         <>
             <Model open={model.openCreateSpaceModel} toggleOpen={() => dispatch(toggleCreateSpaceModel())}>
                 <CreateSpaceForm />
+            </Model>
+
+            <Model open={model.openCreateProjectModel} toggleOpen={() => dispatch(toggleCreateProjectModel())}>
+                <CreateProjectForm />
             </Model>
 
             <Model open={model.deleteSpaceModel} toggleOpen={() => dispatch(toggleDeleteSpaceModel())}>
@@ -37,7 +44,7 @@ const Models = () => {
             </Model>
 
             <SlidingModel open={model.spaceSearchModel} toggleOpen={() => dispatch(toggleSpaceSearchModel())}>
-                model
+                <FindSpace />
             </SlidingModel>
         </>
     )

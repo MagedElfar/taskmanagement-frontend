@@ -12,6 +12,11 @@ export interface createSpaceDto {
     name: string
 }
 
+export interface CreateProjectDto {
+    name: string,
+    spaceId: number
+}
+
 export interface Member {
     id: number,
     userId: number,

@@ -1,7 +1,6 @@
 import { Box, List } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import { Space } from '../../interfaces/space';
-import { getSpaces } from '../../utilities/api';
 import SpaceItem from './SpaceItem';
 
 type props = {
@@ -10,7 +9,7 @@ type props = {
 
 const SpaceList: React.FC<props> = ({ spaces }) => {
     return (
-        <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+        <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
             <nav aria-label="main mailbox folders">
                 <List>
                     {

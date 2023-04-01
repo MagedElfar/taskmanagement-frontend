@@ -3,6 +3,7 @@ import { Member, Project } from './../../interfaces/space';
 import { createSpace, getInitSpace, getSpace, updateSpace } from './../thunk-actions/space-actions';
 import { createSlice } from "@reduxjs/toolkit";
 import { apiErrorFormat } from "../../utilities/error-format";
+import { createProject } from '../thunk-actions/project-actions';
 
 
 const initialState = {
@@ -105,7 +106,7 @@ const slice = createSlice({
             state.errors = apiErrorFormat(action.payload);
         })
 
-        //create space
+        //update space
         builder.addCase(updateSpace.pending, (state, action) => {
             state.errors = [];
             state.loading = true
@@ -117,6 +118,23 @@ const slice = createSlice({
         })
 
         builder.addCase(updateSpace.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //create project
+        builder.addCase(createProject.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(createProject.fulfilled, (state, action) => {
+            state.projects = [...state.projects, action.payload]
+            state.loading = false
+
+        })
+
+        builder.addCase(createProject.rejected, (state, action) => {
             state.loading = false;
             state.errors = apiErrorFormat(action.payload);
         })
