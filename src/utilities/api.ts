@@ -2,7 +2,7 @@ import { SignupCredentials } from './../interfaces/auth';
 import axios from "axios";
 import { LoginCredentials } from "../interfaces/auth";
 import { Profile, updateUserDto } from '../interfaces/user';
-import { CreateProjectDto, createSpaceDto } from '../interfaces/space';
+import { CreateProjectDto, UpdateProjectDto, createSpaceDto } from '../interfaces/space';
 
 const baseURL: string = "http://localhost:5000/api";
 
@@ -87,3 +87,7 @@ export const deleteMember = (memberId: number) => API.delete(`/teams/${memberId}
 
 //projects
 export const createProject = (data: CreateProjectDto) => API.post("/projects", data)
+
+export const updateProject = (data: UpdateProjectDto, id: number) => API.patch(`/projects/${id}`, data)
+
+export const deleteProject = (id: number) => API.delete(`/projects/${id}`)

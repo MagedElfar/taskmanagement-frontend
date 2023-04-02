@@ -17,6 +17,10 @@ export interface CreateProjectDto {
     spaceId: number
 }
 
+export interface UpdateProjectDto {
+    name: string,
+}
+
 export interface Member {
     id: number,
     userId: number,

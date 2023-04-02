@@ -22,3 +22,7 @@
     width: 45px;
     height: 45px;
 }
+
+.project-form .MuiInputBase-root.MuiInput-root::before{
+    border-color: #FFF !important;
+}

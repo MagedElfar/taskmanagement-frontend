@@ -8,7 +8,7 @@ import { AppBar, Drawer, DrawerHeader } from '../layouts/main-layout/MainLayoute
 import { useAppDispatch, useAppSelector } from '../hooks/store.hook';
 import Nav from '../components/layouts/nav/Nav';
 import { getInitSpace } from '../store/thunk-actions/space-actions';
-import Navigation from '../components/layouts/Navigation';
+import Navigation from '../components/layouts/Navigation/Navigation';
 import Models from '../models/Models';
 
 function Root() {

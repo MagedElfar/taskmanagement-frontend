@@ -3,7 +3,7 @@ import { Member, Project } from './../../interfaces/space';
 import { createSpace, getInitSpace, getSpace, updateSpace } from './../thunk-actions/space-actions';
 import { createSlice } from "@reduxjs/toolkit";
 import { apiErrorFormat } from "../../utilities/error-format";
-import { createProject } from '../thunk-actions/project-actions';
+import { createProject, deleteProject, updateProject } from '../thunk-actions/project-actions';
 
 
 const initialState = {
@@ -129,12 +129,52 @@ const slice = createSlice({
         })
 
         builder.addCase(createProject.fulfilled, (state, action) => {
-            state.projects = [...state.projects, action.payload]
+            state.projects = [action.payload, ...state.projects]
             state.loading = false
 
         })
 
         builder.addCase(createProject.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //update project
+        builder.addCase(updateProject.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(updateProject.fulfilled, (state, action) => {
+            state.projects = state.projects.map((project: Project) => {
+                if (project.id === action.payload.id) {
+                    project.name = action.payload.data.name;
+                }
+
+                return project
+            })
+            state.loading = false
+
+        })
+
+        builder.addCase(updateProject.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //delete project
+        builder.addCase(deleteProject.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(deleteProject.fulfilled, (state, action) => {
+            state.projects = state.projects.filter((project: Project) => project.id !== action.payload.id)
+            state.loading = false
+
+        })
+
+        builder.addCase(deleteProject.rejected, (state, action) => {
             state.loading = false;
             state.errors = apiErrorFormat(action.payload);
         })
