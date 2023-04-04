@@ -10,6 +10,7 @@ import ProfilePhoto from "../routes/ProfilePhoto";
 import Privacy from "../routes/Privacy";
 import Space from "../routes/Space";
 import LoadingPage from "../routes/LoadingPage";
+import Home from "../routes/Home";
 
 const routes = createBrowserRouter([
     {
@@ -18,7 +19,7 @@ const routes = createBrowserRouter([
         children: [
             {
                 index: true,
-                element: <div>home</div>
+                element: <Home />
             },
             {
                 path: "profile",

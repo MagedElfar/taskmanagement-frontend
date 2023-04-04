@@ -7,6 +7,7 @@ import { createProject } from '../thunk-actions/project-actions';
 const initialState = {
     openCreateSpaceModel: false,
     openCreateProjectModel: false,
+    openCreateTaskModel: false,
     deleteSpaceModel: false,
     inviteModel: false,
     spaceSearchModel: false,
@@ -27,6 +28,10 @@ const slice = createSlice({
 
         toggleCreateProjectModel: (state) => {
             state.openCreateProjectModel = !state.openCreateProjectModel
+        },
+
+        toggleCreateTaskModel: (state) => {
+            state.openCreateTaskModel = !state.openCreateTaskModel
         },
 
         toggleDeleteSpaceModel: (state) => {
@@ -67,7 +72,8 @@ const {
     toggleInviteModel,
     toggleDeleteMemberModel,
     toggleSpaceSearchModel,
-    toggleCreateProjectModel
+    toggleCreateProjectModel,
+    toggleCreateTaskModel
 } = slice.actions;
 
 export {
@@ -76,5 +82,6 @@ export {
     toggleInviteModel,
     toggleDeleteMemberModel,
     toggleSpaceSearchModel,
-    toggleCreateProjectModel
+    toggleCreateProjectModel,
+    toggleCreateTaskModel
 }

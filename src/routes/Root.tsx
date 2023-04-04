@@ -80,7 +80,16 @@ function Root() {
                 </Drawer>
                 <Box
                     component="main"
-                    sx={{ position: "relative", flexGrow: 1, p: 3, backgroundColor: them.colors.firstColor, minHeight: "100vh" }}
+                    sx={{
+                        position: "relative",
+                        flexGrow: 1, p: 3,
+                        backgroundColor: them.colors.firstColor,
+                        minHeight: "100vh",
+                        overflow: "auto",
+                        "& ::-webkit-scrollbar": {
+                            display: "none"
+                        }
+                    }}
                 >
                     <DrawerHeader />
                     <DrawerHeader />

@@ -7,13 +7,15 @@ import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import WorkspacesIcon from '@mui/icons-material/Workspaces';
 import { useAppDispatch } from '../../hooks/store.hook';
-import { toggleCreateProjectModel, toggleCreateSpaceModel } from '../../store/slices/model.slice';
+import { toggleCreateProjectModel, toggleCreateSpaceModel, toggleCreateTaskModel } from '../../store/slices/model.slice';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
-
+import TaskIcon from '@mui/icons-material/Task';
 
 const actions = [
     { icon: <WorkspacesIcon />, name: 'Add workspace' },
     { icon: <FactCheckIcon />, name: 'Add project' },
+    { icon: <TaskIcon />, name: 'Add task' },
+
 ];
 
 export default function PlaygroundSpeedDial() {
@@ -25,6 +27,8 @@ export default function PlaygroundSpeedDial() {
             dispatch(toggleCreateSpaceModel())
         } else if (action.name === "Add project") {
             dispatch(toggleCreateProjectModel())
+        } else if (action.name === "Add task") {
+            dispatch(toggleCreateTaskModel())
         }
     }
     return (

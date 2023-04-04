@@ -10,10 +10,16 @@ import MemberCard from './MemberCard';
 type props = {
     member: Member;
     togglePopover?: (event: React.MouseEvent<HTMLElement>, member: Member) => void;
-    open?: boolean
+    open?: boolean,
+    color?: string
 }
 
-const MemberItem: React.FC<props> = ({ member, togglePopover, open }) => {
+const MemberItem: React.FC<props> = ({
+    member,
+    togglePopover = () => { return },
+    open,
+    color
+}) => {
 
     const { them } = useAppSelector(state => state);
 
@@ -53,7 +59,7 @@ const MemberItem: React.FC<props> = ({ member, togglePopover, open }) => {
                         sx={{
                             textTransform: "capitalize",
                             ml: 2,
-                            color: them.colors.firstColor,
+                            color: color || them.colors.firstColor,
                             fontSize: "14px"
                         }}
                     >
@@ -61,31 +67,6 @@ const MemberItem: React.FC<props> = ({ member, togglePopover, open }) => {
                     </Typography>
                 </Grid>
             </Grid>
-            {/* <Popover
-                id="mouse-over-popover"
-                sx={{
-                    left: "200px",
-                    "& .MuiBackdrop-invisible": {
-                        left: "200px"
-                    }
-                }}
-
-                open={open}
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: "left",
-                }}
-                transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 200,
-                }}
-                onClose={handlePopover}
-                disableRestoreFocus
-            >
-                <MemberCard member={member} />
-            </Popover> */}
-
         </div>
     )
 }

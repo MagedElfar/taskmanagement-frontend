@@ -51,7 +51,7 @@ const DropDownMenu: React.FC<props> = ({ title, items, children, icon }) => {
         setOpen(!open);
     };
     return (
-        <List >
+        <>
             <ListItemButton onClick={handleClick}>
                 <ListItemIcon>
                     {React.cloneElement(icon, { sx: { fill: them.colors.firstColor } })}
@@ -86,7 +86,7 @@ const DropDownMenu: React.FC<props> = ({ title, items, children, icon }) => {
 
             </Collapse>
 
-        </List>
+        </>
     )
 }
 

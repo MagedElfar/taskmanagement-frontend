@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/store.hook'
 import {
     toggleCreateProjectModel,
     toggleCreateSpaceModel,
+    toggleCreateTaskModel,
     toggleDeleteMemberModel,
     toggleDeleteSpaceModel,
     toggleInviteModel,
@@ -16,6 +17,7 @@ import DeleteMember from '../components/space/DeleteMember'
 import SlidingModel from './SlidingModel'
 import FindSpace from '../components/space/FindSpace'
 import CreateProjectForm from '../components/projects/CreateProjectForm'
+import CreateTaskForm from '../components/tasks/CreateTaskForm'
 
 const Models = () => {
     const { model } = useAppSelector(s => s)
@@ -45,6 +47,10 @@ const Models = () => {
 
             <SlidingModel open={model.spaceSearchModel} toggleOpen={() => dispatch(toggleSpaceSearchModel())}>
                 <FindSpace />
+            </SlidingModel>
+
+            <SlidingModel open={model.openCreateTaskModel} toggleOpen={() => dispatch(toggleCreateTaskModel())}>
+                <CreateTaskForm />
             </SlidingModel>
         </>
     )
