@@ -8,7 +8,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useAppSelector, useAppDispatch } from '../../../hooks/store.hook';
-import Errors from '../../layouts/Errors';
+import Errors from '../../common/Errors';
 import Typography from '@mui/material/Typography';
 import { createSpace } from '../../../store/thunk-actions/space-actions';
 

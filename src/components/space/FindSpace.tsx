@@ -1,37 +1,49 @@
-import { Box, LinearProgress, Typography } from '@mui/material'
+import { Box, Divider, LinearProgress, TablePagination, Typography } from '@mui/material'
 import React, { useState } from 'react'
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hook'
-import SearchInput from '../layouts/SearchInput'
+import SearchInput from '../common/SearchInput'
 import { useQuery } from '@tanstack/react-query'
 import { getSpaces } from '../../utilities/api'
 import { Space } from '../../interfaces/space'
 import SpaceList from './SpaceList'
 import { apiErrorFormat } from '../../utilities/error-format'
-import Errors from '../layouts/Errors'
+import Errors from '../common/Errors'
 import { toggleSpaceSearchModel } from '../../store/slices/model.slice'
 
 const FindSpace = () => {
 
+    const { them } = useAppSelector(state => state)
+
+    const [term, setTerm] = useState("")
+
+    const [page, setPage] = useState(0);
+
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
+    ) => {
+        setPage(newPage);
+    };
+
     const dispatch = useAppDispatch()
 
-    const fetchData = async (): Promise<Space[]> => {
+    const fetchData = async (): Promise<{ spaces: Space[], count: number }> => {
         try {
-            const { data } = await getSpaces(`?term=${term}`)
-            return data.data.spaces
+            console.log(page)
+
+            const { data } = await getSpaces(`?term=${term}&limit=3&page=${page + 1}`)
+            return data.data
         } catch (error) {
             console.log(error)
             throw error
         }
     }
-    const [term, setTerm] = useState("")
-
 
     const { error, isLoading, data } = useQuery({
-        queryKey: ['spaces', term],
+        queryKey: ['spaces', term, page],
         queryFn: fetchData,
+        keepPreviousData: true
     })
-
-    const { them } = useAppSelector((state) => state);
 
 
     return (
@@ -50,13 +62,33 @@ const FindSpace = () => {
 
             <SearchInput placeHolder={'find a workspace...'} onChange={(term) => setTerm(term)} />
 
-            <Box component="div" sx={{ mt: 3 }} onClick={() => dispatch(toggleSpaceSearchModel())}>
+            <Box component="div" sx={{ mt: 3 }}>
                 {error ? <Errors errors={apiErrorFormat(error)} /> : null}
 
                 {isLoading ?
                     <LinearProgress /> :
-                    data?.length > 0 ?
-                        <SpaceList spaces={data} /> :
+                    data?.count > 0 ?
+
+                        <>
+                            <div onClick={() => dispatch(toggleSpaceSearchModel())}>
+                                <SpaceList spaces={data.spaces} />
+                            </div>
+
+                            <Divider sx={{ mt: 3 }} />
+
+                            <TablePagination
+
+                                component="div"
+                                count={data.count}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                rowsPerPageOptions={[]}
+                                rowsPerPage={3}
+
+                            />
+                        </> :
+
+
                         <Typography variant='body1' align='center' sx={{ color: them.colors.fourthColor }}>
                             No result found
                         </Typography>
@@ -64,7 +96,7 @@ const FindSpace = () => {
                 }
             </Box>
 
-        </Box>
+        </Box >
     )
 }
 

@@ -7,10 +7,10 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
 import * as yup from "yup";
 import { signup } from '../../store/thunk-actions/auth-actions';
-import Errors from '../layouts/Errors';
+import Errors from '../common/Errors';
 import { FormControl, FormControlLabel, FormHelperText, FormLabel, Grid, Radio, RadioGroup, Typography } from '@mui/material';
 import { useEffect, useState } from "react";
-import Success from "../layouts/Success";
+import Success from "../common/Success";
 import { updateUser } from "../../store/thunk-actions/user-action";
 
 const schema = yup.object({

@@ -9,7 +9,6 @@ type props = {
 }
 
 const ProjectMenu: React.FC<props> = ({ items }) => {
-    const { space, them } = useAppSelector(state => state);
 
 
     return (

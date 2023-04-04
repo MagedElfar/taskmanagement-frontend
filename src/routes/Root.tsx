@@ -7,18 +7,22 @@ import { Link, Outlet } from 'react-router-dom';
 import { AppBar, Drawer, DrawerHeader } from '../layouts/main-layout/MainLayoute';
 import { useAppDispatch, useAppSelector } from '../hooks/store.hook';
 import Nav from '../components/layouts/nav/Nav';
-import { getInitSpace } from '../store/thunk-actions/space-actions';
-import Navigation from '../components/layouts/Navigation/Navigation';
+import { getInitSpace, getSpace } from '../store/thunk-actions/space-actions';
+import Navigation from '../components/layouts/Navigation';
 import Models from '../models/Models';
 
 function Root() {
-    const { them } = useAppSelector(s => s)
+    const { them, space } = useAppSelector(s => s)
     const [open, setOpen] = React.useState(true);
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(getInitSpace())
+        if (space.id) {
+            dispatch(getSpace(+space.id))
+        } else {
+            dispatch(getInitSpace())
+        }
     }, [])
 
     const handleDrawerOpen = () => {

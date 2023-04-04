@@ -7,11 +7,11 @@ import CircularProgress from '@mui/material/CircularProgress';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useAppSelector, useAppDispatch } from '../../../hooks/store.hook';
-import Errors from '../../layouts/Errors';
+import Errors from '../../common/Errors';
 import { updateSpace } from '../../../store/thunk-actions/space-actions';
 import { Grid } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Success from '../../layouts/Success';
+import Success from '../../common/Success';
 import { toggleDeleteSpaceModel } from '../../../store/slices/model.slice';
 
 const schema = yup.object({

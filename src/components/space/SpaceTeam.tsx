@@ -3,7 +3,7 @@ import React from 'react'
 import { useAppSelector } from '../../hooks/store.hook'
 import SpaceMember from './SpaceMember'
 import { Member } from '../../interfaces/space'
-import Errors from '../layouts/Errors'
+import Errors from '../common/Errors'
 
 const SpaceTeam = () => {
     const { space: { team, loading, errors } } = useAppSelector(state => state)

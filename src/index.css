@@ -1,28 +1,49 @@
-*{
+* {
     box-sizing: border-box
 }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
 
-.avatar-group .MuiAvatarGroup-avatar{
+.avatar-group .MuiAvatarGroup-avatar {
     width: 30px;
     height: 30px;
     font-size: 13px;
 }
 
-.nav-add-button .MuiSpeedDial-actions{
+.nav-add-button .MuiSpeedDial-actions {
     position: absolute;
     top: 35px
 }
 
-.nav-add-button .css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab{
+.nav-add-button .css-7dv1rb-MuiButtonBase-root-MuiFab-root-MuiSpeedDial-fab {
     width: 45px;
     height: 45px;
 }
 
-.project-form .MuiInputBase-root.MuiInput-root::before{
+.project-form .MuiInputBase-root.MuiInput-root::before {
     border-color: #FFF !important;
 }
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #888; 
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+  }

@@ -25,7 +25,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 
 const ProjectItem: React.FC<props> = ({ project }) => {
 
-    const { them, space } = useAppSelector(state => state);
+    const { them, space, user: { role } } = useAppSelector(state => state);
+
     const dispatch = useAppDispatch()
 
     //drop down
@@ -141,76 +142,79 @@ const ProjectItem: React.FC<props> = ({ project }) => {
             }
 
 
+            {["owner", "admin"].includes(role) &&
+                <>
+                    <IconButton
+                        aria-label="more"
+                        id="long-button"
+                        aria-controls={open ? 'long-menu' : undefined}
+                        aria-expanded={open ? 'true' : undefined}
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                    >
+                        <MoreVertIcon sx={{ fill: them.colors.firstColor, transform: "rotate(90deg)" }} />
+                    </IconButton>
 
-            <IconButton
-                aria-label="more"
-                id="long-button"
-                aria-controls={open ? 'long-menu' : undefined}
-                aria-expanded={open ? 'true' : undefined}
-                aria-haspopup="true"
-                onClick={handleClick}
-            >
-                <MoreVertIcon sx={{ fill: them.colors.firstColor, transform: "rotate(90deg)" }} />
-            </IconButton>
-            <Menu
-                id="long-menu"
-                MenuListProps={{
-                    'aria-labelledby': 'long-button',
-                }}
-                anchorEl={anchorEl}
-                open={open}
-                onClose={handleClose}
-                sx={{ py: 0 }}
-                PaperProps={{
-                    sx: {
-                        '& > .MuiList-root': {
-                            py: 0
-                        }
-                    }
-                }}
-            >
-                <MenuItem sx={{ p: 0 }}>
-                    <Tooltip title="Delete">
-                        <IconButton
-                            onClick={deletePro}
-                            color='error'
-                            sx={{
-                                fontSize: "16px",
-                                p: 2,
-                                width: "100%",
-                                justifyContent: "flex-start"
-                            }}
-                        >
-                            <DeleteIcon sx={{ width: "20px", mr: 1 }} />
-                            Delete
-                        </IconButton>
-                    </Tooltip>
-                </MenuItem>
+                    <Menu
+                        id="long-menu"
+                        MenuListProps={{
+                            'aria-labelledby': 'long-button',
+                        }}
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        sx={{ py: 0 }}
+                        PaperProps={{
+                            sx: {
+                                '& > .MuiList-root': {
+                                    py: 0
+                                }
+                            }
+                        }}
+                    >
+                        <MenuItem sx={{ p: 0 }}>
+                            <Tooltip title="Delete">
+                                <IconButton
+                                    onClick={deletePro}
+                                    color='error'
+                                    sx={{
+                                        fontSize: "16px",
+                                        p: 2,
+                                        width: "100%",
+                                        justifyContent: "flex-start"
+                                    }}
+                                >
+                                    <DeleteIcon sx={{ width: "20px", mr: 1 }} />
+                                    Delete
+                                </IconButton>
+                            </Tooltip>
+                        </MenuItem>
 
-                <Divider sx={{ my: "0px !important" }} />
-                <MenuItem sx={{ p: 0 }}>
-                    <Tooltip title="Edit">
-                        <IconButton
+                        <Divider sx={{ my: "0px !important" }} />
+                        <MenuItem sx={{ p: 0 }}>
+                            <Tooltip title="Edit">
+                                <IconButton
 
-                            color='info'
-                            sx={{
-                                fontSize: "16px",
-                                p: 2,
-                                width: "100%",
-                                justifyContent: "flex-start"
-                            }}
-                            onClick={() => {
-                                setEdit(!edit);
-                                setAnchorEl(null);
-                            }}
-                        >
-                            <EditIcon sx={{ width: "20px", mr: 1 }} />
-                            Edit
-                        </IconButton>
-                    </Tooltip>
-                </MenuItem>
+                                    color='info'
+                                    sx={{
+                                        fontSize: "16px",
+                                        p: 2,
+                                        width: "100%",
+                                        justifyContent: "flex-start"
+                                    }}
+                                    onClick={() => {
+                                        setEdit(!edit);
+                                        setAnchorEl(null);
+                                    }}
+                                >
+                                    <EditIcon sx={{ width: "20px", mr: 1 }} />
+                                    Edit
+                                </IconButton>
+                            </Tooltip>
+                        </MenuItem>
 
-            </Menu>
+                    </Menu>
+                </>}
 
             {/* */}
 

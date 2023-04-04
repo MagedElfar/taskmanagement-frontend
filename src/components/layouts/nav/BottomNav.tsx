@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add';
 import moment from 'moment';
 import { toggleInviteModel } from '../../../store/slices/model.slice';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
-import AddButton from './AddButton';
+import AddButton from '../../common/AddButton';
 
 const BottomNav = () => {
     const { user: userState, them, space } = useAppSelector(s => s)

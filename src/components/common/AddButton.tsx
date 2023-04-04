@@ -6,8 +6,8 @@ import SpeedDialAction from '@mui/material/SpeedDialAction';
 import SaveIcon from '@mui/icons-material/Save';
 import EditIcon from '@mui/icons-material/Edit';
 import WorkspacesIcon from '@mui/icons-material/Workspaces';
-import { useAppDispatch } from '../../../hooks/store.hook';
-import { toggleCreateProjectModel, toggleCreateSpaceModel } from '../../../store/slices/model.slice';
+import { useAppDispatch } from '../../hooks/store.hook';
+import { toggleCreateProjectModel, toggleCreateSpaceModel } from '../../store/slices/model.slice';
 import FactCheckIcon from '@mui/icons-material/FactCheck';
 
 

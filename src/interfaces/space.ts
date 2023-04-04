@@ -30,4 +30,5 @@ export interface Member {
     userEmail: string,
     firstName: string,
     lastName: string,
+    phone: string
 }

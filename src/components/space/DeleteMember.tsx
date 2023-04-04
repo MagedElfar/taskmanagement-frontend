@@ -6,7 +6,7 @@ import { toggleDeleteMemberModel } from '../../store/slices/model.slice';
 import { getInitSpace } from '../../store/thunk-actions/space-actions';
 import { deleteSpace } from '../../utilities/api';
 import { apiErrorFormat } from '../../utilities/error-format';
-import Errors from '../layouts/Errors';
+import Errors from '../common/Errors';
 import { deleteMember } from '../../store/thunk-actions/team-action';
 
 const DeleteMember = () => {

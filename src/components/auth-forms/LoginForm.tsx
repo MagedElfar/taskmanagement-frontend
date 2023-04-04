@@ -1,6 +1,6 @@
 import React from 'react'
 import { useForm, Controller } from "react-hook-form";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from "yup";
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
 import { login } from '../../store/thunk-actions/auth-actions';
-import Errors from '../layouts/Errors';
+import Errors from '../common/Errors';
 import Typography from '@mui/material/Typography';
 
 const schema = yup.object({
@@ -20,6 +20,10 @@ const schema = yup.object({
 const LoginForm = () => {
 
     const navigate = useNavigate();
+
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    const token = searchParams.get("token")
 
     const authState = useAppSelector((state) => state.auth)
     const dispatch = useAppDispatch()
@@ -34,7 +38,14 @@ const LoginForm = () => {
     });
 
     const onSubmit = (data: any) => {
-        dispatch(login(data)).unwrap().then(() => navigate("/", { replace: true }))
+        dispatch(login(data)).unwrap().then(() => {
+            if (token) {
+                navigate(`/loading?token=${token}`, { replace: true })
+            } else {
+                navigate("/", { replace: true })
+
+            }
+        })
     }
     return (
         <>

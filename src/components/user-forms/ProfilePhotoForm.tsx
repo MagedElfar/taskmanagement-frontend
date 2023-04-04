@@ -4,13 +4,13 @@ import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import CircularProgress from '@mui/material/CircularProgress';
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
-import Errors from '../layouts/Errors';
+import Errors from '../common/Errors';
 import { Avatar, Badge, Grid } from '@mui/material';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 import DeleteIcon from '@mui/icons-material/Delete';
 import AddToPhotosIcon from '@mui/icons-material/AddToPhotos';
 import { uploadProfilePicture, deleteProfilePicture } from "../../store/thunk-actions/user-action"
-import Success from '../layouts/Success';
+import Success from '../common/Success';
 const ProfilePhotoForm = () => {
 
     const userStat = useAppSelector((state) => state.user)

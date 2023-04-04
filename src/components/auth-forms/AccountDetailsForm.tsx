@@ -9,7 +9,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
 import * as yup from "yup";
 import { createUserProfile } from "../../store/thunk-actions/user-action"
-import Errors from '../layouts/Errors';
+import Errors from '../common/Errors';
 import { FormControl, FormControlLabel, FormHelperText, FormLabel, Radio, RadioGroup } from '@mui/material';
 
 const schema = yup.object({

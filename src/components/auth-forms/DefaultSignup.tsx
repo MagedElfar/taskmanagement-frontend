@@ -12,7 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
 import * as yup from "yup";
 import { signup } from '../../store/thunk-actions/auth-actions';
-import Errors from '../layouts/Errors';
+import Errors from '../common/Errors';
 import { Typography } from '@mui/material';
 
 const schema = yup.object({

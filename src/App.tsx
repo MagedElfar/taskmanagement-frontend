@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { RouterProvider } from "react-router-dom";
-import Loading from './components/layouts/loading/Loading';
+import Loading from './components/common/loading/Loading';
 import { useAppDispatch } from './hooks/store.hook';
 import { getUser } from './store/thunk-actions/user-action';
 import routes from './utilities/routes';
