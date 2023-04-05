@@ -3,6 +3,7 @@ import axios from "axios";
 import { LoginCredentials } from "../interfaces/auth";
 import { Profile, updateUserDto } from '../interfaces/user';
 import { CreateProjectDto, UpdateProjectDto, createSpaceDto } from '../interfaces/space';
+import { CreateTaskDto } from '../interfaces/tasks';
 
 const baseURL: string = "http://localhost:5000/api";
 
@@ -91,3 +92,12 @@ export const createProject = (data: CreateProjectDto) => API.post("/projects", d
 export const updateProject = (data: UpdateProjectDto, id: number) => API.patch(`/projects/${id}`, data)
 
 export const deleteProject = (id: number) => API.delete(`/projects/${id}`)
+
+//tasks
+export const getTasks = (query: string) => API.get(`/tasks${query}`)
+
+export const createTask = (data: CreateTaskDto) => API.post("/tasks", data)
+
+export const updateTaskStatus = (id: number, data: { status: string }) => API.patch(`/tasks/${id}`, data)
+
+export const updateTaskOrder = (id: number, data: { status: string, position: number }) => API.patch(`/tasks/order/${id}`, data)

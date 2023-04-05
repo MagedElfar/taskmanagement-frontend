@@ -1,0 +1,39 @@
+export interface CreateTaskDto {
+    title: string,
+    description: string,
+    priority?: string,
+    due_date?: string,
+    spaceId: number,
+    parentId?: number,
+    projectId?: number,
+    memberId?: number
+}
+
+export interface ITask {
+    id: number;
+    created_at?: string;
+    updated_at?: string;
+    title: string;
+    description: string
+    status: string;
+    priority: string;
+    due_date: string;
+    spaceId: number;
+    userId: number;
+    projectId?: number,
+    parentId?: number,
+    is_complete?: boolean,
+    assignId: number,
+    assignToUserName: string,
+    assignToImage_url: string,
+    projectName: string,
+    position: number
+}
+
+export enum TaskStatus {
+    TO_DO = "to do",
+    IN_PROGRESS = "in progress",
+    IN_REVIEW = "in review",
+    DONE = "done",
+    BLOCKED = "blocked"
+}

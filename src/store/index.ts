@@ -4,6 +4,7 @@ import auth from "./slices/auth.slice";
 import them from "./slices/them.slice";
 import space from "./slices/space.slice";
 import model from "./slices/model.slice"
+import task from "./slices/task.slice"
 
 // ...
 
@@ -13,7 +14,8 @@ const store = configureStore({
         user,
         them,
         space,
-        model
+        model,
+        task
     },
 })
 

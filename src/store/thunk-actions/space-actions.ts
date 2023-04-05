@@ -1,6 +1,8 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { createSpaceDto, Member, Project, Space } from "../../interfaces/space";
 import * as api from "./../../utilities/api"
+import { AppDispatch } from "..";
+import { getTasks } from "./task-actions";
 
 //get user
 export const getInitSpace = createAsyncThunk<
@@ -11,12 +13,14 @@ export const getInitSpace = createAsyncThunk<
     },
     void,
     {
-        rejectValue?: unknown
+        rejectValue?: unknown,
+        dispatch: AppDispatch
     }
 >("spaces/getInitSpace", async (_, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
+    const { rejectWithValue, dispatch } = thunkApi;
     try {
-        const { data } = await api.getInitSpace()
+        const { data } = await api.getInitSpace();
+        dispatch(getTasks(data.space.id))
         return data;
     } catch (error) {
         console.log(error)
@@ -33,13 +37,14 @@ export const getSpace = createAsyncThunk<
     },
     number,
     {
-        rejectValue: unknown
+        rejectValue: unknown,
+        dispatch: AppDispatch
     }
 >("spaces/getSpace", async (id, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
+    const { rejectWithValue, dispatch } = thunkApi;
     try {
         const { data } = await api.getSpace(id)
-
+        dispatch(getTasks(data.space.id))
         return data;
     } catch (error) {
         return rejectWithValue(error)
