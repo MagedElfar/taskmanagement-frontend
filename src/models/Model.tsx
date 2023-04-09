@@ -47,7 +47,7 @@ const Model: React.FC<props> = ({ open = true, children, toggleOpen }) => {
                         }}
                     >
                         <CloseIcon sx={{
-                            color: them.colors.fourthColor, fontSize: "30px"
+                            fill: them.colors.fourthColor, fontSize: "30px"
                         }} />
                     </IconButton>
                     {children}

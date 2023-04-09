@@ -7,6 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ChatIcon from '@mui/icons-material/Chat';
+import WorkIcon from '@mui/icons-material/Work';
 
 type props = {
     member: Member | null
@@ -46,7 +47,20 @@ const MemberCard: React.FC<props> = ({ member }) => {
                     {member.username}
                 </Typography>
 
-
+                <div className='flex mb-2 items-center'>
+                    <WorkIcon sx={{ width: "20px" }} />
+                    <Typography
+                        align='center'
+                        variant='body1'
+                        sx={{
+                            ml: 1,
+                            textTransform: "capitalize",
+                            fontSize: "14px",
+                            color: them.colors.fourthColor
+                        }} >
+                        {member.role}
+                    </Typography>
+                </div>
 
                 {member.firstName &&
                     <div className='flex mb-2 items-center'>

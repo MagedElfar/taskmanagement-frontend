@@ -63,13 +63,10 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
 
             const index = newArr.findIndex((task: ITask) => task.id === add.id)
 
-            // const position =
-            //     newArr[index - 1] ? newArr[index - 1].position
-            //         : newArr[index - 1] ? newArr[index + 1].position - 1
-            //             : add.position;
-
             const position = oldArr[index].position
             const currentPosition = add.position
+
+            await updateTaskOrder(parseInt(draggableId), { status: destination.droppableId, position })
 
             dispatch(localUpdate({
                 newArr,
@@ -77,8 +74,6 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
                 position,
                 index
             }))
-
-            await updateTaskOrder(parseInt(draggableId), { status: destination.droppableId, position })
 
         } catch (error) {
             console.log(error)
@@ -113,7 +108,7 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
                     </Alert>
                 </Snackbar>)
             }
-            <Grid container wrap='nowrap' gap={2} sx={{ mr: -3, ml: 0 }}>
+            <Grid container wrap='nowrap' gap={2} sx={{ mr: -3, ml: 0, width: "auto" }} >
                 <Grid item xs={3.75} sx={{ flexShrink: 0 }}>
                     <TaskList
                         color={them.colors.toDo}
@@ -149,7 +144,7 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
                     />
                 </Grid>
 
-                <Grid item xs={3.75} sx={{ flexShrink: 0, mr: 3 }}>
+                <Grid item xs={3.75} sx={{ flexShrink: 0 }}>
                     <TaskList
                         color={them.colors.done}
                         tasks={statusTask[TaskStatus.DONE]}
@@ -157,6 +152,8 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
                     />
 
                 </Grid>
+
+                <Grid item width="1px" sx={{ flexShrink: 0 }}></Grid>
             </Grid>
         </DragDropContext>)
 }

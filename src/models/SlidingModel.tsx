@@ -59,7 +59,7 @@ const SlidingModel: React.FC<props> = ({ open, children, toggleOpen }) => {
                 }}
             >
                 <CloseIcon sx={{
-                    color: them.colors.fourthColor, fontSize: "30px"
+                    fill: them.colors.fourthColor, fontSize: "30px"
                 }} />
             </IconButton>
 

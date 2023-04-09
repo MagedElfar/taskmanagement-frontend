@@ -14,8 +14,11 @@ const initialState = {
     deleteMemberModel: {
         isOpen: false,
         memberId: 0
+    },
+    deleteTaskModel: {
+        isOpen: false,
+        taskId: 0
     }
-
 }
 
 const slice = createSlice({
@@ -49,7 +52,11 @@ const slice = createSlice({
         toggleDeleteMemberModel: (state, action) => {
             state.deleteMemberModel.isOpen = !state.deleteMemberModel.isOpen;
             state.deleteMemberModel.memberId = action.payload
-            console.log(action)
+        },
+
+        toggleDeleteTaskModel: (state, action) => {
+            state.deleteTaskModel.isOpen = !state.deleteTaskModel.isOpen;
+            state.deleteTaskModel.taskId = action.payload
         },
     },
 
@@ -73,7 +80,8 @@ const {
     toggleDeleteMemberModel,
     toggleSpaceSearchModel,
     toggleCreateProjectModel,
-    toggleCreateTaskModel
+    toggleCreateTaskModel,
+    toggleDeleteTaskModel
 } = slice.actions;
 
 export {
@@ -83,5 +91,6 @@ export {
     toggleDeleteMemberModel,
     toggleSpaceSearchModel,
     toggleCreateProjectModel,
-    toggleCreateTaskModel
+    toggleCreateTaskModel,
+    toggleDeleteTaskModel
 }

@@ -11,6 +11,7 @@ import Privacy from "../routes/Privacy";
 import Space from "../routes/Space";
 import LoadingPage from "../routes/LoadingPage";
 import Home from "../routes/Home";
+import Task from "../routes/Task";
 
 const routes = createBrowserRouter([
     {
@@ -42,6 +43,15 @@ const routes = createBrowserRouter([
             {
                 path: "space",
                 element: <Space />
+            },
+            {
+                path: "task",
+                children: [
+                    {
+                        path: ":id",
+                        element: <Task />
+                    }
+                ]
             },
             {
                 path: "projects",

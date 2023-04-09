@@ -82,7 +82,8 @@ function Root() {
                     component="main"
                     sx={{
                         position: "relative",
-                        flexGrow: 1, p: 3,
+                        flexGrow: 1,
+                        p: 3,
                         backgroundColor: them.colors.firstColor,
                         minHeight: "100vh",
                         overflow: "auto",

@@ -2,7 +2,7 @@ import { Member, Project } from '../../interfaces/space';
 import { createSlice } from "@reduxjs/toolkit";
 import { apiErrorFormat } from "../../utilities/error-format";
 import { ITask } from '../../interfaces/tasks';
-import { createTask, getTasks, updateTaskStatus } from '../thunk-actions/task-actions';
+import { createTask, deleteTask, getTasks, updateTask, updateTaskStatus } from '../thunk-actions/task-actions';
 
 
 const initialState = {
@@ -70,6 +70,33 @@ const slice = createSlice({
             state.errors = apiErrorFormat(action.payload);
         })
 
+        //update task
+        builder.addCase(updateTask.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(updateTask.fulfilled, (state, action) => {
+            state.tasks = state.tasks.map((task: ITask) => {
+                if (task.id === action.payload.id) {
+                    return {
+                        ...task,
+                        ...action.payload
+                    }
+                } else {
+                    return task
+                }
+
+            })
+            state.loading = false
+
+        })
+
+        builder.addCase(updateTask.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
         //update task status
         builder.addCase(updateTaskStatus.pending, (state, action) => {
             state.errors = [];
@@ -93,22 +120,22 @@ const slice = createSlice({
             state.errors = apiErrorFormat(action.payload);
         })
 
-        // //delete project
-        // builder.addCase(deleteProject.pending, (state, action) => {
-        //     state.errors = [];
-        //     state.loading = true
-        // })
+        //delete task
+        builder.addCase(deleteTask.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
 
-        // builder.addCase(deleteProject.fulfilled, (state, action) => {
-        //     state.projects = state.projects.filter((project: Project) => project.id !== action.payload.id)
-        //     state.loading = false
+        builder.addCase(deleteTask.fulfilled, (state, action) => {
+            state.tasks = state.tasks.filter((task: ITask) => task.id !== action.payload)
+            state.loading = false
 
-        // })
+        })
 
-        // builder.addCase(deleteProject.rejected, (state, action) => {
-        //     state.loading = false;
-        //     state.errors = apiErrorFormat(action.payload);
-        // })
+        builder.addCase(deleteTask.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
     }
 })
 

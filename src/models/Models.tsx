@@ -9,6 +9,7 @@ import {
     toggleCreateTaskModel,
     toggleDeleteMemberModel,
     toggleDeleteSpaceModel,
+    toggleDeleteTaskModel,
     toggleInviteModel,
     toggleSpaceSearchModel
 } from '../store/slices/model.slice'
@@ -18,6 +19,7 @@ import SlidingModel from './SlidingModel'
 import FindSpace from '../components/space/FindSpace'
 import CreateProjectForm from '../components/projects/CreateProjectForm'
 import CreateTaskForm from '../components/tasks/CreateTaskForm'
+import DeleteTask from '../components/tasks/DeleteTask'
 
 const Models = () => {
     const { model } = useAppSelector(s => s)
@@ -52,6 +54,11 @@ const Models = () => {
             <SlidingModel open={model.openCreateTaskModel} toggleOpen={() => dispatch(toggleCreateTaskModel())}>
                 <CreateTaskForm />
             </SlidingModel>
+
+            <Model open={model.deleteTaskModel.isOpen} toggleOpen={() => dispatch(toggleDeleteTaskModel(model.deleteTaskModel.taskId))}>
+                <DeleteTask />
+            </Model>
+
         </>
     )
 }
