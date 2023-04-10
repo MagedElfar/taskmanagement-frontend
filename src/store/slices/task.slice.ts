@@ -2,7 +2,7 @@ import { Member, Project } from '../../interfaces/space';
 import { createSlice } from "@reduxjs/toolkit";
 import { apiErrorFormat } from "../../utilities/error-format";
 import { ITask } from '../../interfaces/tasks';
-import { createTask, deleteTask, getTasks, updateTask, updateTaskStatus } from '../thunk-actions/task-actions';
+import { assignTask, createTask, deleteTask, getTasks, unassignTask, updateTask, updateTaskStatus } from '../thunk-actions/task-actions';
 
 
 const initialState = {
@@ -17,7 +17,6 @@ const slice = createSlice({
     initialState,
     reducers: {
         localUpdate(state, { payload: { newArr, index, position, currentPosition } }) {
-
 
             const direction = position > currentPosition ? "down" : "up";
             newArr[index].position = 0;
@@ -44,7 +43,7 @@ const slice = createSlice({
             console.log(tasks)
 
             state.tasks = tasks
-        }
+        },
     },
     extraReducers: (builder) => {
         //get tasks
@@ -112,7 +111,6 @@ const slice = createSlice({
                 return task
             })
             state.loading = false
-
         })
 
         builder.addCase(updateTaskStatus.rejected, (state, action) => {
@@ -133,6 +131,56 @@ const slice = createSlice({
         })
 
         builder.addCase(deleteTask.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //assign task
+        builder.addCase(assignTask.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(assignTask.fulfilled, (state, action) => {
+            state.tasks = state.tasks.map((task: ITask) => {
+                if (task.id === action.payload.taskId) {
+                    task.assignId = action.payload.id;
+                    task.assignToImage_url = action.payload.url;
+                    task.assignToUserName = action.payload.username
+                }
+
+                return task
+            })
+            state.loading = false
+
+        })
+
+        builder.addCase(assignTask.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //unassign task
+        builder.addCase(unassignTask.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(unassignTask.fulfilled, (state, action) => {
+            state.tasks = state.tasks.map((task: ITask) => {
+                if (task.id === action.payload) {
+                    task.assignId = null;
+                    task.assignToImage_url = null;
+                    task.assignToUserName = null
+                }
+
+                return task
+            })
+            state.loading = false
+
+        })
+
+        builder.addCase(unassignTask.rejected, (state, action) => {
             state.loading = false;
             state.errors = apiErrorFormat(action.payload);
         })

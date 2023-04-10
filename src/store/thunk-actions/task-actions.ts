@@ -3,6 +3,7 @@ import { RootState } from './../index';
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "./../../utilities/api"
 import { CreateTaskDto, ITask } from "../../interfaces/tasks";
+import { Member } from '../../interfaces/space';
 
 
 export const getTasks = createAsyncThunk<
@@ -71,12 +72,16 @@ export const updateTask = createAsyncThunk<
         data: Partial<ITask>
     }
     , {
-        rejectValue: unknown
+        rejectValue: unknown,
+        state: RootState
     }
 >("task/updateTask", async (body, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
+    const { rejectWithValue, getState } = thunkApi;
     try {
         let key;
+
+
+        const state = getState()
 
         Object.keys(body.data).forEach(item => key = item);
 
@@ -84,7 +89,11 @@ export const updateTask = createAsyncThunk<
             const { data } = await api.markTaskComplete(body.id);
             return { id: body.id, is_complete: body.data.is_complete }
         } else {
-            const { data } = await api.updateTask(body.id, body.data);
+            const { data } = await api.updateTask(body.id, {
+                ...body.data,
+                spaceId: +state.space.id
+            });
+
 
             return data.task;
         }
@@ -109,6 +118,58 @@ export const deleteTask = createAsyncThunk<
         await api.deleteTask(data)
 
         return data;
+    } catch (error) {
+        console.log(error)
+        return rejectWithValue(error)
+    }
+})
+
+export const assignTask = createAsyncThunk<
+    {
+        id: number,
+        username: string,
+        url: string,
+        taskId: number,
+    },
+    {
+        taskId: number,
+        memberId: number
+    }
+    , {
+        rejectValue: unknown
+    }
+>("task/assignTask", async (body, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+        const { data } = await api.assignTask({ taskId: body.taskId, memberId: body.memberId })
+
+        return {
+            ...data.assign,
+            taskId: body.taskId
+        }
+    } catch (error) {
+        console.log(error)
+        return rejectWithValue(error)
+    }
+})
+
+
+export const unassignTask = createAsyncThunk<
+    number,
+    {
+        id: number,
+        taskId: number
+    }
+    , {
+        rejectValue: unknown
+    }
+>("task/unassignTask", async (data, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+        console.log(data)
+        await api.unassignTask(data.id)
+
+        return data.taskId;
     } catch (error) {
         console.log(error)
         return rejectWithValue(error)

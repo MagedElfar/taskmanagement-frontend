@@ -70,7 +70,7 @@ const TaskModel: React.FC<props> = ({ children, task, setTask }) => {
                         component="div"
                         sx={{
                             px: 2,
-                            py: "10px",
+                            py: "5px",
                             bgcolor: "#EFF0F3",
                             display: "flex",
                             justifyContent: "space-between",
@@ -111,7 +111,7 @@ const TaskModel: React.FC<props> = ({ children, task, setTask }) => {
                             </Alert>
                         </Snackbar>)
                     }
-                    <Box sx={{ height: "calc(100% - 60px)" }}>
+                    <Box sx={{ height: "calc(100% - 50px)" }}>
                         {children}
                     </Box>
                 </Box>

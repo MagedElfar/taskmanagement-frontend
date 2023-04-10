@@ -7,11 +7,12 @@ import MemberItem from '../team/MemberItem';
 import ClearIcon from '@mui/icons-material/Clear';
 
 type props = {
-    updateAssignee: (member: Member | null) => void,
-    member: Member | null
+    updateAssignee: (member: Member | Partial<Member> | null) => void,
+    member: Member | Partial<Member> | null,
+    unAssignee?: () => void
 }
 
-const AssigneeButton: React.FC<props> = ({ updateAssignee, member }) => {
+const AssigneeButton: React.FC<props> = ({ updateAssignee, member, unAssignee }) => {
 
     const [isOpen, setOpen] = useState<boolean>(false);
 
@@ -22,8 +23,8 @@ const AssigneeButton: React.FC<props> = ({ updateAssignee, member }) => {
 
     const { them, space: { team } } = useAppSelector(state => state)
     return (
-        <Box component="div" sx={{ position: "relative" }}>
-            <Tooltip title="Assign" placement='top'>
+        <Box component="div" sx={{ position: "relative", width: "fit-content" }}>
+            <Tooltip title={member?.username || "Assign"} placement='top'>
                 <IconButton
                     aria-label="delete"
                     sx={{ p: 0, fontSize: "16px", bgcolor: "transparent !important" }}
@@ -56,20 +57,7 @@ const AssigneeButton: React.FC<props> = ({ updateAssignee, member }) => {
                                     fill: "#fff",
                                     fontSize: "12px"
                                 }}
-                            /> : <ClearIcon
-                                onClick={() => {
-                                    updateAssignee(null)
-                                }}
-                                sx={{
-                                    bgcolor: them.colors.secondColor,
-                                    width: "12px",
-                                    height: "12px",
-                                    borderRadius: "50%",
-                                    fill: "#fff",
-                                    fontSize: "12px",
-                                    p: "2px"
-                                }}
-                            />
+                            /> : null
                         }
                     >
                         <Avatar
@@ -83,6 +71,27 @@ const AssigneeButton: React.FC<props> = ({ updateAssignee, member }) => {
                     </Badge>
                 </IconButton>
             </Tooltip>
+            {member && <Tooltip title={`unassign ${member.username}`} placement='top'>
+                <IconButton sx={{ position: "absolute", top: "-13px", left: "53px" }}>
+                    <ClearIcon
+                        onClick={() => {
+                            updateAssignee(null)
+                            if (unAssignee) unAssignee()
+                        }}
+                        sx={{
+                            bgcolor: them.colors.secondColor,
+                            width: "15px",
+                            height: "15px",
+                            borderRadius: "50%",
+                            fill: "#fff",
+                            fontSize: "12px",
+                            p: "2px"
+                        }}
+                    />
+                </IconButton>
+            </Tooltip>}
+
+
 
 
             {isOpen && <Box

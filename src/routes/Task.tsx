@@ -51,7 +51,7 @@ const Task = () => {
                     <CircularProgress />
                 </Box>
                 :
-                <SingleTask task={task} />
+                <SingleTask task={task} setTask={(data) => updateTaskData(data)} />
             }
         </TaskModel>
     )

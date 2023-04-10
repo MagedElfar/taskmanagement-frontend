@@ -109,3 +109,7 @@ export const updateTaskStatus = (id: number, data: { status: string }) => API.pa
 export const updateTaskOrder = (id: number, data: { status: string, position: number }) => API.patch(`/tasks/order/${id}`, data)
 
 export const markTaskComplete = (id: number) => API.patch(`/tasks/complete/${id}`)
+
+export const assignTask = (data: { taskId: number, memberId: number }) => API.post("/tasks/assign", data)
+
+export const unassignTask = (id: number) => API.delete(`/tasks/assign/${id}`)

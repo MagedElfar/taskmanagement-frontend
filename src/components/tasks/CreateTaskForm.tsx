@@ -29,7 +29,7 @@ const CreateTaskForm = () => {
 
     const { them, task, space } = useAppSelector((state) => state)
 
-    const [member, setMember] = useState<Member | null>(null)
+    const [member, setMember] = useState<Member | Partial<Member> | null>(null)
 
     const dispatch = useAppDispatch()
 
