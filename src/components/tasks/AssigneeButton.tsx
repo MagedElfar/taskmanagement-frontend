@@ -72,12 +72,14 @@ const AssigneeButton: React.FC<props> = ({ updateAssignee, member, unAssignee })
                 </IconButton>
             </Tooltip>
             {member && <Tooltip title={`unassign ${member.username}`} placement='top'>
-                <IconButton sx={{ position: "absolute", top: "-13px", left: "53px" }}>
+                <IconButton
+                    onClick={() => {
+                        updateAssignee(null)
+                        if (unAssignee) unAssignee()
+                    }}
+                    sx={{ position: "absolute", top: "-13px", left: "53px" }}
+                >
                     <ClearIcon
-                        onClick={() => {
-                            updateAssignee(null)
-                            if (unAssignee) unAssignee()
-                        }}
                         sx={{
                             bgcolor: them.colors.secondColor,
                             width: "15px",

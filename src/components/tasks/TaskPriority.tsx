@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { ITask } from '../../interfaces/tasks'
-import { Alert, Box, Button, Menu, MenuItem, Snackbar, Tooltip } from '@mui/material';
+import { Box, Button, Menu, MenuItem, Tooltip } from '@mui/material';
 import FlagIcon from '@mui/icons-material/Flag';
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hook';
 import { updateTask } from '../../store/thunk-actions/task-actions';
@@ -31,11 +31,6 @@ const TaskPriority: React.FC<props> = ({ task }) => {
 
     const { task: { errors } } = useAppSelector(state => state)
     const dispatch = useAppDispatch()
-    //Snackbar
-    const [openBar, setOpen] = useState(false);
-    const handleCloseBar = (event?: React.SyntheticEvent | Event, reason?: string) => {
-        setOpen(false);
-    };
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const open = Boolean(anchorEl);
@@ -46,43 +41,25 @@ const TaskPriority: React.FC<props> = ({ task }) => {
         setAnchorEl(null);
     };
 
-    const updatePriority = async (priority: string) => {
-        try {
-            console.log("sss")
+    const updatePriority = (priority: string) => {
 
-            await dispatch(updateTask({
-                id: task.id,
-                data: { priority }
-            }))
-            setPriority(priority)
-            setAnchorEl(null);
+        dispatch(updateTask({
+            id: task.id,
+            data: { priority }
+        })).unwrap()
+            .then(() => {
+                setPriority(priority)
+                setAnchorEl(null);
+            })
 
-        } catch (error) {
-            console.log(error)
-            setOpen(true)
-        }
+
+
 
     };
     const ITEM_HEIGHT = 48;
 
     return (
         <Box>
-            {errors.length > 0 &&
-                errors.map((error: string, index: number) => <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'right',
-                    }}
-                    key={index}
-                    open={openBar}
-                    autoHideDuration={6000}
-                    onClose={handleCloseBar}
-                >
-                    <Alert onClose={handleCloseBar} severity="error" sx={{ width: '100%' }}>
-                        {error}
-                    </Alert>
-                </Snackbar>)
-            }
             <Tooltip title={priority ? `${priority} priority` : "priority"} placement='top'>
                 <Button
                     id="long-button"

@@ -4,8 +4,10 @@ import { toggleDeleteTaskModel } from '../../store/slices/model.slice';
 
 import Errors from '../common/Errors';
 import { deleteTask } from '../../store/thunk-actions/task-actions';
+import { useNavigate } from 'react-router-dom';
 
 const DeleteTask = () => {
+    const navigate = useNavigate()
 
 
     const { model, task: { loading, errors } } = useAppSelector(s => s);
@@ -19,6 +21,8 @@ const DeleteTask = () => {
             await dispatch(deleteTask(model.deleteTaskModel.taskId));
 
             dispatch(toggleDeleteTaskModel(0))
+
+            navigate("/", { replace: true })
 
         } finally {
         }

@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
-import { Alert, Button, Chip, IconButton, Snackbar } from '@mui/material';
+import { Alert, Chip, CircularProgress, IconButton, Snackbar } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../hooks/store.hook';
 import { useNavigate } from 'react-router-dom'
 import { ISingleTask, ITask } from '../interfaces/tasks';
 import CheckIcon from '@mui/icons-material/Check';
 import { updateTask } from '../store/thunk-actions/task-actions';
+import SnackError from '../components/common/SnackError';
 
 const style = {
     position: 'absolute' as 'absolute',
@@ -20,7 +21,11 @@ const style = {
     bgcolor: "#fff",
     border: "none",
     boxShadow: 24,
-    overflowX: "hidden"
+    overflow: "hidden",
+    "&::-webkit-scrollbar": {
+        display: "none"
+
+    }
 };
 
 type props = {
@@ -31,7 +36,7 @@ type props = {
 
 const TaskModel: React.FC<props> = ({ children, task, setTask }) => {
 
-    const { them, task: { errors } } = useAppSelector(s => s);
+    const { them, task: { errors, loading } } = useAppSelector(s => s);
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
@@ -66,6 +71,21 @@ const TaskModel: React.FC<props> = ({ children, task, setTask }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style} >
+                    <SnackError errors={errors} />
+                    {loading && <Box sx={{
+                        display: 'flex',
+                        justifyContent: "center",
+                        alignItems: "center",
+                        bgcolor: "rgba(0 , 0 , 0 , 0.4)",
+                        width: "100%",
+                        height: "100%",
+                        position: "absolute",
+                        top: "0",
+                        left: "0",
+                        zIndex: "99999"
+                    }}>
+                        <CircularProgress />
+                    </Box>}
                     <Box
                         component="div"
                         sx={{
