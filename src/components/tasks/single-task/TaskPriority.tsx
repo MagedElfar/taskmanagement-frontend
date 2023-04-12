@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
-import { ITask } from '../../interfaces/tasks'
+import { ITask } from '../../../interfaces/tasks'
 import { Box, Button, Menu, MenuItem, Tooltip } from '@mui/material';
 import FlagIcon from '@mui/icons-material/Flag';
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hook';
-import { updateTask } from '../../store/thunk-actions/task-actions';
+import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
+import { updateTask } from '../../../store/thunk-actions/task-actions';
 
 type props = {
     task: ITask,

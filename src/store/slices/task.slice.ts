@@ -1,8 +1,7 @@
-import { Member, Project } from '../../interfaces/space';
 import { createSlice } from "@reduxjs/toolkit";
 import { apiErrorFormat } from "../../utilities/error-format";
 import { ITask } from '../../interfaces/tasks';
-import { assignTask, createTask, deleteTask, getTasks, unassignTask, updateTask, updateTaskStatus } from '../thunk-actions/task-actions';
+import { assignTask, createTask, deleteTask, getTasks, unassignTask, updateTask, updateTaskStatus, uploadAttachment } from '../thunk-actions/task-actions';
 
 
 const initialState = {
@@ -181,6 +180,31 @@ const slice = createSlice({
         })
 
         builder.addCase(unassignTask.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //upload attachment
+        builder.addCase(uploadAttachment.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(uploadAttachment.fulfilled, (state, action) => {
+            state.tasks = state.tasks.map((task: ITask) => {
+                if (task.id === action.payload.taskId) {
+                    const length = action.payload.attachments.length
+                    task.taskMedia = action.payload.attachments[length - 1].url
+                }
+
+                return task
+
+            })
+            state.loading = false
+
+        })
+
+        builder.addCase(uploadAttachment.rejected, (state, action) => {
             state.loading = false;
             state.errors = apiErrorFormat(action.payload);
         })

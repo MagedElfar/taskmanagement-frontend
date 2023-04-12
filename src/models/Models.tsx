@@ -19,7 +19,7 @@ import SlidingModel from './SlidingModel'
 import FindSpace from '../components/space/FindSpace'
 import CreateProjectForm from '../components/projects/CreateProjectForm'
 import CreateTaskForm from '../components/tasks/CreateTaskForm'
-import DeleteTask from '../components/tasks/DeleteTask'
+import DeleteTask from '../components/tasks/single-task/DeleteTask'
 
 const Models = () => {
     const { model } = useAppSelector(s => s)

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { ITask } from '../../interfaces/tasks'
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hook'
+import { ITask } from '../../../interfaces/tasks'
+import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook'
 import { Box, Button, IconButton, TextField, Tooltip, Typography } from '@mui/material';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
@@ -8,12 +8,14 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import moment, { Moment } from 'moment';
 import ClearIcon from '@mui/icons-material/Clear';
-import { updateTask } from '../../store/thunk-actions/task-actions';
-import SnackError from '../common/SnackError';
+import { updateTask } from '../../../store/thunk-actions/task-actions';
+import SnackError from '../../common/SnackError';
 
 type props = {
     task: ITask,
 }
+
+
 
 const TaskDueDate: React.FC<props> = ({ task }) => {
     const { them } = useAppSelector(state => state);

@@ -4,6 +4,7 @@ import { LoginCredentials } from "../interfaces/auth";
 import { Profile, updateUserDto } from '../interfaces/user';
 import { CreateProjectDto, UpdateProjectDto, createSpaceDto } from '../interfaces/space';
 import { CreateTaskDto, ITask } from '../interfaces/tasks';
+import { number } from 'yup';
 
 const baseURL: string = "http://localhost:5000/api";
 
@@ -113,3 +114,7 @@ export const markTaskComplete = (id: number) => API.patch(`/tasks/complete/${id}
 export const assignTask = (data: { taskId: number, memberId: number }) => API.post("/tasks/assign", data)
 
 export const unassignTask = (id: number) => API.delete(`/tasks/assign/${id}`)
+
+export const uploadAttachment = (data: any) => API.post(`/tasks/attachment`, data, config)
+
+export const deleteAttachment = (id: number) => API.delete(`/tasks/attachment/${id}`)

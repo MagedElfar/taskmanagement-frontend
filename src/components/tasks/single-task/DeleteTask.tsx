@@ -1,9 +1,9 @@
 import { Box, Button, CircularProgress, Grid, Typography } from '@mui/material'
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hook'
-import { toggleDeleteTaskModel } from '../../store/slices/model.slice';
+import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook'
+import { toggleDeleteTaskModel } from '../../../store/slices/model.slice';
 
-import Errors from '../common/Errors';
-import { deleteTask } from '../../store/thunk-actions/task-actions';
+import Errors from '../../common/Errors';
+import { deleteTask } from '../../../store/thunk-actions/task-actions';
 import { useNavigate } from 'react-router-dom';
 
 const DeleteTask = () => {

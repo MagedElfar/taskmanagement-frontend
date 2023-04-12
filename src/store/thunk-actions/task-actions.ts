@@ -175,3 +175,35 @@ export const unassignTask = createAsyncThunk<
         return rejectWithValue(error)
     }
 })
+
+export const uploadAttachment = createAsyncThunk<
+    {
+        taskId: number,
+        attachments: { id: number, url: string }[]
+    },
+    { taskId: number, file: any }
+    , {
+        rejectValue: unknown,
+        state: RootState
+    }
+>("task/uploadAttachment", async (body, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+        const formData = new FormData();
+
+        for (const key of Object.keys(body.file)) {
+            formData.append('file', body.file[key])
+        }
+        formData.append("taskId", `${body.taskId}`)
+
+        const { data } = await api.uploadAttachment(formData)
+        return {
+            taskId: body.taskId,
+            attachments: data.attachments
+        };
+
+    } catch (error) {
+        console.log(error)
+        return rejectWithValue(error)
+    }
+})

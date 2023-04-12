@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Alert, Grid, Snackbar } from '@mui/material'
-import { ITask, TaskStatus } from '../../interfaces/tasks';
+import { ITask, TaskStatus } from '../../../interfaces/tasks';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
-import TaskList from './TaskList'
-import { useAppDispatch, useAppSelector } from '../../hooks/store.hook';
-import { updateTaskOrder } from '../../utilities/api';
-import { apiErrorFormat } from '../../utilities/error-format';
-import { localUpdate } from '../../store/slices/task.slice';
+import TaskList from '../TaskList'
+import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
+import { updateTaskOrder } from '../../../utilities/api';
+import { apiErrorFormat } from '../../../utilities/error-format';
+import { localUpdate } from '../../../store/slices/task.slice';
 
 type props = {
     tasks: ITask[]

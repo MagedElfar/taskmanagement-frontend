@@ -1,4 +1,4 @@
-import TasksGrid from '../components/tasks/TasksGrid';
+import TasksGrid from '../components/tasks/task-view/TasksGrid';
 import { useAppSelector } from '../hooks/store.hook';
 
 

@@ -30,15 +30,9 @@ const Task = () => {
         }
     }
 
-    const updateTaskData = (data: Partial<ISingleTask>) => {
-        setTask(s => ({
-            ...s,
-            ...data
-        }))
-    }
 
     return (
-        <TaskModel task={task?.task} setTask={(data) => updateTaskData(data)}>
+        <TaskModel task={task?.task}>
             {loading ?
                 <Box
                     component="div"
@@ -51,7 +45,7 @@ const Task = () => {
                     <CircularProgress />
                 </Box>
                 :
-                <SingleTask task={task} setTask={(data) => updateTaskData(data)} />
+                <SingleTask task={task} />
             }
         </TaskModel>
     )

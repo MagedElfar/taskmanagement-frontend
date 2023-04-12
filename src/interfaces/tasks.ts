@@ -9,6 +9,11 @@ export interface CreateTaskDto {
     memberId?: number
 }
 
+export interface IAttachment {
+    id: number,
+    url: string
+}
+
 export interface ITask {
     id: number;
     created_at?: string;
@@ -27,11 +32,13 @@ export interface ITask {
     assignToUserName: string,
     assignToImage_url: string,
     projectName: string,
-    position: number
+    position: number,
+    taskMedia: string
 }
 
 export interface ISingleTask {
-    task: ITask
+    task: ITask,
+    attachments: IAttachment[]
 }
 
 export enum TaskStatus {
