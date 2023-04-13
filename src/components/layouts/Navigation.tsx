@@ -10,7 +10,8 @@ import { Link } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home';
 
 const Navigation = () => {
-    const { them, space } = useAppSelector(s => s)
+    const { them, space, user } = useAppSelector(s => s)
+
     return (
         <Box component="nav">
             <SpaceMenu />

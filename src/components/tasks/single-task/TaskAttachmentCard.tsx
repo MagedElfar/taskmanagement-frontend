@@ -13,21 +13,25 @@ type props = {
 const TaskAttachmentCard: React.FC<props> = ({ file, deleteFile }) => {
     const { them } = useAppSelector(state => state)
     return (
-        <div>
+        <Box
+            sx={{
+                boxShadow: "rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;"
+            }}
+        >
             <div  >
-                <img src={file.url} style={{ height: "85px", width: "100%", objectFit: "cover" }} />
+                <img alt="" src={file.url} style={{ height: "85px", width: "100%", objectFit: "cover" }} />
             </div>
             <Box
                 sx={{
-                    bgcolor: them.colors.firstColor,
-                    p: 1
+                    bgcolor: "#fff",
+                    p: 2
                 }}
             >
                 <Grid container justifyContent="space-between" alignItems="center">
                     <Grid item>
                         <Tooltip title="View">
-                            <a href={file.url} target='_blank'>
-                                <LaunchIcon color='info' />
+                            <a href={file.url} target='_blank' rel="noreferrer">
+                                <LaunchIcon sx={{ width: "20px" }} color='info' />
                             </a>
                         </Tooltip>
                     </Grid>
@@ -38,13 +42,13 @@ const TaskAttachmentCard: React.FC<props> = ({ file, deleteFile }) => {
                                 color="error"
                                 onClick={() => deleteFile(file.id)}
                             >
-                                <DeleteIcon />
+                                <DeleteIcon sx={{ width: "20px" }} />
                             </IconButton>
                         </Tooltip>
                     </Grid>
                 </Grid>
             </Box>
-        </div>
+        </Box>
     )
 }
 

@@ -1,11 +1,10 @@
 import React from 'react'
 import { ITask } from '../../interfaces/tasks'
-import { Avatar, Box, Chip, Grid, IconButton, Tooltip, Typography } from '@mui/material'
+import { Avatar, Box, Chip, Grid, Tooltip, Typography } from '@mui/material'
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hook'
 import moment from 'moment';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Draggable } from 'react-beautiful-dnd';
-import DeleteIcon from '@mui/icons-material/Delete';
 import { toggleDeleteTaskModel } from '../../store/slices/model.slice';
 import { useNavigate } from 'react-router-dom';
 import CheckIcon from '@mui/icons-material/Check';
@@ -47,7 +46,7 @@ const TaskCard: React.FC<props> = ({ task, color, index }) => {
 
                         {
                             task.taskMedia && <div className='mb-8'>
-                                <img src={task.taskMedia} />
+                                <img alt="" src={task.taskMedia} />
                             </div>
                         }
 

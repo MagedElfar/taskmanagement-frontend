@@ -12,8 +12,6 @@ const SnackError: React.FC<props> = ({ errors }) => {
         setOpen(false);
     };
 
-    console.log("errors")
-
     useEffect(() => {
         if (errors.length > 0) setOpen(true)
     }, [errors.length])

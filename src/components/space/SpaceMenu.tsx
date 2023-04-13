@@ -17,7 +17,7 @@ import { Space } from '../../interfaces/space';
 
 
 const StyledMenu = styled((props: MenuProps) => (
-    <Menu
+    < Menu
         elevation={0}
         sx={{
             mt: 1
@@ -60,6 +60,8 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 const SpaceMenu = () => {
+    console.log("test")
+
     const { them, space, user } = useAppSelector(s => s);
     const dispatch = useAppDispatch();
 

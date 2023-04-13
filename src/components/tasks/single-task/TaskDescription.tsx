@@ -16,21 +16,25 @@ const TaskDescription: React.FC<props> = ({ task }) => {
     const [description, setDescription] = useState<string>(task.description)
 
 
-    const prevState = usePrevious<string>(description)
+    const prevState = usePrevious<string>(description);
+
 
 
     const onBlur = async (e: React.FocusEvent<HTMLInputElement>) => {
         try {
             if (description === prevState) return;
 
-            await dispatch(updateTask({
+            dispatch(updateTask({
                 id: task.id,
                 data: {
                     description: e.target.value
                 }
-            }));
+            }))
+
+
 
         } catch (error) {
+            console.log(error)
         }
     }
 
@@ -41,8 +45,7 @@ const TaskDescription: React.FC<props> = ({ task }) => {
     return (
         <TextField
             multiline
-            rows={8}
-            maxRows={12}
+            rows={12}
             sx={{
                 mx: "-14px",
                 outline: "0 !important",

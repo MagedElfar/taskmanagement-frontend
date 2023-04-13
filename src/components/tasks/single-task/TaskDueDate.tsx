@@ -10,6 +10,7 @@ import moment, { Moment } from 'moment';
 import ClearIcon from '@mui/icons-material/Clear';
 import { updateTask } from '../../../store/thunk-actions/task-actions';
 import SnackError from '../../common/SnackError';
+import { useTaskContext } from '../../../routes/Task';
 
 type props = {
     task: ITask,
@@ -21,7 +22,7 @@ const TaskDueDate: React.FC<props> = ({ task }) => {
     const { them } = useAppSelector(state => state);
 
 
-
+    // const { setActivities } = useTaskContext()
     const dispatch = useAppDispatch()
 
     const [due_date, setDueDate] = useState<any>(task.due_date && moment(task.due_date))
@@ -36,7 +37,7 @@ const TaskDueDate: React.FC<props> = ({ task }) => {
             }
         })).unwrap().then(() => {
             setDueDate(newValue)
-            setOpen(false)
+            setOpen(false);
         })
     }
 
@@ -89,7 +90,7 @@ const TaskDueDate: React.FC<props> = ({ task }) => {
                 </LocalizationProvider>
                 :
                 <Typography
-                    component="body"
+                    variant='body1'
                     sx={{
                         color: them.colors.fourthColor,
                         ml: 1,

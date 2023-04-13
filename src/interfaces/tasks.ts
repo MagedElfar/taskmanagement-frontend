@@ -17,6 +17,7 @@ export interface IAttachment {
 export interface ITask {
     id: number;
     created_at?: string;
+    username: string,
     updated_at?: string;
     title: string;
     description: string
@@ -38,7 +39,11 @@ export interface ITask {
 
 export interface ISingleTask {
     task: ITask,
-    attachments: IAttachment[]
+    attachments: IAttachment[],
+    activities: {
+        data: IActivity[],
+        count: number
+    }
 }
 
 export enum TaskStatus {
@@ -47,4 +52,13 @@ export enum TaskStatus {
     IN_REVIEW = "in review",
     DONE = "done",
     BLOCKED = "blocked"
+}
+
+export interface IActivity {
+    id: number;
+    activity: string;
+    user1: number;
+    user2: number;
+    created_at: string
+
 }

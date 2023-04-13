@@ -118,3 +118,5 @@ export const unassignTask = (id: number) => API.delete(`/tasks/assign/${id}`)
 export const uploadAttachment = (data: any) => API.post(`/tasks/attachment`, data, config)
 
 export const deleteAttachment = (id: number) => API.delete(`/tasks/attachment/${id}`)
+
+export const getActivities = (query: string) => API.get(`/activities${query}`)

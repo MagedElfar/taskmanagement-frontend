@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ISingleTask } from '../../interfaces/tasks';
-import { Box, Divider, Grid, TextField } from '@mui/material';
+import { Box, Divider, Grid } from '@mui/material';
 import { useAppSelector } from '../../hooks/store.hook';
 import TaskPriority from './single-task/TaskPriority';
 import Label from '../layouts/Label';
@@ -11,6 +11,7 @@ import TaskDelete from './single-task/TaskDelete';
 import TaskTitle from './single-task/TaskTitle';
 import TaskDescription from './single-task/TaskDescription';
 import TaskAttachment from './single-task/TaskAttach';
+import TaskActivity from './single-task/TaskActivity';
 
 type props = {
     task: ISingleTask,
@@ -62,9 +63,9 @@ const SingleTask: React.FC<props> = ({ task }) => {
                     </div>
                 </Box>
             </Grid>
-            <Grid item xs={6} sx={{ bgcolor: them.colors.firstColor }}>
+            <Grid item xs={6} sx={{ bgcolor: them.colors.firstColor, py: 2, px: 3 }}>
                 <Box >
-
+                    <TaskActivity task={task.task} activities={task.activities} />
                 </Box>
             </Grid>
         </Grid >

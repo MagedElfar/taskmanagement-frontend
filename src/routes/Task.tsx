@@ -2,12 +2,27 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import TaskModel from '../models/TaskModel';
 import SingleTask from '../components/tasks/SingleTask';
-import { ITask, ISingleTask } from '../interfaces/tasks';
+import { ITask, ISingleTask, IActivity } from '../interfaces/tasks';
 import { getTask } from '../utilities/api';
 import { Box, CircularProgress } from '@mui/material';
 
+import { createContext, useContext } from "react"
+export type TaskContent = {
+    activities: IActivity[]
+    setActivities: (activity: any) => void
+}
+export const TaskContext = createContext<TaskContent>({
+    activities: [], // set a default value
+    setActivities: () => { }
+})
+
+export const useTaskContext = () => useContext(TaskContext)
+
+
 const Task = () => {
     const { id } = useParams();
+
+    const [activities, setActivities] = useState<IActivity[] | any>([]);
 
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
@@ -20,18 +35,23 @@ const Task = () => {
     const getSingleTask = async () => {
         try {
             const { data } = await getTask(+id);
-            console.log(data)
             setTask(data)
             setLoading(false)
+            setActivities(data.activities.data)
         } catch (error) {
             setLoading(false)
-            console.log(error);
             navigate("404")
         }
     }
 
 
     return (
+        // <TaskContext.Provider
+        //     value={{
+        //         activities,
+        //         setActivities
+        //     }}
+        // >
         <TaskModel task={task?.task}>
             {loading ?
                 <Box
@@ -48,6 +68,8 @@ const Task = () => {
                 <SingleTask task={task} />
             }
         </TaskModel>
+        // </TaskContext.Provider>
+
     )
 }
 

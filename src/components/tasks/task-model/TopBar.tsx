@@ -18,8 +18,6 @@ const TopBar: React.FC<props> = ({ task }) => {
 
     const [is_complete, setIsComplete] = useState(task.is_complete)
 
-    console.log("is_complete", is_complete)
-
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 

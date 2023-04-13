@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AssigneeButton from '../AssigneeButton'
 import { ITask } from '../../../interfaces/tasks'
 import { Member } from '../../../interfaces/space'
-import { useAppDispatch } from '../../../hooks/store.hook'
+import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook'
 import { assignTask, unassignTask } from '../../../store/thunk-actions/task-actions'
 
 type props = {
@@ -11,6 +11,8 @@ type props = {
 
 const TaskAssign: React.FC<props> = ({ task }) => {
     const dispatch = useAppDispatch()
+
+    const { user: { user: { username } } } = useAppSelector(state => state)
 
     const [assignId, setAssignId] = useState<number | null>(task.assignId)
     const [member, setMember] = useState<Partial<Member> | null>(task.assignId ? {
@@ -31,6 +33,8 @@ const TaskAssign: React.FC<props> = ({ task }) => {
                     username: data.username,
                 })
                 setAssignId(data.id)
+
+
             })
     }
 
