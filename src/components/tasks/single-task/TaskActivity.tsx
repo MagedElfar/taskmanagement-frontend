@@ -3,6 +3,8 @@ import { IActivity, ITask } from '../../../interfaces/tasks'
 import { Box, Button, Typography } from '@mui/material'
 import moment from 'moment';
 import { getActivities } from '../../../utilities/api';
+import { useTaskContext } from '../../../hooks/taskContext';
+import TaskActivityList from './TaskActivityList';
 
 type props = {
     activities: { data: IActivity[], count: number },
@@ -11,7 +13,7 @@ type props = {
 
 const TaskActivity: React.FC<props> = ({ activities: { data, count }, task }) => {
 
-    const [activities, setActivities] = useState(data);
+    const { activities, setActivities } = useTaskContext()
 
 
     const [offset, setOffset] = useState(2)
@@ -27,7 +29,7 @@ const TaskActivity: React.FC<props> = ({ activities: { data, count }, task }) =>
 
             setOffset(s => s + 1);
 
-            setActivities(s => [...s, ...data.data])
+            setActivities((s: any) => [...s, ...data.data])
 
         } catch (error) {
             console.log(error)
@@ -49,13 +51,8 @@ const TaskActivity: React.FC<props> = ({ activities: { data, count }, task }) =>
             <div className='mb-2'>
                 {
                     activities.map((activity: IActivity, index) => (
-                        <div className='flex mb-2' key={index}>
-                            <Typography textTransform="capitalize" component="span" fontSize="12px">
-                                {`${activity.user1} ${activity.activity} ${activity.user2 ? activity.user2 : ""}`}
-                            </Typography>
-                            <Typography ml={2} component="span" fontSize="12px">
-                                {moment(activity.created_at).fromNow()}
-                            </Typography>
+                        <div className='flex mb-5' key={index}>
+                            <TaskActivityList activity={activity} />
                         </div>
                     ))
                 }

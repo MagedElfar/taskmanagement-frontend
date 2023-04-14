@@ -120,3 +120,9 @@ export const uploadAttachment = (data: any) => API.post(`/tasks/attachment`, dat
 export const deleteAttachment = (id: number) => API.delete(`/tasks/attachment/${id}`)
 
 export const getActivities = (query: string) => API.get(`/activities${query}`)
+
+export const addComment = (data: { taskId: number, activity: string }) => API.post('/activities', data)
+
+export const deleteComment = (id: number) => API.delete(`/activities/${id}`)
+
+export const updateComment = (id: number, data: { activity: string }) => API.put(`/activities/${id}`, data)

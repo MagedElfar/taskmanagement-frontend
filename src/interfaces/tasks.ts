@@ -57,8 +57,14 @@ export enum TaskStatus {
 export interface IActivity {
     id: number;
     activity: string;
-    user1: number;
-    user2: number;
-    created_at: string
-
+    user1: string;
+    user1FirstName: string,
+    user1LastName: string,
+    userImage: string,
+    user2: string;
+    user2FirstName: string,
+    user2LastName: string,
+    created_at: string,
+    type: string,
+    user1_Id: number
 }

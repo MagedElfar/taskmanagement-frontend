@@ -12,6 +12,7 @@ import TaskTitle from './single-task/TaskTitle';
 import TaskDescription from './single-task/TaskDescription';
 import TaskAttachment from './single-task/TaskAttach';
 import TaskActivity from './single-task/TaskActivity';
+import TaskComment from './single-task/TaskComment';
 
 type props = {
     task: ISingleTask,
@@ -22,8 +23,17 @@ const SingleTask: React.FC<props> = ({ task }) => {
     const { them } = useAppSelector(state => state)
 
     return (
-        <Grid container sx={{ height: "100%", overflow: "auto" }} >
-            <Grid item xs={6} >
+        <Grid container height="100%" >
+            <Grid
+                item xs={6}
+                overflow="auto"
+                height="100%"
+                sx={{
+                    "&::-webkit-scrollbar-track": {
+                        bgcolor: "transparent"
+                    }
+                }}
+            >
                 <Grid container >
                     <Grid item xs={6} sx={{ p: 2, display: "flex", gap: "20px" }}>
                         <TaskAssign task={task.task} />
@@ -63,10 +73,26 @@ const SingleTask: React.FC<props> = ({ task }) => {
                     </div>
                 </Box>
             </Grid>
-            <Grid item xs={6} sx={{ bgcolor: them.colors.firstColor, py: 2, px: 3 }}>
+            <Grid
+                item
+                xs={6}
+                overflow="auto"
+                height="100%"
+
+                sx={{
+                    bgcolor: them.colors.firstColor,
+                    py: 2,
+                    px: 3,
+                    "&::-webkit-scrollbar-track": {
+                        bgcolor: "transparent"
+                    }
+                }}
+            >
                 <Box >
                     <TaskActivity task={task.task} activities={task.activities} />
                 </Box>
+
+
             </Grid>
         </Grid >
     )

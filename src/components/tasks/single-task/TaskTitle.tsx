@@ -4,14 +4,17 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
 import { ITask } from '../../../interfaces/tasks';
 import { updateTask } from '../../../store/thunk-actions/task-actions';
 import { TextField } from '@mui/material';
+import { useTaskContext } from '../../../hooks/taskContext';
 
 type props = {
     task: ITask,
 }
 
 const TaskTitle: React.FC<props> = ({ task }) => {
-    const { them } = useAppSelector(state => state)
+    const { them, user: { user: { username } } } = useAppSelector(state => state)
     const dispatch = useAppDispatch()
+
+    const { setActivities } = useTaskContext()
 
     const [title, setTitle] = useState<string>(task.title)
 
@@ -28,7 +31,15 @@ const TaskTitle: React.FC<props> = ({ task }) => {
                 data: {
                     [e.target.name]: e.target.value
                 }
-            }));
+            })).unwrap()
+                .then(() => setActivities((s: any) => ([
+                    {
+                        id: 0,
+                        user1: username,
+                        activity: `Change Task title to ${e.target.value}`,
+
+                    }, ...s
+                ])))
 
         } catch (error) {
         }

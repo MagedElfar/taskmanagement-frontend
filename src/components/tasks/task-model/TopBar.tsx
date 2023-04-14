@@ -6,6 +6,8 @@ import { updateTask } from '../../../store/thunk-actions/task-actions';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
 import { ITask } from '../../../interfaces/tasks';
 import { useState } from 'react';
+import { useTaskContext } from '../../../hooks/taskContext';
+import { fullName } from '../../../utilities/helper';
 
 type props = {
     task: ITask;
@@ -14,7 +16,10 @@ type props = {
 const TopBar: React.FC<props> = ({ task }) => {
 
 
-    const { them } = useAppSelector(s => s);
+    const { them, user: { user } } = useAppSelector(s => s);
+
+    const { setActivities } = useTaskContext()
+
 
     const [is_complete, setIsComplete] = useState(task.is_complete)
 
@@ -28,7 +33,21 @@ const TopBar: React.FC<props> = ({ task }) => {
                 is_complete: !is_complete
             }
         })).unwrap()
-            .then(() => setIsComplete(!is_complete))
+            .then(() => {
+                setIsComplete(!is_complete)
+                setActivities((s: any) => ([
+                    {
+                        id: 0,
+                        user1: fullName({
+                            username: user.username,
+                            ...user.profile
+                        }),
+                        activity: `Mark This Task As ${!is_complete ? "Complete" : "Incomplete"}`,
+
+                    }, ...s
+                ]))
+            })
+
     }
 
     return (

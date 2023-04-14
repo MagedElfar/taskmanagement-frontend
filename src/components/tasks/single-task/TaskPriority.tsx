@@ -4,6 +4,7 @@ import { Box, Button, Menu, MenuItem, Tooltip } from '@mui/material';
 import FlagIcon from '@mui/icons-material/Flag';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
 import { updateTask } from '../../../store/thunk-actions/task-actions';
+import { useTaskContext } from '../../../hooks/taskContext';
 
 type props = {
     task: ITask,
@@ -29,7 +30,10 @@ const priorities: Priority[] = [
 const TaskPriority: React.FC<props> = ({ task }) => {
     const [priority, setPriority] = useState(task.priority)
 
-    const { task: { errors } } = useAppSelector(state => state)
+    const { task: { errors }, user: { user: { username } } } = useAppSelector(state => state);
+
+    const { setActivities } = useTaskContext()
+
     const dispatch = useAppDispatch()
 
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -50,6 +54,13 @@ const TaskPriority: React.FC<props> = ({ task }) => {
             .then(() => {
                 setPriority(priority)
                 setAnchorEl(null);
+                setActivities((s: any) => ([
+                    {
+                        id: 0,
+                        user1: username,
+                        activity: `Change Task priority to ${priority}`,
+                    }, ...s
+                ]))
             })
 
 

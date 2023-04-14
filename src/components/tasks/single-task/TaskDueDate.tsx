@@ -10,7 +10,7 @@ import moment, { Moment } from 'moment';
 import ClearIcon from '@mui/icons-material/Clear';
 import { updateTask } from '../../../store/thunk-actions/task-actions';
 import SnackError from '../../common/SnackError';
-import { useTaskContext } from '../../../routes/Task';
+import { useTaskContext } from '../../../hooks/taskContext';
 
 type props = {
     task: ITask,
@@ -19,10 +19,10 @@ type props = {
 
 
 const TaskDueDate: React.FC<props> = ({ task }) => {
-    const { them } = useAppSelector(state => state);
+    const { them, user: { user: { username } } } = useAppSelector(state => state);
 
 
-    // const { setActivities } = useTaskContext()
+    const { setActivities } = useTaskContext()
     const dispatch = useAppDispatch()
 
     const [due_date, setDueDate] = useState<any>(task.due_date && moment(task.due_date))
@@ -38,6 +38,13 @@ const TaskDueDate: React.FC<props> = ({ task }) => {
         })).unwrap().then(() => {
             setDueDate(newValue)
             setOpen(false);
+            setActivities((s: any) => ([
+                {
+                    id: 0,
+                    user1: username,
+                    activity: `Change Task due_date to ${newValue ? moment(newValue).format("YYYY-MM-DD") : "no due date"}`,
+                }, ...s
+            ]))
         })
     }
 

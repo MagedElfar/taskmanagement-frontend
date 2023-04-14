@@ -1,4 +1,4 @@
-import { Box, Chip, IconButton, Toolbar } from '@mui/material';
+import { Box, Chip, Grid, IconButton, Toolbar } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
 import { ITask } from '../../../interfaces/tasks';
 import { useState } from 'react';
 import TaskUploadAttach from '../single-task/TaskAttach';
+import TaskComment from '../single-task/TaskComment';
 
 type props = {
     task: ITask;
@@ -35,16 +36,21 @@ const BottomBar: React.FC<props> = ({ task }) => {
         <Box
             component="div"
             sx={{
-                height: "50px",
-                px: 2,
-                py: "5px",
+                zIndex: "999999",
+                px: 0,
+                height: "56px",
                 bgcolor: "#EFF0F3",
                 display: "flex",
                 justifyContent: "space-between",
-                alignItems: "center"
+                alignItems: "center",
+                position: "relative",
+
             }}
         >
-        </Box>)
+
+            <TaskComment task={task} />
+
+        </Box >)
 }
 
 export default BottomBar

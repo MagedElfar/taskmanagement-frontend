@@ -5,24 +5,13 @@ import SingleTask from '../components/tasks/SingleTask';
 import { ITask, ISingleTask, IActivity } from '../interfaces/tasks';
 import { getTask } from '../utilities/api';
 import { Box, CircularProgress } from '@mui/material';
-
-import { createContext, useContext } from "react"
-export type TaskContent = {
-    activities: IActivity[]
-    setActivities: (activity: any) => void
-}
-export const TaskContext = createContext<TaskContent>({
-    activities: [], // set a default value
-    setActivities: () => { }
-})
-
-export const useTaskContext = () => useContext(TaskContext)
+import { TaskContext } from '../hooks/taskContext';
 
 
 const Task = () => {
     const { id } = useParams();
 
-    const [activities, setActivities] = useState<IActivity[] | any>([]);
+    const [activities, setActivities] = useState<IActivity[]>([]);
 
     const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
@@ -46,29 +35,29 @@ const Task = () => {
 
 
     return (
-        // <TaskContext.Provider
-        //     value={{
-        //         activities,
-        //         setActivities
-        //     }}
-        // >
-        <TaskModel task={task?.task}>
-            {loading ?
-                <Box
-                    component="div"
-                    sx={{
-                        minHeight: "inherit",
-                        display: "flex",
-                        justifyContent: "center",
-                        alignItems: "center"
-                    }}>
-                    <CircularProgress />
-                </Box>
-                :
-                <SingleTask task={task} />
-            }
-        </TaskModel>
-        // </TaskContext.Provider>
+        <TaskContext.Provider
+            value={{
+                activities,
+                setActivities
+            }}
+        >
+            <TaskModel task={task?.task}>
+                {loading ?
+                    <Box
+                        component="div"
+                        sx={{
+                            minHeight: "inherit",
+                            display: "flex",
+                            justifyContent: "center",
+                            alignItems: "center"
+                        }}>
+                        <CircularProgress />
+                    </Box>
+                    :
+                    <SingleTask task={task} />
+                }
+            </TaskModel>
+        </TaskContext.Provider>
 
     )
 }

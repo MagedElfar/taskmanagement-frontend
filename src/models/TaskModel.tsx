@@ -14,7 +14,7 @@ const style = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     width: "90%",
-    height: "80vh",
+    height: "90vh",
     borderRadius: "12px",
     bgcolor: "#fff",
     border: "none",
@@ -50,7 +50,9 @@ const TaskModel: React.FC<props> = ({ children, task }) => {
 
                     {task && <TopBar task={task} />}
 
-                    <Box sx={{ height: "calc(100% - 100px)" }}>
+                    <Box
+                        sx={{ height: "calc(100% - 106px)" }}
+                    >
                         {children}
                     </Box>
 
