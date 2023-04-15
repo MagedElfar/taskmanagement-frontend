@@ -3,8 +3,9 @@ import usePrevious from '../../../hooks/prevState';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
 import { ITask } from '../../../interfaces/tasks';
 import { updateTask } from '../../../store/thunk-actions/task-actions';
-import { TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
 import { useTaskContext } from '../../../hooks/taskContext';
+import { Link } from 'react-router-dom';
 
 type props = {
     task: ITask,
@@ -51,6 +52,22 @@ const TaskTitle: React.FC<props> = ({ task }) => {
 
     return (
         <div className='px-4 py-2'>
+            {
+                task.parentId && <div className='px-4'>
+                    <Link to={`/task/${task.parentId}`}>
+                        <Typography
+                            component="span"
+                            sx={{
+                                fontSize: "12px",
+                                textTransform: "capitalize",
+                                color: "rgba(0, 0, 0, 0.54)",
+                            }}
+                        >
+                            {task.parentTsk}
+                        </Typography>
+                    </Link>
+                </div>
+            }
             <TextField
                 sx={{
                     outline: "0 !important",

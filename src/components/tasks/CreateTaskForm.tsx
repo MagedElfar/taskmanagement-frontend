@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -26,6 +26,8 @@ const schema = yup.object({
 
 const CreateTaskForm = () => {
 
+    const { id } = useParams();
+
 
     const { them, task, space } = useAppSelector((state) => state)
 
@@ -45,7 +47,8 @@ const CreateTaskForm = () => {
     });
 
     const onSubmit = (data: any) => {
-        console.log(data)
+        if (id) data.parentId = id
+
         dispatch(createTask({
             ...data,
             memberId: member?.id || null

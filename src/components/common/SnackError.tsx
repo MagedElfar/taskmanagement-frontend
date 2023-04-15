@@ -25,6 +25,7 @@ const SnackError: React.FC<props> = ({ errors }) => {
                     vertical: 'bottom',
                     horizontal: 'right',
                 }}
+                sx={{ zIndex: "99999999" }}
                 key={index}
                 open={open}
                 autoHideDuration={6000}

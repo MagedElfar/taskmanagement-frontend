@@ -6,7 +6,7 @@ import moment from 'moment';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import { Draggable } from 'react-beautiful-dnd';
 import { toggleDeleteTaskModel } from '../../store/slices/model.slice';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import CheckIcon from '@mui/icons-material/Check';
 
 type props = {
@@ -18,6 +18,7 @@ const TaskCard: React.FC<props> = ({ task, color, index }) => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
     const { them } = useAppSelector(state => state)
+
 
     return (
         <Draggable draggableId={task.id.toString()} index={index}>
@@ -49,6 +50,7 @@ const TaskCard: React.FC<props> = ({ task, color, index }) => {
                                 <img alt="" src={task.taskMedia} />
                             </div>
                         }
+
 
                         <Grid item>
                             <Chip
@@ -82,6 +84,24 @@ const TaskCard: React.FC<props> = ({ task, color, index }) => {
                         </Grid>
 
                     </Grid>
+
+
+                    {
+                        task.parentId && <div className='mb-1'>
+                            <Link to={`task/${task.parentId}`}>
+                                <Typography
+                                    component="span"
+                                    sx={{
+                                        fontSize: "12px",
+                                        textTransform: "capitalize",
+                                        color: "rgba(0, 0, 0, 0.54)",
+                                    }}
+                                >
+                                    {task.parentTsk}
+                                </Typography>
+                            </Link>
+                        </div>
+                    }
 
                     <Typography align='left' variant='h6' sx={{
                         color: them.colors.secondColor,

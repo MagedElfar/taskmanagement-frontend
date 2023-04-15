@@ -34,7 +34,8 @@ export interface ITask {
     assignToImage_url: string,
     projectName: string,
     position: number,
-    taskMedia: string
+    taskMedia: string,
+    parentTsk: string
 }
 
 export interface ISingleTask {
@@ -43,7 +44,8 @@ export interface ISingleTask {
     activities: {
         data: IActivity[],
         count: number
-    }
+    },
+    subTasks: ITask[]
 }
 
 export enum TaskStatus {

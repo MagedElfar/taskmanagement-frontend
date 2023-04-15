@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { ISingleTask } from '../../interfaces/tasks';
+import React, { useEffect, useState } from 'react';
+import { ISingleTask, ITask } from '../../interfaces/tasks';
 import { Box, Divider, Grid } from '@mui/material';
 import { useAppSelector } from '../../hooks/store.hook';
 import TaskPriority from './single-task/TaskPriority';
@@ -12,16 +12,23 @@ import TaskTitle from './single-task/TaskTitle';
 import TaskDescription from './single-task/TaskDescription';
 import TaskAttachment from './single-task/TaskAttach';
 import TaskActivity from './single-task/TaskActivity';
-import TaskComment from './single-task/TaskComment';
+import SubTasks from './single-task/Subatasks';
 
 type props = {
     task: ISingleTask,
 }
 
 
-const SingleTask: React.FC<props> = ({ task }) => {
+const SingleTask: React.FC<props> = ({ task: singleTask }) => {
+
+    const [task, setTask] = useState<ISingleTask | null>(null)
     const { them } = useAppSelector(state => state)
 
+    useEffect(() => {
+        console.log("task.....")
+        setTask(singleTask)
+    }, [singleTask])
+    if (!task) return
     return (
         <Grid container height="100%" >
             <Grid
@@ -67,7 +74,11 @@ const SingleTask: React.FC<props> = ({ task }) => {
                         }} />
                     </div>
                     <TaskAttachment task={task.task} attachments={task.attachments} />
-                    <div>
+                    <div className='mb-4'>
+                        <Label text='Subtasks' />
+                        <SubTasks subTasks={task.subTasks} task={task.task} />
+                    </div>
+                    <div >
                         <Label text='description' />
                         <TaskDescription task={task.task} />
                     </div>
@@ -91,8 +102,6 @@ const SingleTask: React.FC<props> = ({ task }) => {
                 <Box >
                     <TaskActivity task={task.task} activities={task.activities} />
                 </Box>
-
-
             </Grid>
         </Grid >
     )

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import TaskModel from '../models/TaskModel';
 import SingleTask from '../components/tasks/SingleTask';
 import { ITask, ISingleTask, IActivity } from '../interfaces/tasks';
@@ -11,6 +11,7 @@ import { TaskContext } from '../hooks/taskContext';
 const Task = () => {
     const { id } = useParams();
 
+
     const [activities, setActivities] = useState<IActivity[]>([]);
 
     const navigate = useNavigate()
@@ -19,10 +20,11 @@ const Task = () => {
 
     useEffect(() => {
         getSingleTask()
-    }, [])
+    }, [id])
 
     const getSingleTask = async () => {
         try {
+            setTask(null)
             const { data } = await getTask(+id);
             setTask(data)
             setLoading(false)
