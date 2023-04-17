@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import { apiErrorFormat } from "../../utilities/error-format";
 import { ITask } from '../../interfaces/tasks';
 import { assignTask, createTask, deleteTask, getTasks, unassignTask, updateTask, updateTaskStatus, uploadAttachment } from '../thunk-actions/task-actions';
@@ -7,7 +7,8 @@ import { assignTask, createTask, deleteTask, getTasks, unassignTask, updateTask,
 const initialState = {
     loading: false,
     errors: [] as string[],
-    tasks: [] as ITask[]
+    tasks: [] as ITask[],
+    view: "list"
 
 }
 
@@ -15,12 +16,27 @@ const slice = createSlice({
     name: "task",
     initialState,
     reducers: {
+
+        chooseView(state, action) {
+            state.view = action.payload;
+        },
+
         localUpdate(state, { payload: { newArr, index, position, currentPosition } }) {
 
             const direction = position > currentPosition ? "down" : "up";
             newArr[index].position = 0;
 
-            const tasks = newArr.map((task: ITask, index: number) => {
+            if (newArr.length !== state.tasks.length) {
+
+                const restEleArr = current(state).tasks.filter(task => !newArr.some((item: any) => item.id === task.id))
+
+                newArr = [...newArr, ...restEleArr];
+
+                console.log(newArr)
+
+            }
+
+            const tasks: ITask[] = newArr.map((task: ITask, index: number) => {
 
                 if (direction === "up" && task.position >= position && task.position < currentPosition) {
                     return {
@@ -37,11 +53,12 @@ const slice = createSlice({
                 return task
             })
 
+
             tasks[index].position = position;
 
-            console.log(tasks)
-
             state.tasks = tasks
+
+
         },
     },
     extraReducers: (builder) => {
@@ -145,11 +162,14 @@ const slice = createSlice({
                 if (task.id === action.payload.taskId) {
                     task.assignId = action.payload.id;
                     task.assignToImage_url = action.payload.url;
-                    task.assignToUserName = action.payload.username
+                    task.assignToUserName = action.payload.username;
+                    task.assignIdMember = action.payload.memberId
                 }
 
                 return task
             })
+
+            console.log(state.tasks)
             state.loading = false
 
         })
@@ -170,7 +190,8 @@ const slice = createSlice({
                 if (task.id === action.payload) {
                     task.assignId = null;
                     task.assignToImage_url = null;
-                    task.assignToUserName = null
+                    task.assignToUserName = null;
+                    task.assignIdMember = null
                 }
 
                 return task
@@ -211,8 +232,8 @@ const slice = createSlice({
     }
 })
 
-const { localUpdate } = slice.actions;
+const { localUpdate, chooseView } = slice.actions;
 
-export { localUpdate }
+export { localUpdate, chooseView }
 
 export default slice.reducer;

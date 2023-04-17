@@ -130,6 +130,7 @@ export const assignTask = createAsyncThunk<
         username: string,
         url: string,
         taskId: number,
+        memberId: number
     },
     {
         taskId: number,
@@ -145,7 +146,8 @@ export const assignTask = createAsyncThunk<
 
         return {
             ...data.assign,
-            taskId: body.taskId
+            taskId: body.taskId,
+            memberId: body.memberId
         }
     } catch (error) {
         console.log(error)

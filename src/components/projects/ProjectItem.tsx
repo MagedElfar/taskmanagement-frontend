@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks/store.hook';
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert, { AlertProps } from '@mui/material/Alert';
 import { deleteProject, updateProject } from '../../store/thunk-actions/project-actions';
+import { Link, useNavigate } from 'react-router-dom';
 
 type props = {
     project: Project
@@ -26,6 +27,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 const ProjectItem: React.FC<props> = ({ project }) => {
 
     const { them, space, user: { role } } = useAppSelector(state => state);
+
+    const navigate = useNavigate()
 
     const dispatch = useAppDispatch()
 
@@ -67,16 +70,24 @@ const ProjectItem: React.FC<props> = ({ project }) => {
     const deletePro = (data: any) => {
         dispatch(deleteProject({
             id: project.id,
-        })).unwrap().catch(() => {
-            setOpen(true)
-        })
+        })).unwrap()
+            .then(() => navigate("/", { replace: true }))
+            .catch(() => {
+                setOpen(true)
+
+            })
     }
 
 
 
 
     return (
-        <ListItemButton sx={{ pl: 2, py: 1 }}>
+        <ListItemButton sx={{
+            pl: 2,
+            py: "5px !important",
+            justifyContent: "space-between",
+
+        }}>
 
             {space.errors.length > 0 &&
                 space.errors.map((error: string, index: number) => <Snackbar
@@ -137,7 +148,9 @@ const ProjectItem: React.FC<props> = ({ project }) => {
                         />
                     </FormControl>
                     :
-                    <ListItemText sx={{ color: "#FFF", textTransform: "capitalize" }} primary={project.name} />
+                    <Link to={`project/${project.id}`}>
+                        <ListItemText sx={{ "& span": { fontSize: "14px" }, color: "#FFF", textTransform: "capitalize" }} primary={project.name} />
+                    </Link>
 
             }
 

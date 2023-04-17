@@ -34,7 +34,7 @@ const CreateProjectForm = () => {
 
     const onSubmit = (data: any) => {
         dispatch(createProject({ name: data.name, spaceId: +space.id })).unwrap().then((data) => {
-            navigate(`/projects/${data.id}`)
+            navigate(`/project/${data.id}`)
         })
     }
     return (

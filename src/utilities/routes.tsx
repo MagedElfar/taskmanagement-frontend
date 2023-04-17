@@ -12,6 +12,8 @@ import Space from "../routes/Space";
 import LoadingPage from "../routes/LoadingPage";
 import Home from "../routes/Home";
 import Task from "../routes/Task";
+import Project from "../routes/Project";
+import MyTasks from "../routes/MyTasks";
 
 const routes = createBrowserRouter([
     {
@@ -21,6 +23,19 @@ const routes = createBrowserRouter([
             {
                 index: true,
                 element: <Home />
+            },
+            {
+                path: "my-tasks",
+                element: <MyTasks />
+            },
+            {
+                path: "project",
+                children: [
+                    {
+                        path: ":id",
+                        element: <Project />
+                    }
+                ]
             },
             {
                 path: "profile",

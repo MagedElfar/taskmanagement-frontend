@@ -8,6 +8,7 @@ import Groups2Icon from '@mui/icons-material/Groups2';
 import TeamList from '../team/TeamList'
 import { Link } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home';
+import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
 
 const Navigation = () => {
     const { them, space, user } = useAppSelector(s => s)
@@ -28,6 +29,13 @@ const Navigation = () => {
                         <HomeIcon sx={{ fill: them.colors.firstColor }} />
                     </ListItemIcon>
                     <Link to="/" style={{ color: them.colors.firstColor }}>Home</Link>
+                </ListItemButton>
+
+                <ListItemButton >
+                    <ListItemIcon>
+                        <CheckCircleOutlineOutlinedIcon sx={{ fill: them.colors.firstColor }} />
+                    </ListItemIcon>
+                    <Link to="/my-tasks" style={{ color: them.colors.firstColor }}>My Tasks</Link>
                 </ListItemButton>
 
                 <DropDownMenu title='projects' items={space.projects} icon={<FactCheckIcon />}>

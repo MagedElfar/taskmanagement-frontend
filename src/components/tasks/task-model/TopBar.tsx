@@ -72,7 +72,7 @@ const TopBar: React.FC<props> = ({ task }) => {
 
             />
             <IconButton
-                onClick={() => navigate("/")
+                onClick={() => navigate(-1)
                 }
             >
                 <CloseIcon sx={{

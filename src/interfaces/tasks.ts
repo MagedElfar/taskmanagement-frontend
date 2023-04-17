@@ -35,7 +35,8 @@ export interface ITask {
     projectName: string,
     position: number,
     taskMedia: string,
-    parentTsk: string
+    parentTsk: string,
+    assignIdMember: number
 }
 
 export interface ISingleTask {
