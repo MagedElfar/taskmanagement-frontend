@@ -1,0 +1,29 @@
+.table{
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 1px solid #E4E4E4;
+    border-bottom: 1px solid #E4E4E4;
+    background-color: #fff;
+}
+
+.table th,
+.table td{
+    border-bottom: 1px solid #E4E4E4;
+    font-size: 14px;
+    color: #C0C0C0;
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 400;
+    text-transform: capitalize;
+}
+
+.table td{
+    font-weight: 600;
+    color: #0C1A3E;
+}
+
+.table th:not(:last-child),
+.table td:not(:last-child){
+    border-right: 1px solid #E4E4E4;
+
+}

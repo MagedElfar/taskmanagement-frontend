@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useAppSelector } from '../hooks/store.hook'
 import TasksGrid from '../components/tasks/task-view/TasksGrid';
 import { ITask } from '../interfaces/tasks';
+import TaskListView from '../components/tasks/task-view/listview/TaskListView';
 
 const MyTasks = () => {
     const { task: { tasks, view }, space: { team }, user: { user: { id } } } = useAppSelector(state => state);
@@ -16,7 +17,7 @@ const MyTasks = () => {
         <div>
             {
                 view === "list" ?
-                    <TasksGrid tasks={tasks.filter(task => task.assignIdMember === member?.id)} />
+                    <TaskListView tasks={tasks.filter(task => task.assignIdMember === member?.id)} />
                     :
                     <TasksGrid tasks={tasks.filter(task => task.assignIdMember === member?.id)} />
             }
