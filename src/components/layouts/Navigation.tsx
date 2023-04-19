@@ -25,8 +25,8 @@ const Navigation = () => {
                     }
                 }}
             >
-                <ListItemButton >
-                    <Link className='w-full' to="/" style={{ color: them.colors.firstColor }}>
+                <ListItemButton sx={{ display: "flex", alignItems: "center" }} >
+                    <Link className='w-full flex items-center' to="/" style={{ color: them.colors.firstColor }}>
                         <ListItemIcon>
                             <HomeIcon sx={{ fill: them.colors.firstColor }} />
                         </ListItemIcon>
@@ -34,8 +34,8 @@ const Navigation = () => {
                     </Link>
                 </ListItemButton>
 
-                <ListItemButton >
-                    <Link className='w-full' to="/my-tasks" style={{ color: them.colors.firstColor }}>
+                <ListItemButton>
+                    <Link className='w-full flex items-center' to="/my-tasks" style={{ color: them.colors.firstColor }}>
                         <ListItemIcon>
                             <CheckCircleOutlineOutlinedIcon sx={{ fill: them.colors.firstColor }} />
                         </ListItemIcon>
@@ -43,8 +43,8 @@ const Navigation = () => {
                     </Link>
                 </ListItemButton>
 
-                <ListItemButton >
-                    <Link className='w-full' to="/archive" style={{ color: them.colors.firstColor }}>
+                <ListItemButton sx={{ display: "flex", alignItems: "center" }} >
+                    <Link className='w-full flex items-center' to="/archive" style={{ color: them.colors.firstColor }}>
                         <ListItemIcon>
                             <ArchiveIcon sx={{ fill: them.colors.firstColor }} />
                         </ListItemIcon>

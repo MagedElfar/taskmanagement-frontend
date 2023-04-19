@@ -6,6 +6,7 @@ import { useAppSelector } from '../../../hooks/store.hook';
 import NavTopMenu from './NavTopMenu';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import SearchBar from '../../common/SearchBar';
 
 type props = {
     open: Boolean
@@ -92,6 +93,7 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
                 }
                 <Box sx={{ flexGrow: 1 }} />
                 <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center" }}>
+                    <SearchBar />
                     <NavTopMenu />
                 </Box>
             </Box>

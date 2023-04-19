@@ -6,16 +6,18 @@ type props = {
 }
 
 const TaskPriority: React.FC<props> = ({ priority }) => {
+    console.log("pt", priority)
     return (
         <div className='w-full'>
             <Typography
                 component="span"
-                color={
-                    priority === "heigh" ? "error"
-                        : priority === "medium" ? "warning"
-                            : "info"
-                }
+                sx={{
+                    color: priority === "heigh" ? "#d32f2f"
+                        : priority === "medium" ? "#ed6c02"
+                            : "#0288d1"
 
+
+                }}
             >
                 {priority}
             </Typography>

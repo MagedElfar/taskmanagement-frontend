@@ -28,7 +28,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
+    color: "#0C1A3E",
     width: "100%",
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
@@ -54,7 +54,7 @@ const SearchInput: React.FC<Props> = ({ placeHolder, onChange }) => {
     return (
         <Search>
             <SearchIconWrapper>
-                <SearchIcon />
+                <SearchIcon sx={{ fill: "#0C1A3E" }} />
             </SearchIconWrapper>
             <StyledInputBase
                 placeholder={placeHolder}

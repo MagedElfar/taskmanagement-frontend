@@ -39,7 +39,7 @@ const TaskListView: React.FC<props> = ({ tasks }) => {
                         taskList.map((task: ITask) => {
                             return (
                                 <tr key={task.id}>
-                                    <td><Link to={`/task/${task.id}`}>{task.title}</Link></td>
+                                    <td><Link className='w-full block' to={`/task/${task.id}`}>{task.title}</Link></td>
                                     <td> {task.due_date && moment(task.due_date).format("MMM DD")}</td>
                                     <td><TaskProgress taskId={task.id} status={task.status} /></td>
                                     <td><TaskPriority priority={task.priority} /></td>
