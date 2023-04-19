@@ -9,6 +9,7 @@ import TeamList from '../team/TeamList'
 import { Link } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home';
 import CheckCircleOutlineOutlinedIcon from '@mui/icons-material/CheckCircleOutlineOutlined';
+import ArchiveIcon from '@mui/icons-material/Archive';
 
 const Navigation = () => {
     const { them, space, user } = useAppSelector(s => s)
@@ -25,17 +26,30 @@ const Navigation = () => {
                 }}
             >
                 <ListItemButton >
-                    <ListItemIcon>
-                        <HomeIcon sx={{ fill: them.colors.firstColor }} />
-                    </ListItemIcon>
-                    <Link to="/" style={{ color: them.colors.firstColor }}>Home</Link>
+                    <Link className='w-full' to="/" style={{ color: them.colors.firstColor }}>
+                        <ListItemIcon>
+                            <HomeIcon sx={{ fill: them.colors.firstColor }} />
+                        </ListItemIcon>
+                        Home
+                    </Link>
                 </ListItemButton>
 
                 <ListItemButton >
-                    <ListItemIcon>
-                        <CheckCircleOutlineOutlinedIcon sx={{ fill: them.colors.firstColor }} />
-                    </ListItemIcon>
-                    <Link to="/my-tasks" style={{ color: them.colors.firstColor }}>My Tasks</Link>
+                    <Link className='w-full' to="/my-tasks" style={{ color: them.colors.firstColor }}>
+                        <ListItemIcon>
+                            <CheckCircleOutlineOutlinedIcon sx={{ fill: them.colors.firstColor }} />
+                        </ListItemIcon>
+                        My Tasks
+                    </Link>
+                </ListItemButton>
+
+                <ListItemButton >
+                    <Link className='w-full' to="/archive" style={{ color: them.colors.firstColor }}>
+                        <ListItemIcon>
+                            <ArchiveIcon sx={{ fill: them.colors.firstColor }} />
+                        </ListItemIcon>
+                        Archive
+                    </Link>
                 </ListItemButton>
 
                 <DropDownMenu title='projects' items={space.projects} icon={<FactCheckIcon />}>

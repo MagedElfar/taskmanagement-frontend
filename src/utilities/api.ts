@@ -111,6 +111,8 @@ export const updateTaskOrder = (id: number, data: { status: string, position: nu
 
 export const markTaskComplete = (id: number) => API.patch(`/tasks/complete/${id}`)
 
+export const archiveTask = (id: number) => API.patch(`tasks/archive/${id}`)
+
 export const assignTask = (data: { taskId: number, memberId: number }) => API.post("/tasks/assign", data)
 
 export const unassignTask = (id: number) => API.delete(`/tasks/assign/${id}`)
@@ -126,3 +128,4 @@ export const addComment = (data: { taskId: number, activity: string }) => API.po
 export const deleteComment = (id: number) => API.delete(`/activities/${id}`)
 
 export const updateComment = (id: number, data: { activity: string }) => API.put(`/activities/${id}`, data)
+

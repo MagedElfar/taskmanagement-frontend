@@ -1,7 +1,7 @@
 import { createSlice, current } from "@reduxjs/toolkit";
 import { apiErrorFormat } from "../../utilities/error-format";
 import { ITask } from '../../interfaces/tasks';
-import { assignTask, createTask, deleteTask, getTasks, unassignTask, updateTask, updateTaskStatus, uploadAttachment } from '../thunk-actions/task-actions';
+import { archiveTask, assignTask, createTask, deleteTask, getTasks, unassignTask, updateTask, updateTaskStatus, uploadAttachment } from '../thunk-actions/task-actions';
 
 
 const initialState = {
@@ -147,6 +147,27 @@ const slice = createSlice({
         })
 
         builder.addCase(deleteTask.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        //archive task
+        builder.addCase(archiveTask.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(archiveTask.fulfilled, (state, action) => {
+            if (!action.payload.task.is_archived) {
+                state.tasks = state.tasks.filter((task: ITask) => task.id !== action.payload.task.id)
+            } else {
+                state.tasks = [...state.tasks, action.payload.task]
+            }
+            state.loading = false
+
+        })
+
+        builder.addCase(archiveTask.rejected, (state, action) => {
             state.loading = false;
             state.errors = apiErrorFormat(action.payload);
         })

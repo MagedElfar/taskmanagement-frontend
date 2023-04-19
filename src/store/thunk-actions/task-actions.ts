@@ -15,7 +15,7 @@ export const getTasks = createAsyncThunk<
 >("task/getTasks", async (spaceId, thunkApi) => {
     const { rejectWithValue } = thunkApi;
     try {
-        const { data } = await api.getTasks(`?spaceId=${spaceId}&orderBy=position&order=asc`)
+        const { data } = await api.getTasks(`?spaceId=${spaceId}&orderBy=position&order=asc&is_archived=0`)
 
         return data.tasks.data;
     } catch (error) {
@@ -204,6 +204,28 @@ export const uploadAttachment = createAsyncThunk<
             attachments: data.attachments
         };
 
+    } catch (error) {
+        console.log(error)
+        return rejectWithValue(error)
+    }
+})
+
+export const archiveTask = createAsyncThunk<
+    {
+        task: ITask
+    },
+    {
+        task: ITask
+    }
+    , {
+        rejectValue: unknown
+    }
+>("task/archiveTask", async (data, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+        await api.archiveTask(data.task.id)
+
+        return data
     } catch (error) {
         console.log(error)
         return rejectWithValue(error)

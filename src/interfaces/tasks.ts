@@ -36,7 +36,8 @@ export interface ITask {
     position: number,
     taskMedia: string,
     parentTsk: string,
-    assignIdMember: number
+    assignIdMember: number,
+    is_archived: boolean
 }
 
 export interface ISingleTask {

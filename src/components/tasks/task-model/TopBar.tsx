@@ -2,12 +2,14 @@ import { Box, Chip, IconButton } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import CloseIcon from '@mui/icons-material/Close';
 import { useNavigate } from 'react-router-dom';
-import { updateTask } from '../../../store/thunk-actions/task-actions';
+import { archiveTask, updateTask } from '../../../store/thunk-actions/task-actions';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
 import { ITask } from '../../../interfaces/tasks';
 import { useState } from 'react';
 import { useTaskContext } from '../../../hooks/taskContext';
 import { fullName } from '../../../utilities/helper';
+import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
+import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
 
 type props = {
     task: ITask;
@@ -22,6 +24,8 @@ const TopBar: React.FC<props> = ({ task }) => {
 
 
     const [is_complete, setIsComplete] = useState(task.is_complete)
+    const [is_archived, setIsArchived] = useState(task.is_archived)
+
 
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
@@ -47,7 +51,26 @@ const TopBar: React.FC<props> = ({ task }) => {
                     }, ...s
                 ]))
             })
+    }
 
+    const taskArchive = () => {
+        dispatch(archiveTask({
+            task
+        })).unwrap()
+            .then(() => {
+                setIsArchived(!is_archived)
+                setActivities((s: any) => ([
+                    {
+                        id: 0,
+                        user1: fullName({
+                            username: user.username,
+                            ...user.profile
+                        }),
+                        activity: `${!is_archived ? "add this task to archive" : "remove this task from archive"}`,
+
+                    }, ...s
+                ]))
+            })
     }
 
     return (
@@ -62,15 +85,30 @@ const TopBar: React.FC<props> = ({ task }) => {
                 alignItems: "center"
             }}
         >
-            <Chip
-                size='small'
-                color='success'
-                variant={is_complete ? "filled" : "outlined"}
-                icon={<CheckIcon />}
-                onClick={onClick}
-                label={is_complete ? "Completed" : "Mark Complete"}
+            <div className='flex gap-x-3'>
+                <Chip
+                    size='small'
+                    color='success'
+                    sx={{ p: 1 }}
+                    variant={is_complete ? "filled" : "outlined"}
+                    icon={<CheckIcon />}
+                    onClick={onClick}
+                    label={is_complete ? "Completed" : "Mark Complete"}
 
-            />
+                />
+
+                <Chip
+                    size='small'
+                    color='secondary'
+                    sx={{ p: 1 }}
+                    variant={is_archived ? "filled" : "outlined"}
+                    icon={is_archived ? <ArchiveOutlinedIcon /> : <UnarchiveOutlinedIcon />}
+                    onClick={taskArchive}
+                    label={is_archived ? "Archived" : "Add to Archive"}
+
+                />
+            </div>
+
             <IconButton
                 onClick={() => navigate(-1)
                 }

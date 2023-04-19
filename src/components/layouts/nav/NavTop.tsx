@@ -26,6 +26,8 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
         subTitle = project?.name;
     } else if (location.pathname.includes("my-tasks")) {
         subTitle = "My Tasks"
+    } else if (location.pathname.includes("archive")) {
+        subTitle = "Archive"
     }
 
     const menuId = 'primary-search-account-menu';
