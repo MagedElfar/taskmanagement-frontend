@@ -65,7 +65,6 @@ const SearchBar = () => {
     }
 
     const navigateTo = (id: number) => {
-        setTerm("");
         setOpen(false);
         setTasks([]);
         setOffset(1)
@@ -93,6 +92,7 @@ const SearchBar = () => {
             position="relative"
             zIndex="99999"
             width="280px"
+            mr={2}
         >
             <SnackError errors={errors} />
             <Box
@@ -121,7 +121,7 @@ const SearchBar = () => {
                             justifyContent="center"
                             p={2}
                         >
-                            <CircularProgress sx={{ width: "20px", height: "20px" }} />
+                            <CircularProgress sx={{ width: "10px", height: "10px" }} />
 
                         </Box>
                         :
@@ -129,7 +129,10 @@ const SearchBar = () => {
 
                         >
                             {tasks.length > 0 ?
-                                tasks.map(task => <MenuItem onClick={() => navigateTo(task.id)}>
+                                tasks.map(task => <MenuItem
+                                    key={task.id}
+                                    onClick={() => navigateTo(task.id)}
+                                >
                                     <Typography sx={{
                                         fontSize: "14px"
                                     }}>

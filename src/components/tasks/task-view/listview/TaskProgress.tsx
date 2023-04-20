@@ -26,6 +26,10 @@ const TaskProgress: React.FC<props> = ({ taskId, status }) => {
         setAnchorEl(event.currentTarget);
     };
     const handleClose = (status: string) => {
+        if (typeof (status) !== "string") {
+            setAnchorEl(null);
+            return;
+        }
         dispatch(updateTaskStatus({
             id: taskId,
             status

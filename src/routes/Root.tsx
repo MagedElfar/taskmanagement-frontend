@@ -44,8 +44,10 @@ function Root() {
                 <Drawer
                     variant="permanent"
                     open={open}
-                    sx={{
-                        backgroundColor: them.colors.firstColor
+                    PaperProps={{
+                        sx: {
+                            bgcolor: "transparent"
+                        }
                     }}
                 >
                     <DrawerHeader>

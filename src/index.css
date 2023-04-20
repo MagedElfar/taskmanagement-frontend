@@ -48,3 +48,40 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
+
+
+  /*fullcalender*/
+  .fc thead th{
+    background: #0C1A3E;
+    color: #FFF;
+  }
+
+  .fc .fc-button-group{
+    gap: 7px
+  }
+
+  .fc .fc-button-primary,
+  .fc .fc-button-group button{
+    background-color: #0C1A3E;
+  }
+
+  .fc .fc-button-group button{
+    border-radius: .25rem !important;
+  }
+
+  .fc thead th > div a {
+    padding: 10px !important;
+  }
+
+  .fc tbody td {
+    background-color: #FFF;
+  }
+
+  .fc .fc-daygrid-day.fc-day-today{
+    background-color:#EFF3FF;
+  }
+
+  .fc-h-event{
+    background-color: transparent;
+    border: none
+  }

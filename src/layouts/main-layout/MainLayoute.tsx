@@ -5,10 +5,9 @@ import store from '../../store';
 
 const drawerWidth = 300;
 
-const { them } = store.getState()
+const { them: localThem } = store.getState()
 
 const openedMixin = (theme: Theme): CSSObject => ({
-    backgroundColor: them.colors.secondColor,
     width: drawerWidth,
     transition: theme.transitions.create('width', {
         easing: theme.transitions.easing.sharp,
@@ -43,7 +42,7 @@ interface AppBarProps extends MuiAppBarProps {
 const AppBar = styled(MuiAppBar, {
     shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
-    backgroundColor: "#fff",
+    backgroundColor: "red",
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
         easing: theme.transitions.easing.sharp,
@@ -66,7 +65,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
-
+        backgroundColor: localThem.colors.secondColor,
         ...(open && {
             ...openedMixin(theme),
             '& .MuiDrawer-paper': openedMixin(theme),

@@ -6,7 +6,6 @@ type props = {
 }
 
 const TaskPriority: React.FC<props> = ({ priority }) => {
-    console.log("pt", priority)
     return (
         <div className='w-full'>
             <Typography

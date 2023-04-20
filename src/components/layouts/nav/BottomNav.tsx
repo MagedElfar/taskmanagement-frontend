@@ -36,28 +36,32 @@ const BottomNav = () => {
                     location.pathname.includes("my-tasks") ?
                         <>
                             <Tooltip title="List View">
-                                <IconButton
-                                    onClick={() => dispatch(chooseView("list"))}
-                                    disabled={view === "list" || false}
-                                >
-                                    <FormatListBulletedIcon sx={{
-                                        fill: them.colors.secondColor,
-                                        width: "20px",
-                                        opacity: view === "list" ? 1 : 0.6
-                                    }} />
-                                </IconButton>
+                                <div>
+                                    <IconButton
+                                        onClick={() => dispatch(chooseView("list"))}
+                                        disabled={view === "list" || false}
+                                    >
+                                        <FormatListBulletedIcon sx={{
+                                            fill: them.colors.secondColor,
+                                            width: "20px",
+                                            opacity: view === "list" ? 1 : 0.6
+                                        }} />
+                                    </IconButton>
+                                </div>
                             </Tooltip>
                             <Tooltip title="Grid View">
-                                <IconButton
-                                    onClick={() => dispatch(chooseView("grid"))}
-                                    disabled={view === "grid" || false}
-                                >
-                                    <GridViewIcon sx={{
-                                        fill: them.colors.secondColor,
-                                        width: "20px",
-                                        opacity: view === "grid" ? 0.7 : 0.6
-                                    }} />
-                                </IconButton>
+                                <div>
+                                    <IconButton
+                                        onClick={() => dispatch(chooseView("grid"))}
+                                        disabled={view === "grid" || false}
+                                    >
+                                        <GridViewIcon sx={{
+                                            fill: them.colors.secondColor,
+                                            width: "20px",
+                                            opacity: view === "grid" ? 0.7 : 0.6
+                                        }} />
+                                    </IconButton>
+                                </div>
                             </Tooltip>
                         </>
                         :

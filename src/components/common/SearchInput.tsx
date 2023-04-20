@@ -41,10 +41,11 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 type Props = {
     placeHolder: string,
-    onChange: (term: string) => void
+    onChange: (term: string) => void,
+    term?: string
 };
 
-const SearchInput: React.FC<Props> = ({ placeHolder, onChange }) => {
+const SearchInput: React.FC<Props> = ({ placeHolder, onChange, term }) => {
 
     const handelChang = (e: React.ChangeEvent<HTMLInputElement>) => {
         onChange(e.target.value)
@@ -57,6 +58,7 @@ const SearchInput: React.FC<Props> = ({ placeHolder, onChange }) => {
                 <SearchIcon sx={{ fill: "#0C1A3E" }} />
             </SearchIconWrapper>
             <StyledInputBase
+                defaultValue={term || ""}
                 placeholder={placeHolder}
                 onChange={handelChang}
                 inputProps={{ 'aria-label': 'search' }}
