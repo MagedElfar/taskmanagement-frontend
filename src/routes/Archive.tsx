@@ -50,8 +50,8 @@ const Archive = () => {
             setLoading(true)
 
             if (!spaceId) return;
-            const { data } = await getTasks(`?spaceId=${spaceId}&orderBy=position&order=asc&limit=4&page=${page}&term=${term}&is_archived=1`);
-            const count = Math.ceil(data.tasks.count / 4);
+            const { data } = await getTasks(`?spaceId=${spaceId}&orderBy=position&order=asc&limit=10&page=${page}&term=${term}&is_archived=1`);
+            const count = Math.ceil(data.tasks.count / 10);
 
             setCount(count)
             setTasks(data.tasks.data)

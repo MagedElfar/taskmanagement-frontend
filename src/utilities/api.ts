@@ -77,6 +77,8 @@ export const getInitSpace = () => API.get("/spaces/user/init")
 
 export const createSpace = (data: createSpaceDto) => API.post("/spaces", data)
 
+export const getSpaceReport = (id: number, query?: string) => API.get(`/spaces/report/${id}${query ? query : ""}`)
+
 //team
 export const invite = (data: { space: number, email: string }) => API.post("/teams/invite", data)
 

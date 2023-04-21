@@ -31,6 +31,8 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
         subTitle = "Archive"
     } else if (location.pathname.includes("calender")) {
         subTitle = "Calender"
+    } else if (location.pathname.includes("reports")) {
+        subTitle = "Reports"
     }
 
     const menuId = 'primary-search-account-menu';

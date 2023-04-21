@@ -16,6 +16,7 @@ import Project from "../routes/Project";
 import MyTasks from "../routes/MyTasks";
 import Archive from "../routes/Archive";
 import Calender from "../routes/Calender";
+import Reports from "../routes/Reports";
 
 const routes = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const routes = createBrowserRouter([
             {
                 path: "my-tasks",
                 element: <MyTasks />
+            },
+            {
+                path: "reports",
+                element: <Reports />
             },
             {
                 path: "calender",

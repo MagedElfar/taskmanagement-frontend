@@ -85,3 +85,7 @@
     background-color: transparent;
     border: none
   }
+
+  .recharts-legend-item{
+    font-size: 12px;
+  }
