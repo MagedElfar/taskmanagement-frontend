@@ -3,7 +3,7 @@ import { RootState } from './../index';
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import * as api from "./../../utilities/api"
 import { CreateTaskDto, ITask } from "../../interfaces/tasks";
-import { Member } from '../../interfaces/space';
+import socket from '../../utilities/socket';
 
 
 export const getTasks = createAsyncThunk<
@@ -34,6 +34,8 @@ export const createTask = createAsyncThunk<
     const { rejectWithValue } = thunkApi;
     try {
         const { data } = await api.createTask(body)
+
+        socket.emit("createTask", data.task)
 
         return data.task;
     } catch (error) {
@@ -87,12 +89,21 @@ export const updateTask = createAsyncThunk<
 
         if (key === "is_complete") {
             const { data } = await api.markTaskComplete(body.id);
+
+            socket.emit("updateTask", {
+                id: body.id,
+                is_complete: body.data.is_complete,
+                spaceId: + state.space.id
+            });
+
             return { id: body.id, is_complete: body.data.is_complete }
         } else {
             const { data } = await api.updateTask(body.id, {
                 ...body.data,
                 spaceId: +state.space.id
             });
+
+            socket.emit("updateTask", data.task)
 
 
             return data.task;
@@ -110,12 +121,19 @@ export const deleteTask = createAsyncThunk<
     ,
     number
     , {
+        state: RootState,
         rejectValue: unknown
     }
 >("task/deleteTask", async (data, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
+    const { rejectWithValue, getState } = thunkApi;
     try {
+        const state = getState()
         await api.deleteTask(data)
+
+        socket.emit("deleteTask", {
+            spaceId: state.space.id,
+            taskId: data
+        })
 
         return data;
     } catch (error) {
@@ -137,12 +155,25 @@ export const assignTask = createAsyncThunk<
         memberId: number
     }
     , {
+        state: RootState
         rejectValue: unknown
     }
 >("task/assignTask", async (body, thunkApi) => {
-    const { rejectWithValue } = thunkApi;
+    const { rejectWithValue, getState } = thunkApi;
     try {
+        const state = getState()
+
         const { data } = await api.assignTask({ taskId: body.taskId, memberId: body.memberId })
+
+        socket.emit("updateTask", {
+            id: body.taskId,
+            memberId: body.memberId,
+            assignId: data.assign.id,
+            assignToImage_url: data.assign.url,
+            assignToUserName: data.assign.username,
+            assignIdMember: data.assign.memberId,
+            spaceId: + state.space.id
+        });
 
         return {
             ...data.assign,

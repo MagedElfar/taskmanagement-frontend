@@ -21,12 +21,21 @@ const slice = createSlice({
             state.view = action.payload;
         },
 
-        syncUpdateTask(state, { payload: { updatedTask } }) {
+        syncCreateTask(state, action) {
+            state.tasks = [...state.tasks, action.payload]
+        },
+
+        syncDeleteTask(state, action) {
+            state.tasks = state.tasks.filter((task: ITask) => task.id !== action.payload)
+        },
+
+
+        syncUpdateTask(state, action) {
             state.tasks = state.tasks.map((task: ITask) => {
-                if (task.id === updatedTask.id) {
+                if (task.id === action.payload.id) {
                     return {
                         ...task,
-                        ...updateTask
+                        ...action.payload
                     }
                 }
 
@@ -274,8 +283,22 @@ const slice = createSlice({
     }
 })
 
-const { localUpdate, chooseView, syncUpdateTask, syncArchiveTask } = slice.actions;
+const {
+    localUpdate,
+    chooseView,
+    syncUpdateTask,
+    syncArchiveTask,
+    syncCreateTask,
+    syncDeleteTask
+} = slice.actions;
 
-export { localUpdate, chooseView, syncUpdateTask, syncArchiveTask }
+export {
+    localUpdate,
+    chooseView,
+    syncUpdateTask,
+    syncArchiveTask,
+    syncCreateTask,
+    syncDeleteTask
+}
 
 export default slice.reducer;

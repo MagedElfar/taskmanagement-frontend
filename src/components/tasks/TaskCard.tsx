@@ -19,6 +19,7 @@ const TaskCard: React.FC<props> = ({ task, color, index }) => {
     const dispatch = useAppDispatch()
     const { them } = useAppSelector(state => state)
 
+    console.log("task = ", task)
 
     return (
         <Draggable draggableId={task.id.toString()} index={index}>
