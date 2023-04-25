@@ -10,6 +10,7 @@ import { useTaskContext } from '../../../hooks/taskContext';
 import { fullName } from '../../../utilities/helper';
 import ArchiveOutlinedIcon from '@mui/icons-material/ArchiveOutlined';
 import UnarchiveOutlinedIcon from '@mui/icons-material/UnarchiveOutlined';
+import socket from '../../../utilities/socket';
 
 type props = {
     task: ITask;
@@ -50,6 +51,10 @@ const TopBar: React.FC<props> = ({ task }) => {
 
                     }, ...s
                 ]))
+
+                socket.emit("updateTask", {
+                    is_complete: !is_complete
+                })
             })
     }
 
@@ -57,8 +62,9 @@ const TopBar: React.FC<props> = ({ task }) => {
         dispatch(archiveTask({
             task
         })).unwrap()
-            .then(() => {
-                setIsArchived(!is_archived)
+            .then((data) => {
+                setIsArchived(!is_archived);
+
                 setActivities((s: any) => ([
                     {
                         id: 0,
@@ -70,6 +76,13 @@ const TopBar: React.FC<props> = ({ task }) => {
 
                     }, ...s
                 ]))
+
+                socket.emit("archiveTask", {
+                    task: {
+                        ...task,
+                        is_archived: !is_archived
+                    }
+                })
             })
     }
 

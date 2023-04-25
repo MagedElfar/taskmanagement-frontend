@@ -26,8 +26,8 @@ const ReportTitle: React.FC<props> = ({ updateRange }) => {
 
         if (moment(range.selection.startDate).isSame(moment(range.selection.endDate), 'day')) return
 
-        const fromDate = moment(range.selection.startDate).format('YYYY-MM-DD');
-        const toDate = moment(range.selection.endDate).format('YYYY-MM-DD');
+        const fromDate = moment(range.selection.startDate).format('YYYY-MM-DD HH:mm:ss');
+        const toDate = moment(range.selection.endDate).format('YYYY-MM-DD HH:mm:ss');
 
         updateRange(fromDate, toDate)
 
@@ -46,18 +46,18 @@ const ReportTitle: React.FC<props> = ({ updateRange }) => {
         if (filter === "all") {
             updateRange(null, null)
         } else if (filter === "daily") {
-            const fromDate = moment().startOf('day').format('YYYY-MM-DD');
-            const toDate = moment().endOf('day').format('YYYY-MM-DD');
+            const fromDate = moment().startOf('day').format('YYYY-MM-DD HH:mm:ss');
+            const toDate = moment().endOf('day').format('YYYY-MM-DD HH:mm:ss');
 
             updateRange(fromDate, toDate)
         } else if (filter === "weekly") {
-            const fromDate = moment().startOf('isoWeek').format('YYYY-MM-DD');
-            const toDate = moment().endOf('isoWeek').format('YYYY-MM-DD');
+            const fromDate = moment().startOf('isoWeek').format('YYYY-MM-DD HH:mm:ss');
+            const toDate = moment().endOf('isoWeek').format('YYYY-MM-DD HH:mm:ss');
 
             updateRange(fromDate, toDate)
         } else if (filter === "monthly") {
-            const fromDate = moment().startOf('month').format('YYYY-MM-DD');
-            const toDate = moment().endOf('month').format('YYYY-MM-DD');
+            const fromDate = moment().startOf('month').format('YYYY-MM-DD HH:mm:ss');
+            const toDate = moment().endOf('month').format('YYYY-MM-DD HH:mm:ss');
 
             updateRange(fromDate, toDate)
         } else {

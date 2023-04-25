@@ -21,6 +21,27 @@ const slice = createSlice({
             state.view = action.payload;
         },
 
+        syncUpdateTask(state, { payload: { updatedTask } }) {
+            state.tasks = state.tasks.map((task: ITask) => {
+                if (task.id === updatedTask.id) {
+                    return {
+                        ...task,
+                        ...updateTask
+                    }
+                }
+
+                return task
+            })
+        },
+
+        syncArchiveTask(state, action) {
+            if (action.payload.task.is_archived) {
+                state.tasks = state.tasks.filter((task: ITask) => task.id !== action.payload.task.id)
+            } else {
+                state.tasks = [...state.tasks, action.payload.task]
+            }
+        },
+
         localUpdate(state, { payload: { newArr, index, position, currentPosition } }) {
 
             const direction = position > currentPosition ? "down" : "up";
@@ -253,8 +274,8 @@ const slice = createSlice({
     }
 })
 
-const { localUpdate, chooseView } = slice.actions;
+const { localUpdate, chooseView, syncUpdateTask, syncArchiveTask } = slice.actions;
 
-export { localUpdate, chooseView }
+export { localUpdate, chooseView, syncUpdateTask, syncArchiveTask }
 
 export default slice.reducer;

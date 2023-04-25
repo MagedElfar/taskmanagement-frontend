@@ -10,6 +10,8 @@ import Nav from '../components/layouts/nav/Nav';
 import { getInitSpace, getSpace } from '../store/thunk-actions/space-actions';
 import Navigation from '../components/layouts/Navigation';
 import Models from '../models/Models';
+import socket from '../utilities/socket';
+import { localUpdate, syncArchiveTask } from '../store/slices/task.slice';
 
 function Root() {
     const { them, space } = useAppSelector(s => s)
@@ -18,11 +20,26 @@ function Root() {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+
+        socket.on("updateAllTasks", (data) => {
+            dispatch(localUpdate(data))
+        })
+
+        socket.on("archiveTask", (data) => {
+            dispatch(syncArchiveTask(data))
+        })
+
+
         if (space.id) {
             dispatch(getSpace(+space.id))
         } else {
             dispatch(getInitSpace())
         }
+
+        return () => {
+            socket.disconnect()
+        }
+
     }, [])
 
     const handleDrawerOpen = () => {

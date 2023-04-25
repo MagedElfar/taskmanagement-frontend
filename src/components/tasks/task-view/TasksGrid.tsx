@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
 import { updateTaskOrder } from '../../../utilities/api';
 import { apiErrorFormat } from '../../../utilities/error-format';
 import { localUpdate } from '../../../store/slices/task.slice';
+import socket from '../../../utilities/socket';
 
 type props = {
     tasks: ITask[]
@@ -15,7 +16,7 @@ type props = {
 const TasksGrid: React.FC<props> = ({ tasks }) => {
     const [errors, setErrors] = useState([]);
 
-    const { them, task } = useAppSelector(state => state);
+    const { them, task, space } = useAppSelector(state => state);
     const dispatch = useAppDispatch()
 
     const statusTask = {
@@ -74,6 +75,15 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
                 position,
                 index
             }))
+
+
+            socket.emit("updateAllTasks", {
+                spaceId: space.id,
+                newArr,
+                currentPosition,
+                position,
+                index
+            })
 
         } catch (error) {
             console.log(error)
