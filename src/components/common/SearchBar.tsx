@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import SearchInput from './SearchInput'
 import { useAppSelector } from '../../hooks/store.hook'
 import { ITask } from '../../interfaces/tasks'
@@ -22,6 +22,8 @@ const SearchBar = () => {
 
     const [open, setOpen] = useState(false);
 
+    const containerRef = useRef(null);
+
 
     const handleToggle = () => {
         setOpen((prevOpen) => !prevOpen);
@@ -43,9 +45,14 @@ const SearchBar = () => {
         setTerm(term)
     }
 
+    useEffect(() => {
+        containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [tasks]);
+
     const fetchTasks = async () => {
         try {
-            setLoading(true)
+            setLoading(true);
+
             const { data } = await getTasks(`?spaceId=${spaceId}&orderBy=position&order=asc&limit=5&page=${offset}&term=${term}`);;
 
             setOffset(s => s + 1);
@@ -126,7 +133,11 @@ const SearchBar = () => {
                         </Box>
                         :
                         <MenuList
-
+                            sx={{
+                                maxHeight: "165px",
+                                py: 0,
+                                overflow: "auto"
+                            }}
                         >
                             {tasks.length > 0 ?
                                 tasks.map(task => <MenuItem
@@ -148,25 +159,25 @@ const SearchBar = () => {
 
                             }
 
-                            {
-                                (maxOffset >= offset && tasks.length > 0) &&
-                                <>
-                                    <Divider />
-                                    <MenuItem>
-                                        <Button
-                                            fullWidth
-                                            variant='text'
-                                            sx={{
-                                                fontSize: "14px", textTransform: "none", p: 0, textAlign: "center"
-                                            }}
-                                            onClick={fetchTasks}
-                                        >
-                                            Load More...
-                                        </Button>
-                                    </MenuItem>
-                                </>
-                            }
+                            <div ref={containerRef} />
                         </MenuList>
+                    }
+
+                    {
+                        (maxOffset >= offset && tasks.length > 0) &&
+                        <>
+                            <Divider />
+                            <Button
+                                fullWidth
+                                variant='text'
+                                sx={{
+                                    fontSize: "14px", textTransform: "none", textAlign: "center"
+                                }}
+                                onClick={fetchTasks}
+                            >
+                                Load More...
+                            </Button>
+                        </>
                     }
                 </Box>
             }
