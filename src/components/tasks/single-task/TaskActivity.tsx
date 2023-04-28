@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { IActivity, ITask } from '../../../interfaces/tasks'
 import { Box, Button, Typography } from '@mui/material'
 import moment from 'moment';
@@ -15,6 +15,7 @@ const TaskActivity: React.FC<props> = ({ activities: { data, count }, task }) =>
 
     const { activities, setActivities } = useTaskContext()
 
+    const containerRef = useRef(null);
 
     const [offset, setOffset] = useState(2)
 
@@ -37,6 +38,10 @@ const TaskActivity: React.FC<props> = ({ activities: { data, count }, task }) =>
 
     }
 
+    useEffect(() => {
+        containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [activities]);
+
     return (
         <Box>
             <div className='flex items-center mb-6'>
@@ -56,6 +61,8 @@ const TaskActivity: React.FC<props> = ({ activities: { data, count }, task }) =>
                         </div>
                     ))
                 }
+                <div ref={containerRef} />
+
             </div>
 
             {

@@ -26,6 +26,8 @@ type props = {
 
 const UserCard: React.FC<props> = ({ report }) => {
     const { them } = useAppSelector(state => state)
+
+    console.log(report)
     return (
         <Box
             sx={{

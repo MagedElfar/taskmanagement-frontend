@@ -145,7 +145,7 @@ const TaskActivityList: React.FC<props> = ({ activity }) => {
 
                     :
                     <>
-                        <Typography component="span" fontSize="12px">
+                        <Typography component="span" fontSize="12px" maxWidth="70%">
                             <span className='capitalize'>{user1} </span>
                             {activity.activity}
                             <span className='capitalize'> {`${activity.user2 ? user2 : ""}`}</span>

@@ -14,7 +14,7 @@ const TeamReport: React.FC<props> = ({ report }) => {
     const { them, space: { team } } = useAppSelector(state => state)
 
     const members: ISpaceTeamReport[] = team.map((item: Member) => {
-        const member = report.find(member => member.memberId === item.id)
+        const member = report.find(member => member.memberId === item.userId)
 
         if (!member) {
             return {

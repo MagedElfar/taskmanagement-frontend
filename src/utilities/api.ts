@@ -133,3 +133,11 @@ export const updateComment = (id: number, data: { activity: string }) => API.put
 
 //notification
 export const getNotifications = ({ space_id, limit, page }: { space_id: number, limit: number, page: number }) => API.get(`/notifications?space_id=${space_id}&page=${page}&limit=${limit}`)
+
+export const readNotifications = (id: number) => API.patch(`/notifications/${id}`)
+
+export const markAllReadNotifications = () => API.patch("/notifications")
+
+export const deleteNotifications = (id: number) => API.delete(`/notifications/${id}`)
+
+export const deleteAllNotifications = () => API.delete("/notifications")

@@ -67,6 +67,7 @@ const TaskComment: React.FC<props> = ({ task }) => {
             height="auto"
             zIndex={99999}
             bgcolor="#EFF0F3"
+            overflow="hidden"
             sx={{
                 transition: "max-height 0.3s",
                 // display: "flex",
