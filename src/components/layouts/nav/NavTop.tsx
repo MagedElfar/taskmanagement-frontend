@@ -91,7 +91,7 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
                             textTransform: "capitalize"
                         }}
                     >
-                        {space.name}
+                        {location.pathname.includes("inbox") ? "Inbox" : space.name}
                     </Typography>
 
                 }

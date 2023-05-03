@@ -60,7 +60,6 @@ const StyledMenu = styled((props: MenuProps) => (
 }));
 
 const SpaceMenu = () => {
-    console.log("test")
 
     const { them, space, user } = useAppSelector(s => s);
     const dispatch = useAppDispatch();

@@ -17,6 +17,7 @@ import MyTasks from "../routes/MyTasks";
 import Archive from "../routes/Archive";
 import Calender from "../routes/Calender";
 import Reports from "../routes/Reports";
+import Inbox from "../routes/Inbox";
 
 const routes = createBrowserRouter([
     {
@@ -91,6 +92,10 @@ const routes = createBrowserRouter([
                         element: <div>home</div>
                     }
                 ]
+            },
+            {
+                path: "inbox",
+                element: <Inbox />
             }
         ]
     },

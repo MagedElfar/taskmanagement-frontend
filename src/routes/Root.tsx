@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { Box, Avatar, IconButton, Divider, CssBaseline } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import withGuard from '../utilities/withGuard'
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppBar, Drawer, DrawerHeader } from '../layouts/main-layout/MainLayoute';
 import { useAppDispatch, useAppSelector } from '../hooks/store.hook';
 import Nav from '../components/layouts/nav/Nav';
@@ -16,9 +16,14 @@ function Root() {
     const { them, space } = useAppSelector(s => s)
     const [open, setOpen] = React.useState(true);
 
+    const location = useLocation()
+
     const dispatch = useAppDispatch();
 
     useEffect(() => {
+
+        socket.connect();
+
 
         socketListener(dispatch)
 
@@ -50,6 +55,8 @@ function Root() {
                 <AppBar position="fixed" open={open}>
                     <Nav open={open} onClick={handleDrawerOpen} />
                 </AppBar>
+
+
                 <Drawer
                     variant="permanent"
                     open={open}
@@ -103,7 +110,7 @@ function Root() {
                         }
                     }}
                 >
-                    <DrawerHeader />
+                    {!location.pathname.includes("inbox") && <DrawerHeader />}
                     <DrawerHeader />
                     <Outlet />
                 </Box>

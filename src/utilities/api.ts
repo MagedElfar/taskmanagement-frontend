@@ -140,4 +140,7 @@ export const markAllReadNotifications = () => API.patch("/notifications")
 
 export const deleteNotifications = (id: number) => API.delete(`/notifications/${id}`)
 
-export const deleteAllNotifications = () => API.delete("/notifications")
+export const deleteAllNotifications = () => API.delete("/notifications");
+
+//messages
+export const getContacts = () => API.get("/conversations")

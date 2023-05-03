@@ -63,8 +63,6 @@ const Notification = () => {
         }
     }
 
-    console.log(maxOffset)
-
     const navigateTo = async (e: React.MouseEvent<HTMLElement>, notification: INotification) => {
         try {
             e.stopPropagation()
@@ -151,10 +149,6 @@ const Notification = () => {
             setNotifications(s => [data, ...s])
             setUnread(s => s + 1)
         })
-
-        return () => {
-            socket.disconnect()
-        }
 
     }, [])
 

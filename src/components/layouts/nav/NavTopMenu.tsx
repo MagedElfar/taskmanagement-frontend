@@ -1,9 +1,11 @@
-import React from 'react'
-import { Avatar, IconButton, Tooltip } from '@mui/material';
+import React, { useEffect } from 'react'
+import { Avatar, Badge, IconButton, Tooltip } from '@mui/material';
 import { useAppSelector } from '../../../hooks/store.hook';
 import UserMenu from './UserMenu';
 import Notification from '../../common/Notification';
-
+import socket from '../../../utilities/socket';
+import InboxIcon from '@mui/icons-material/Inbox';
+import { Link } from 'react-router-dom';
 
 const NavTopMenu = () => {
   const { user: userState, them, space } = useAppSelector(s => s);
@@ -14,9 +16,23 @@ const NavTopMenu = () => {
     setAnchorElUser(event.currentTarget);
   };
 
-
   return (
     <>
+      <Link to="inbox">
+        <IconButton
+          size="large"
+          color="inherit"
+          sx={{
+            color: them.colors.fourthColor
+          }}
+        >
+          <Badge badgeContent={0} color="error">
+            <InboxIcon />
+          </Badge>
+        </IconButton>
+
+      </Link>
+
       <Notification />
       <Tooltip title="Open settings">
         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>

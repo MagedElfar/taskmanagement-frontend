@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client';
 import { localUpdate, syncArchiveTask, syncCreateTask, syncDeleteTask, syncUpdateTask } from '../store/slices/task.slice';
 import { AppDispatch } from '../store';
+import { setOnlineUsers } from '../store/slices/conversation.slice';
 
 const socket = io('http://localhost:5000/');
 
@@ -25,6 +26,11 @@ function socketListener(dispatch: AppDispatch) {
 
     socket.on("archiveTask", (data) => {
         dispatch(syncArchiveTask(data))
+    })
+
+    socket.on("onlineUsers", (data) => {
+        console.log(data)
+        dispatch(setOnlineUsers(data))
     })
 
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import { Avatar, Grid, Typography } from '@mui/material'
+import { Avatar, Badge, Grid, Typography } from '@mui/material'
 import { Member } from '../../interfaces/space'
-import { purple } from '@mui/material/colors';
+import { purple, green, grey } from '@mui/material/colors';
 import { useAppSelector } from '../../hooks/store.hook';
 import Popover from '@mui/material/Popover';
 import MemberCard from './MemberCard';
@@ -21,7 +21,7 @@ const MemberItem: React.FC<props> = ({
     color
 }) => {
 
-    const { them } = useAppSelector(state => state);
+    const { them, conversation } = useAppSelector(state => state);
 
     const handlePopover = (event: React.MouseEvent<HTMLElement>) => {
 
@@ -45,11 +45,27 @@ const MemberItem: React.FC<props> = ({
                 onClick={handlePopover}
             >
                 <Grid item  >
-                    <Avatar
-                        sx={{ width: "35px", height: "35px", bgcolor: purple[500], p: 0 }}
-                        alt={member.username}
-                        src={member.userImage || "/"}
-                    />
+                    <Badge
+                        overlap="circular"
+                        anchorOrigin={{
+                            vertical: 'bottom',
+                            horizontal: 'right',
+                        }}
+                        badgeContent={<div style={{
+                            backgroundColor: conversation.onlineUsers.some(item => item.userId === member.userId) ? green['A700'] : grey[500],
+                            border: "2px solid #fff",
+                            height: "13px",
+                            width: "13px",
+                            borderRadius: "50%"
+                        }} />}
+                    >
+                        <Avatar
+                            sx={{ width: "35px", height: "35px", bgcolor: purple[500], p: 0 }}
+                            alt={member.username}
+                            src={member.userImage || "/"}
+                        />
+                    </Badge>
+
                 </Grid>
 
                 <Grid sx={{ alignItems: "center", display: "flex" }} >
