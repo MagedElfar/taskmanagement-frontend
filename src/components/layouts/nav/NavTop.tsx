@@ -1,12 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
-import { Box, Breadcrumbs, Toolbar, Typography } from '@mui/material';
-import { useAppSelector } from '../../../hooks/store.hook';
+import { Alert, Box, Breadcrumbs, Snackbar, Toolbar, Typography } from '@mui/material';
+import { useAppDispatch, useAppSelector } from '../../../hooks/store.hook';
 import NavTopMenu from './NavTopMenu';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import SearchBar from '../../common/SearchBar';
+import socket from '../../../utilities/socket';
+import { IMessage } from '../../../interfaces/inbox';
+import { fullName } from '../../../utilities/helper';
+import { updateUnreadMessages } from '../../../store/slices/conversation.slice';
 
 type props = {
     open: Boolean
@@ -15,6 +19,10 @@ type props = {
 
 const NavTop: React.FC<props> = ({ open, onClick }) => {
     const { them, space } = useAppSelector(s => s)
+    const [notification, setNotification] = useState<IMessage | null>(null)
+    const [openBar, setOpenBar] = useState(false);
+
+    const dispatch = useAppDispatch()
 
     const location = useLocation()
     const { id } = useParams()
@@ -35,11 +43,51 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
         subTitle = "Reports"
     }
 
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenBar(false);
+    };
+
+
     const menuId = 'primary-search-account-menu';
+
+    useEffect(() => {
+        socket.on("newUnReadMessage", (data) => {
+            dispatch(updateUnreadMessages(data));
+
+            console.log(data)
+            setNotification(data)
+            setOpenBar(true);
+        })
+    }, [])
 
     return (
         <Toolbar sx={{ backgroundColor: them.colors.thirdColor }}>
             <Box component="div" sx={{ display: "flex", width: "100%", alignItems: "center" }}>
+                {notification && <Snackbar
+                    open={openBar}
+                    autoHideDuration={6000}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                        vertical: 'bottom',
+                        horizontal: 'right',
+                    }}
+                >
+                    <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                        <Typography sx={{
+                            fontSize: "12px",
+                            whiteSpace: "pre-wrap"
+                        }}>
+                            <span dangerouslySetInnerHTML={{
+                                __html: `<span class = "capitalize font-bold">you have a new message from ${fullName({ first_name: notification.first_name, last_name: notification.last_name, username: notification.username })}</span>`
+                            }}></span>
+                        </Typography>
+                    </Alert>
+                </Snackbar>
+                }
                 <IconButton
                     size="large"
                     edge="start"

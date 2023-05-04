@@ -89,3 +89,32 @@
   .recharts-legend-item{
     font-size: 12px;
   }
+
+  /*send message*/
+  .send-message-container{
+    width: 80%;
+    margin: auto;
+    height: calc(30% - 70px);
+    position: relative;
+  }
+
+  .send-message-container form{
+    height: 100%;
+  }
+
+  .send-message-container textarea{
+    width: 100%;
+    height: 100%;
+    border: 1px solid !important;
+    outline: none !important;
+    background-color: #F1F1F1;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 14px;
+  }
+
+  .emoji-container{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }

@@ -24,6 +24,13 @@ const slice = createSlice({
 
         changeCurrentChat(state, action) {
             state.currentChat = action.payload
+        },
+
+        updateUnreadMessages(state, action) {
+            state.connection = state.connection.map((contact) => {
+                if (contact.conversation_id === action.payload.conversation_id) contact.unread_count += 1
+                return contact
+            })
         }
     },
     extraReducers: (builder) => {
@@ -49,8 +56,8 @@ const slice = createSlice({
     }
 })
 
-const { setOnlineUsers, changeCurrentChat } = slice.actions;
+const { setOnlineUsers, changeCurrentChat, updateUnreadMessages } = slice.actions;
 
-export { setOnlineUsers, changeCurrentChat }
+export { setOnlineUsers, changeCurrentChat, updateUnreadMessages }
 
 export default slice.reducer;

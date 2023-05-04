@@ -4,7 +4,7 @@ import { LoginCredentials } from "../interfaces/auth";
 import { Profile, updateUserDto } from '../interfaces/user';
 import { CreateProjectDto, UpdateProjectDto, createSpaceDto } from '../interfaces/space';
 import { CreateTaskDto, ITask } from '../interfaces/tasks';
-import { number } from 'yup';
+import { CreateMessageDto } from '../interfaces/inbox';
 
 const baseURL: string = "http://localhost:5000/api";
 
@@ -144,3 +144,7 @@ export const deleteAllNotifications = () => API.delete("/notifications");
 
 //messages
 export const getContacts = () => API.get("/conversations")
+
+export const getMessages = (conversation_id: number, page: number) => API.get(`/messages?conversation_id=${conversation_id}&page=${page}`);
+
+export const sendMessage = (data: CreateMessageDto) => API.post("/messages", data)

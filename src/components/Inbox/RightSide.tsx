@@ -2,16 +2,18 @@ import React from 'react'
 import { useAppSelector } from '../../hooks/store.hook'
 import { Box, Divider } from '@mui/material'
 import Contact from './Contact'
+import ChatBox from './ChatBox'
 
 const RightSide = () => {
 
     const { conversation } = useAppSelector(state => state)
 
     return (
-        <Box>
+        <Box height="100%">
 
-            {conversation.currentChat ? <Contact contact={conversation.currentChat} isHeader={true} /> : null}
-            <Divider />
+            {conversation.currentChat ?
+                <ChatBox conversation={conversation.currentChat} /> : null
+            }
         </Box>
     )
 }

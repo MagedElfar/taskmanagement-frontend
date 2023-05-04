@@ -24,7 +24,7 @@ const Inbox = () => {
                 <LeftSide />
             </Grid>
 
-            <Grid item xs={8}>
+            <Grid item xs={8} height="100%">
                 <RightSide />
             </Grid>
 

@@ -29,7 +29,6 @@ function socketListener(dispatch: AppDispatch) {
     })
 
     socket.on("onlineUsers", (data) => {
-        console.log(data)
         dispatch(setOnlineUsers(data))
     })
 
