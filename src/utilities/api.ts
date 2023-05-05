@@ -147,4 +147,9 @@ export const getContacts = () => API.get("/conversations")
 
 export const getMessages = (conversation_id: number, page: number) => API.get(`/messages?conversation_id=${conversation_id}&page=${page}`);
 
+export const markMessageRead = (id: number) => API.put(`/messages/${id}`)
+
+export const deleteMessage = (id: number) => API.delete(`/messages/${id}`)
+
 export const sendMessage = (data: CreateMessageDto) => API.post("/messages", data)
+

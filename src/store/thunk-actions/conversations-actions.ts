@@ -4,7 +4,10 @@ import { CreateProjectDto, UpdateProjectDto } from "../../interfaces/space";
 import { IConnection } from "../../interfaces/inbox";
 
 export const getContacts = createAsyncThunk<
-    IConnection[],
+    {
+        conversations: IConnection[],
+        unreadCount: number
+    },
     void,
     {
         rejectValue: unknown
@@ -14,7 +17,25 @@ export const getContacts = createAsyncThunk<
     try {
         const { data } = await api.getContacts()
 
-        return data.conversations;
+        return data;
+    } catch (error) {
+        console.log(error)
+        return rejectWithValue(error)
+    }
+})
+
+export const markMessagesRead = createAsyncThunk<
+    number,
+    number,
+    {
+        rejectValue: unknown
+    }
+>("conversations/markRead", async (id, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+        await api.markMessageRead(id)
+
+        return id;
     } catch (error) {
         console.log(error)
         return rejectWithValue(error)

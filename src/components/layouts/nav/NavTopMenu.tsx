@@ -8,7 +8,7 @@ import InboxIcon from '@mui/icons-material/Inbox';
 import { Link } from 'react-router-dom';
 
 const NavTopMenu = () => {
-  const { user: userState, them, space } = useAppSelector(s => s);
+  const { user: userState, them, conversation } = useAppSelector(s => s);
 
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
@@ -26,7 +26,7 @@ const NavTopMenu = () => {
             color: them.colors.fourthColor
           }}
         >
-          <Badge badgeContent={0} color="error">
+          <Badge badgeContent={conversation.unRead} color="error">
             <InboxIcon />
           </Badge>
         </IconButton>

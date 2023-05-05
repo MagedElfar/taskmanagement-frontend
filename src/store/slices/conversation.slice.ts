@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IConnection, ISocketUser } from '../../interfaces/inbox';
-import { getContacts } from "../thunk-actions/conversations-actions";
+import { getContacts, markMessagesRead } from "../thunk-actions/conversations-actions";
 import { ITask } from "../../interfaces/tasks";
 import { apiErrorFormat } from "../../utilities/error-format";
 
@@ -11,7 +11,8 @@ const initialState = {
     errors: [] as string[],
     connection: [] as IConnection[],
     onlineUsers: [] as ISocketUser[],
-    currentChat: null as IConnection
+    currentChat: null as IConnection,
+    unRead: 0
 }
 
 const slice = createSlice({
@@ -31,6 +32,8 @@ const slice = createSlice({
                 if (contact.conversation_id === action.payload.conversation_id) contact.unread_count += 1
                 return contact
             })
+
+            state.unRead += 1
         }
     },
     extraReducers: (builder) => {
@@ -41,15 +44,43 @@ const slice = createSlice({
         })
 
         builder.addCase(getContacts.fulfilled, (state, action) => {
-            state.connection = action.payload
+            state.connection = action.payload.conversations
 
-            if (action.payload.length > 0) state.currentChat = action.payload[0]
+            if (action.payload.conversations.length > 0) state.currentChat = action.payload.conversations[0]
 
+            state.unRead = action.payload.unreadCount;
             state.loading = false
 
         })
 
         builder.addCase(getContacts.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
+
+        builder.addCase(markMessagesRead.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(markMessagesRead.fulfilled, (state, action) => {
+
+            let readMessages = 0;
+
+            state.connection = state.connection.map((contact) => {
+                if (contact.conversation_id === action.payload) {
+                    readMessages += contact.unread_count
+                    contact.unread_count = 0
+                }
+                return contact
+            })
+
+            state.unRead -= readMessages
+            state.loading = false
+
+        })
+
+        builder.addCase(markMessagesRead.rejected, (state, action) => {
             state.loading = false;
             state.errors = apiErrorFormat(action.payload);
         })

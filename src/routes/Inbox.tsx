@@ -10,11 +10,6 @@ const Inbox = () => {
 
     const { them, conversation } = useAppSelector(state => state)
 
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        dispatch(getContacts())
-    }, [dispatch])
 
     return (
         <Grid container bgcolor="#FFF" height="100vh" borderRadius="12px">
