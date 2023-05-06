@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { IConnection, ISocketUser } from '../../interfaces/inbox';
-import { getContacts, markMessagesRead } from "../thunk-actions/conversations-actions";
+import { addContact, getContacts, markMessagesRead } from "../thunk-actions/conversations-actions";
 import { ITask } from "../../interfaces/tasks";
 import { apiErrorFormat } from "../../utilities/error-format";
 
@@ -21,6 +21,10 @@ const slice = createSlice({
     reducers: {
         setOnlineUsers(state, action) {
             state.onlineUsers = action.payload
+        },
+
+        setNewConnect(state, action) {
+            state.connection.push(action.payload)
         },
 
         changeCurrentChat(state, action) {
@@ -84,11 +88,30 @@ const slice = createSlice({
             state.loading = false;
             state.errors = apiErrorFormat(action.payload);
         })
+
+        builder.addCase(addContact.pending, (state, action) => {
+            state.errors = [];
+            state.loading = true
+        })
+
+        builder.addCase(addContact.fulfilled, (state, action) => {
+            state.connection.push(action.payload.contact)
+
+            state.currentChat = action.payload.contact
+
+            state.loading = false
+
+        })
+
+        builder.addCase(addContact.rejected, (state, action) => {
+            state.loading = false;
+            state.errors = apiErrorFormat(action.payload);
+        })
     }
 })
 
-const { setOnlineUsers, changeCurrentChat, updateUnreadMessages } = slice.actions;
+const { setOnlineUsers, changeCurrentChat, updateUnreadMessages, setNewConnect } = slice.actions;
 
-export { setOnlineUsers, changeCurrentChat, updateUnreadMessages }
+export { setOnlineUsers, changeCurrentChat, updateUnreadMessages, setNewConnect }
 
 export default slice.reducer;

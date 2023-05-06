@@ -50,6 +50,8 @@ export const forgotPasswordRest = (data: {
 //user
 export const getUser = () => API.get("/users")
 
+export const getUsers = (query: string) => API.get(`/users/list${query}`)
+
 export const updateUser = (data: updateUserDto) => API.put("/users", data)
 
 export const createUserProfile = (data: Partial<Profile>) => API.post("/users/profile", data)
@@ -144,6 +146,9 @@ export const deleteAllNotifications = () => API.delete("/notifications");
 
 //messages
 export const getContacts = () => API.get("/conversations")
+
+export const createContacts = (data: { userId: number }) => API.post("/conversations", data)
+
 
 export const getMessages = (conversation_id: number, page: number) => API.get(`/messages?conversation_id=${conversation_id}&page=${page}`);
 

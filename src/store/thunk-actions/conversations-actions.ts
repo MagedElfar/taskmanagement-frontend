@@ -24,6 +24,27 @@ export const getContacts = createAsyncThunk<
     }
 })
 
+
+export const addContact = createAsyncThunk<
+    {
+        contact: IConnection,
+    },
+    { userId: number },
+    {
+        rejectValue: unknown
+    }
+>("conversations/addContact", async (body, thunkApi) => {
+    const { rejectWithValue } = thunkApi;
+    try {
+        const { data } = await api.createContacts(body)
+
+        return data;
+    } catch (error) {
+        console.log(error)
+        return rejectWithValue(error)
+    }
+})
+
 export const markMessagesRead = createAsyncThunk<
     number,
     number,

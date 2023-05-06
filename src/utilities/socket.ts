@@ -1,7 +1,7 @@
 import { io } from 'socket.io-client';
 import { localUpdate, syncArchiveTask, syncCreateTask, syncDeleteTask, syncUpdateTask } from '../store/slices/task.slice';
 import { AppDispatch } from '../store';
-import { setOnlineUsers } from '../store/slices/conversation.slice';
+import { setNewConnect, setOnlineUsers } from '../store/slices/conversation.slice';
 
 const socket = io('http://localhost:5000/');
 
@@ -30,6 +30,11 @@ function socketListener(dispatch: AppDispatch) {
 
     socket.on("onlineUsers", (data) => {
         dispatch(setOnlineUsers(data))
+    })
+
+    socket.on("newChatConnection", (data) => {
+        console.log(data)
+        dispatch(setNewConnect(data))
     })
 
 }

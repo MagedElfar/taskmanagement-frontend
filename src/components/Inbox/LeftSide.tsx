@@ -2,7 +2,7 @@ import { Box, Button, Stack, Typography } from '@mui/material'
 import React from 'react'
 import { useAppSelector } from '../../hooks/store.hook'
 import Contact from './Contact'
-import AddIcon from '@mui/icons-material/Add';
+import NewChat from './NewChat'
 
 const LeftSide = () => {
     const { conversation } = useAppSelector(state => state)
@@ -22,9 +22,7 @@ const LeftSide = () => {
             </div>
 
             <Stack py={2} spacing={2}>
-                <Button variant="outlined" endIcon={<AddIcon />}>
-                    New Chat
-                </Button>
+                <NewChat />
                 {conversation.connection.map(contact => <div key={contact.id}><Contact contact={contact} /></div>)}
             </Stack>
         </Box>
