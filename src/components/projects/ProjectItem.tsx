@@ -83,7 +83,7 @@ const ProjectItem: React.FC<props> = ({ project }) => {
 
     return (
         <ListItemButton sx={{
-            pl: 2,
+            px: "16px !important",
             py: "5px !important",
             justifyContent: "space-between",
 

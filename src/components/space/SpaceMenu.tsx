@@ -92,7 +92,7 @@ const SpaceMenu = () => {
 
     return (
         <List>
-            <ListItemButton>
+            <ListItemButton onClick={handleClick}  >
 
                 {
                     space.id ?
@@ -119,7 +119,6 @@ const SpaceMenu = () => {
                                 </Avatar>
                             </Badge>
                             <ListItemText
-                                onClick={handleClick}
                                 primary={space.name}
                                 sx={{
 

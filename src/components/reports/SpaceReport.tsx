@@ -39,8 +39,8 @@ const SpaceReport: React.FC<props> = ({ report }) => {
             <Grid item xs={12} sx={{ mb: 2 }}>
                 <Stack direction="row" justifyContent="center" spacing={1}>
                     <Chip icon={<TaskIcon />} label={`${report.total_tasks} Tasks`} />
-                    <Chip icon={<TaskAltIcon />} label={`${report.completed_tasks} Completed task`} />
-                    <Chip icon={<ArchiveIcon />} label={`${report.archived_tasks} Archived task`} />
+                    <Chip icon={<TaskAltIcon />} label={`${report.completed_tasks ? report.completed_tasks : 0} Completed task`} />
+                    <Chip icon={<ArchiveIcon />} label={`${report.archived_tasks ? report.archived_tasks : 0} Archived task`} />
                     <Chip icon={<PersonIcon />} label={`${team.length} Member`} />
                     <Chip icon={<BusinessCenterIcon />} label={`${projects.length} Project`} />
                 </Stack>

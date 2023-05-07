@@ -118,3 +118,8 @@
     bottom: 0;
     right: 0;
   }
+
+  .chat-msg a{
+    /* color: #FFF; */
+    text-decoration: underline !important;
+  }

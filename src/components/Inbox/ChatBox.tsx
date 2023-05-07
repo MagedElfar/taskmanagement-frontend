@@ -19,9 +19,13 @@ const ChatBox: React.FC<props> = ({ conversation }) => {
     const { user: { user: { id: userId } } } = useAppSelector(state => state);
 
     const [messages, setMessages] = useState<IMessage[]>([])
+    const [isNew, setNew] = useState(false)
     const [offset, setOffset] = useState(0)
     const [maxOffset, setMaxOffset] = useState(0)
     const [errors, setErrors] = useState<string[]>([])
+
+    const containerRef = useRef(null);
+
 
     const dispatch = useAppDispatch()
 
@@ -57,6 +61,7 @@ const ChatBox: React.FC<props> = ({ conversation }) => {
     useEffect(() => {
         socket.on("newMessage", (data) => {
             setMessages(s => [data, ...s])
+            setNew(true)
         })
 
         socket.on("deleteMessage", (data) => {
@@ -64,6 +69,11 @@ const ChatBox: React.FC<props> = ({ conversation }) => {
         })
     }, [])
 
+    useEffect(() => {
+        if (!isNew) return;
+        containerRef.current?.scrollIntoView({ behavior: 'smooth' });
+        setNew(false)
+    }, [messages])
 
     useEffect(() => {
 
@@ -112,10 +122,11 @@ const ChatBox: React.FC<props> = ({ conversation }) => {
                 overflow="auto"
                 onScroll={handleScroll}
             >
+                <div ref={containerRef} />
                 {messages.map(message => <Message key={message.id} message={message} userId={+userId!} />)}
             </Stack>
 
-            <SendMessage setMessages={updateMassage} conversation={conversation.conversation_id} />
+            <SendMessage conversation={conversation.conversation_id} />
         </Box>
     )
 }

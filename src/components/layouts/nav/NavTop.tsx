@@ -66,7 +66,15 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
 
     return (
         <Toolbar sx={{ backgroundColor: them.colors.thirdColor }}>
-            <Box component="div" sx={{ display: "flex", width: "100%", alignItems: "center" }}>
+            <Box component="div" sx={{
+                display: "flex",
+                width: "100%",
+                alignItems: "center",
+                flexWrap: {
+                    xs: "wrap",
+                    md: "nowrap"
+                }
+            }}>
                 {notification && <Snackbar
                     open={openBar}
                     autoHideDuration={6000}
@@ -96,7 +104,9 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
                     onClick={onClick}
                     sx={{
                         mr: 2,
-                        marginRight: 5,
+                        marginRight: {
+                            xs: 0, md: 5
+                        },
                         ...(open && { display: 'none' }),
                     }}
 
@@ -109,6 +119,17 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
                     <Breadcrumbs
                         separator={<NavigateNextIcon fontSize="small" />}
                         aria-label="breadcrumb"
+                        sx={{
+                            order: {
+                                xs: 1,
+                                md: "unset"
+                            },
+                            width: {
+                                xs: "100%",
+                                md: "auto"
+                            }
+                        }}
+
                     >
                         <Link
                             to="/"
@@ -120,7 +141,11 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
                             noWrap
                             component="div"
                             sx={{
-                                display: { xs: 'none', sm: 'block' },
+                                fontSize: {
+                                    xs: "16px",
+                                    md: "1.25rem"
+                                },
+                                display: 'block',
                                 color: them.colors.fourthColor,
                                 textTransform: "capitalize"
                             }}
@@ -134,9 +159,17 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
                         noWrap
                         component="div"
                         sx={{
-                            display: { xs: 'none', sm: 'block' },
+                            display: 'block',
                             color: them.colors.fourthColor,
-                            textTransform: "capitalize"
+                            textTransform: "capitalize",
+                            order: {
+                                xs: 1,
+                                md: "unset"
+                            },
+                            width: {
+                                xs: "100%",
+                                md: "auto"
+                            }
                         }}
                     >
                         {location.pathname.includes("inbox") ? "Inbox" : space.name}
@@ -144,10 +177,17 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
 
                 }
                 <Box sx={{ flexGrow: 1 }} />
-                <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: "center" }}>
-                    <SearchBar />
+
+                <Box sx={{ display: "flex", alignItems: "center" }}>
+                    <div className='hidden md:block'>
+                        <SearchBar />
+                    </div>
                     <NavTopMenu />
                 </Box>
+
+                <div className='md:hidden w-full mt-2 mb-4 order-2'>
+                    <SearchBar />
+                </div>
             </Box>
 
 

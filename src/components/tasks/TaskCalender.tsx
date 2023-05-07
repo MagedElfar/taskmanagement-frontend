@@ -32,7 +32,7 @@ const TaskCalender = () => {
     const tasksGet = async () => {
         try {
             console.log(view)
-            const { data: { tasks } } = await getTasks(`?spaceId=${spaceId}&is_archived=0&fromDate=${fromDate}&toDate=${toDate}${view === "my-tasks" ? "&user=true" : ""}`)
+            const { data: { tasks } } = await getTasks(`?spaceId=${spaceId}&fromDate=${fromDate}&toDate=${toDate}${view === "my-tasks" ? "&user=true" : ""}`)
             setTasks(tasks.data)
         } catch (error) {
             setErrors(apiErrorFormat(error))

@@ -98,8 +98,14 @@ const SearchBar = () => {
         <Box
             position="relative"
             zIndex="99999"
-            width="280px"
-            mr={2}
+            width={{
+                xs: "100%",
+                md: "280px"
+            }}
+            mr={{
+                xs: "0",
+                md: 2
+            }}
         >
             <SnackError errors={errors} />
             <Box

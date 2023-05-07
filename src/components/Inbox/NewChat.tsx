@@ -44,7 +44,15 @@ const NewChat = () => {
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = (userId: number) => {
+    const handleClose = (userId?: number) => {
+
+        console.log(userId)
+        if (!userId) {
+            console.log("userId")
+
+            setAnchorEl(null)
+            return
+        }
 
         dispatch(addContact({ userId })).unwrap().then(() => setAnchorEl(null))
 
@@ -114,7 +122,7 @@ const NewChat = () => {
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={open}
-                onClose={handleClose}
+                onClose={() => handleClose()}
                 sx={{
                     width: "100%"
                 }}
@@ -147,7 +155,6 @@ const NewChat = () => {
                                         display: "flex",
                                         alignItems: "center"
                                     }}>
-
 
                                     <Avatar
                                         sx={{

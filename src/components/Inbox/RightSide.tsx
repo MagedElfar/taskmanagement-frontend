@@ -12,7 +12,17 @@ const RightSide = () => {
         <Box height="100%">
 
             {conversation.currentChat ?
-                <ChatBox conversation={conversation.currentChat} /> : null
+                <ChatBox conversation={conversation.currentChat} />
+                :
+                <Box
+                    height="100%"
+                    display="flex"
+                    alignItems="center"
+                    justifyContent="center"
+                    p={3}
+                >
+                    you don't have any contact please create one to start chat...
+                </Box>
             }
         </Box>
     )

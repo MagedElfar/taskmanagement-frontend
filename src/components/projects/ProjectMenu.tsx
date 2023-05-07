@@ -1,6 +1,5 @@
 import { List } from '@mui/material'
 import React from 'react'
-import { useAppSelector } from '../../hooks/store.hook';
 import { Project } from '../../interfaces/space';
 import ProjectItem from './ProjectItem';
 

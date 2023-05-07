@@ -9,24 +9,30 @@ import MemberCard from './MemberCard';
 
 type props = {
     member: Member;
-    togglePopover?: (event: React.MouseEvent<HTMLElement>, member: Member) => void;
-    open?: boolean,
     color?: string
 }
 
 const MemberItem: React.FC<props> = ({
     member,
-    togglePopover = () => { return },
-    open,
     color
 }) => {
 
     const { them, conversation } = useAppSelector(state => state);
 
-    const handlePopover = (event: React.MouseEvent<HTMLElement>) => {
 
-        togglePopover(event, member)
+    const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null);
+
+    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+        setAnchorEl(event.currentTarget);
     };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const open = Boolean(anchorEl);
+    const id = open ? 'simple-popover' : undefined;
+
 
 
 
@@ -35,14 +41,14 @@ const MemberItem: React.FC<props> = ({
     const fullName = member.firstName ? `${member.firstName} ${member.lastName || ''}` : member.username;
 
     return (
-        <div>
+        <div >
 
             <Grid
                 container
                 sx={{ ml: 0, alignItems: 0, pt: 2, pl: 2, cursor: "pointer" }}
-                aria-owns={open ? 'mouse-over-popover' : undefined}
+                aria-describedby={id}
                 aria-haspopup="true"
-                onClick={handlePopover}
+                onClick={handleClick}
             >
                 <Grid item  >
                     <Badge
@@ -83,6 +89,26 @@ const MemberItem: React.FC<props> = ({
                     </Typography>
                 </Grid>
             </Grid>
+
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={handleClose}
+                anchorReference="anchorPosition"
+                anchorPosition={{ top: 200, left: 500 }}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+            >
+                <MemberCard member={member} handleClose={handleClose} />
+            </Popover>
+
         </div>
     )
 }

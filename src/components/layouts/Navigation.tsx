@@ -23,12 +23,12 @@ const Navigation = () => {
             <List
                 sx={{
                     "& .MuiButtonBase-root": {
-                        py: 2
+                        p: 0
                     }
                 }}
             >
                 <ListItemButton sx={{ display: "flex", alignItems: "center" }} >
-                    <Link className='w-full flex items-center' to="/" style={{ color: them.colors.firstColor }}>
+                    <Link className='w-full p-4 flex items-center' to="/" style={{ color: them.colors.firstColor }}>
                         <ListItemIcon>
                             <HomeIcon sx={{ fill: them.colors.firstColor }} />
                         </ListItemIcon>
@@ -37,7 +37,7 @@ const Navigation = () => {
                 </ListItemButton>
 
                 <ListItemButton>
-                    <Link className='w-full flex items-center' to="/my-tasks" style={{ color: them.colors.firstColor }}>
+                    <Link className='w-full  p-4 flex items-center' to="/my-tasks" style={{ color: them.colors.firstColor }}>
                         <ListItemIcon>
                             <CheckCircleOutlineOutlinedIcon sx={{ fill: them.colors.firstColor }} />
                         </ListItemIcon>
@@ -45,7 +45,7 @@ const Navigation = () => {
                     </Link>
                 </ListItemButton>
                 <ListItemButton>
-                    <Link className='w-full flex items-center' to="/reports" style={{ color: them.colors.firstColor }}>
+                    <Link className='w-full  p-4 flex items-center' to="/reports" style={{ color: them.colors.firstColor }}>
                         <ListItemIcon>
                             <AssessmentIcon sx={{ fill: them.colors.firstColor }} />
                         </ListItemIcon>
@@ -54,7 +54,7 @@ const Navigation = () => {
                 </ListItemButton>
 
                 <ListItemButton>
-                    <Link className='w-full flex items-center' to="/calender" style={{ color: them.colors.firstColor }}>
+                    <Link className='w-full  p-4  flex items-center' to="/calender" style={{ color: them.colors.firstColor }}>
                         <ListItemIcon>
                             <CalendarMonthIcon sx={{ fill: them.colors.firstColor }} />
                         </ListItemIcon>
@@ -63,7 +63,7 @@ const Navigation = () => {
                 </ListItemButton>
 
                 <ListItemButton sx={{ display: "flex", alignItems: "center" }} >
-                    <Link className='w-full flex items-center' to="/archive" style={{ color: them.colors.firstColor }}>
+                    <Link className='w-full  p-4  flex items-center' to="/archive" style={{ color: them.colors.firstColor }}>
                         <ListItemIcon>
                             <ArchiveIcon sx={{ fill: them.colors.firstColor }} />
                         </ListItemIcon>

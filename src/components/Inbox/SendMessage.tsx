@@ -9,11 +9,10 @@ import { IMessage } from '../../interfaces/inbox';
 import { sendMessage } from '../../utilities/api';
 
 type props = {
-    setMessages: (message: IMessage) => void,
-    conversation: number
+    conversation: number,
 }
 
-const SendMessage: React.FC<props> = ({ setMessages, conversation }) => {
+const SendMessage: React.FC<props> = ({ conversation }) => {
     const [message, setMessage] = useState<string>("");
     const [errors, setErrors] = useState<string[]>([])
     const [loading, setLoading] = useState(false)
@@ -34,8 +33,6 @@ const SendMessage: React.FC<props> = ({ setMessages, conversation }) => {
                 content: message,
                 conversation_id: conversation
             })
-
-            // setMessages(data.message)
 
             setMessage("")
 

@@ -8,6 +8,7 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import { apiErrorFormat } from '../../utilities/error-format'
 import SnackError from '../common/SnackError'
 import { deleteMessage } from '../../utilities/api'
+import Linkify from 'react-linkify';
 
 type props = {
     message: IMessage,
@@ -51,7 +52,7 @@ const Message: React.FC<props> = ({ message, userId }) => {
                     {moment(message.created_at).format('ddd [at] HH:mm')}
                 </Typography>
             </div>
-            <div className='flex gap-x-2 items-end relative'>
+            <div className='flex gap-x-2 items-end relative chat-msg'>
                 <Avatar
                     sx={{ width: "25px", height: "25px", bgcolor: purple[500], p: 0 }}
                     alt={message.username}
@@ -69,7 +70,15 @@ const Message: React.FC<props> = ({ message, userId }) => {
                     }}
 
                 >
-                    {message.content}
+                    <Linkify
+                        componentDecorator={(decoratedHref, decoratedText, key) => (
+                            <a href={decoratedHref} key={key} target="_blank" rel="noopener noreferrer">
+                                {decoratedText}
+                            </a>
+                        )}
+                    >
+                        {message.content}
+                    </Linkify>
                 </Typography>
 
                 {
