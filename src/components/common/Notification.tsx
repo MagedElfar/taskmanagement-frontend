@@ -163,7 +163,7 @@ const Notification = () => {
     return (
         <Box
             position="relative"
-            zIndex="99999"
+            zIndex="999999"
         >
             {notification && <Snackbar
                 open={openBar}

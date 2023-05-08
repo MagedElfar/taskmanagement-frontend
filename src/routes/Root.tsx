@@ -1,6 +1,6 @@
 
 import React, { useEffect } from 'react';
-import { Box, Avatar, IconButton, Divider, CssBaseline } from '@mui/material';
+import { Box, Avatar, IconButton, Divider, CssBaseline, useMediaQuery } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import withGuard from '../utilities/withGuard'
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -14,11 +14,14 @@ import socket, { socketListener } from '../utilities/socket';
 
 function Root() {
     const { them, space } = useAppSelector(s => s)
-    const [open, setOpen] = React.useState(true);
+    const isMobile = useMediaQuery('(max-width:600px)');
+
+    const [open, setOpen] = React.useState(isMobile ? false : true);
 
     const location = useLocation()
 
     const dispatch = useAppDispatch();
+
 
     useEffect(() => {
 
@@ -58,8 +61,16 @@ function Root() {
 
 
                 <Drawer
-                    variant="permanent"
+                    variant={isMobile ? "temporary" : "permanent"}
+
                     open={open}
+
+                    sx={{
+                        "& .MuiBackdrop-root": {
+                            transition: "unset !important"
+                        }
+                    }}
+
                     PaperProps={{
                         sx: {
                             bgcolor: "transparent"
@@ -105,6 +116,10 @@ function Root() {
                         backgroundColor: them.colors.firstColor,
                         minHeight: "100vh",
                         overflow: "auto",
+                        mt: {
+                            xs: "100px",
+                            md: "0"
+                        },
                         "& ::-webkit-scrollbar": {
                             display: "none"
                         }

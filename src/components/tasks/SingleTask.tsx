@@ -32,9 +32,13 @@ const SingleTask: React.FC<props> = ({ task: singleTask }) => {
     return (
         <Grid container height="100%" >
             <Grid
-                item xs={6}
+                item
+                xs={12} md={6}
                 overflow="auto"
-                height="100%"
+                height={{
+                    xs: "70%",
+                    md: "100%"
+                }}
                 sx={{
                     "&::-webkit-scrollbar-track": {
                         bgcolor: "transparent"
@@ -86,10 +90,13 @@ const SingleTask: React.FC<props> = ({ task: singleTask }) => {
             </Grid>
             <Grid
                 item
-                xs={6}
+                xs={12}
+                md={6}
                 overflow="auto"
-                height="100%"
-
+                height={{
+                    xs: "30%",
+                    md: "100%"
+                }}
                 sx={{
                     bgcolor: them.colors.firstColor,
                     py: 2,

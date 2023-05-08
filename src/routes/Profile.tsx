@@ -9,7 +9,7 @@ const Profile = () => {
     const { them } = useAppSelector(s => s)
     return (
         <Grid container spacing={6}>
-            <Grid item xs={4} sx={{ backgroundColor: "transparent" }}>
+            <Grid item xs={12} md={4} sx={{ backgroundColor: "transparent" }}>
                 <Box sx={{ width: '100%' }}>
                     <Typography
                         variant="h5"
@@ -60,7 +60,7 @@ const Profile = () => {
                     </nav>
                 </Box>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item xs={12} md={8}>
                 <Outlet />
             </Grid>
         </Grid>

@@ -16,7 +16,7 @@ type props = {
 const TasksGrid: React.FC<props> = ({ tasks }) => {
     const [errors, setErrors] = useState([]);
 
-    const { them, task, space } = useAppSelector(state => state);
+    const { them, space } = useAppSelector(state => state);
     const dispatch = useAppDispatch()
 
     const statusTask = {
@@ -118,8 +118,22 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
                     </Alert>
                 </Snackbar>)
             }
-            <Grid container wrap='nowrap' gap={2} sx={{ mr: -3, ml: 0, width: "auto" }} >
-                <Grid item xs={3.75} sx={{ flexShrink: 0 }}>
+            <Grid
+                container
+                gap={2}
+                sx={{
+                    mr: {
+                        md: -3
+                    },
+                    flexWrap: {
+                        xs: "wrap",
+                        md: "nowrap"
+                    },
+                    ml: 0,
+                    width: "auto"
+                }}
+            >
+                <Grid item xs={12} md={3.75} sx={{ flexShrink: 0 }}>
                     <TaskList
                         color={them.colors.toDo}
                         tasks={statusTask[TaskStatus.TO_DO]}
@@ -128,7 +142,7 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
 
                 </Grid>
 
-                <Grid item xs={3.75} sx={{ flexShrink: 0 }}>
+                <Grid item xs={12} md={3.75} sx={{ flexShrink: 0 }}>
                     <TaskList
                         color={them.colors.inProgress}
                         tasks={statusTask[TaskStatus.IN_PROGRESS]}
@@ -137,7 +151,7 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
 
                 </Grid>
 
-                <Grid item xs={3.75} sx={{ flexShrink: 0 }}>
+                <Grid item xs={12} md={3.75} sx={{ flexShrink: 0 }}>
                     <TaskList
                         color={them.colors.inReview}
                         tasks={statusTask[TaskStatus.IN_REVIEW]}
@@ -146,7 +160,7 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
 
                 </Grid>
 
-                <Grid item xs={3.75} sx={{ flexShrink: 0 }}>
+                <Grid item xs={12} md={3.75} sx={{ flexShrink: 0 }}>
                     <TaskList
                         color={them.colors.blocked}
                         tasks={statusTask[TaskStatus.BLOCKED]}
@@ -154,7 +168,7 @@ const TasksGrid: React.FC<props> = ({ tasks }) => {
                     />
                 </Grid>
 
-                <Grid item xs={3.75} sx={{ flexShrink: 0 }}>
+                <Grid item xs={12} md={3.75} sx={{ flexShrink: 0 }}>
                     <TaskList
                         color={them.colors.done}
                         tasks={statusTask[TaskStatus.DONE]}

@@ -17,7 +17,14 @@ const TaskList: React.FC<props> = ({ color, tasks, type }) => {
             {(provided) => (
                 <Box
                     sx={{
-                        minHeight: "calc(100vh - 190px)"
+                        minHeight: {
+                            sx: "auto",
+                            md: "calc(100vh - 190px)"
+                        },
+                        mb: {
+                            xs: 3,
+                            md: 0
+                        }
                     }}
                     component="div"
                     ref={provided.innerRef}

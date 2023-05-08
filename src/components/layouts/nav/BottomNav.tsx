@@ -29,7 +29,10 @@ const BottomNav = () => {
                 px: 3,
                 color: them.colors.fourthColor,
                 bgcolor: "#fff",
-                height: "64px",
+                height: {
+                    xs: "auto",
+                    md: "64px"
+                },
             }}>
             <div className='flex items-center'>
                 {
@@ -77,7 +80,17 @@ const BottomNav = () => {
                                 ["owner", "admin"].includes(userState.role) ?
                                     <Button
                                         color="secondary"
-                                        sx={{ ml: 4, borderRadius: "20px", fontSize: "12px", px: 2 }}
+                                        sx={{
+                                            ml: 4,
+                                            borderRadius: "20px",
+                                            fontSize: "12px",
+                                            px: 2,
+                                            display: {
+                                                xs: "none",
+                                                md: "flex"
+                                            },
+                                            alignItems: "center"
+                                        }}
                                         size="small"
                                         variant="contained"
                                         endIcon={<AddIcon />}

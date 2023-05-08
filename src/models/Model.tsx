@@ -10,13 +10,17 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 650,
     borderRadius: "12px",
     bgcolor: "#fff",
     border: "none",
     boxShadow: 24,
     p: 4,
-    pt: 8
+    pt: 8,
+    mx: "auto",
+    width: {
+        xs: "90%",
+        md: 650
+    }
 };
 
 type props = {

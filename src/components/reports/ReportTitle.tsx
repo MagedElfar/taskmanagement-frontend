@@ -73,7 +73,11 @@ const ReportTitle: React.FC<props> = ({ updateRange }) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
-                mb: 6
+                mb: 6,
+                flexDirection: {
+                    xs: 'column',
+                    md: "row"
+                }
             }}
         >
             <div>
@@ -101,7 +105,7 @@ const ReportTitle: React.FC<props> = ({ updateRange }) => {
                 </Typography>
             </div>
 
-            <div className='relative'>
+            <div className='relative mt-5 md:mt-0' >
 
 
                 <FormControl sx={{ m: 1, minWidth: 250 }} >

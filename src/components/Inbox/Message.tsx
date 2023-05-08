@@ -65,7 +65,10 @@ const Message: React.FC<props> = ({ message, userId }) => {
                         p: 1,
                         px: 2,
                         borderRadius: "12px",
-                        fontSize: "14px",
+                        fontSize: {
+                            xs: "12px",
+                            md: "14px"
+                        },
 
                     }}
 

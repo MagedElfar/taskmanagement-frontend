@@ -59,9 +59,6 @@ const TaskAttachment: React.FC<props> = ({ task, attachments }) => {
                 <Label text="Attachment" />
                 <Tooltip
                     title="Attache"
-                // sx={{
-                //     minHeight: "0"
-                // }}
                 >
                     <IconButton color="primary" aria-label="upload picture" component="label">
                         <input hidden accept="image/*" type="file" multiple onChange={onChange} />
@@ -79,7 +76,7 @@ const TaskAttachment: React.FC<props> = ({ task, attachments }) => {
             >
                 {
                     files.map((file: IAttachment) => (
-                        <Grid item xs={3} key={file.id} px="5px" pb={1}>
+                        <Grid item xs={6} md={3} key={file.id} px="5px" pb={1}>
                             <TaskAttachmentCard file={file} deleteFile={deleteFile} />
                         </Grid>
                     ))

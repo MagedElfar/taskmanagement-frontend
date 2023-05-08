@@ -1,8 +1,6 @@
-import { Style } from '@mui/icons-material'
 import { Box, Button, CircularProgress, Divider, InputAdornment, TextField } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import CommentIcon from '@mui/icons-material/Comment';
-import useOutsideAlerter from '../../../hooks/useOutsideAlerter';
 import { addComment } from '../../../utilities/api';
 import { apiErrorFormat } from '../../../utilities/error-format';
 import SnackError from '../../common/SnackError';
@@ -12,6 +10,7 @@ import { useTaskContext } from '../../../hooks/taskContext';
 type props = {
     task: ITask,
 }
+
 const TaskComment: React.FC<props> = ({ task }) => {
 
     const { setActivities } = useTaskContext()
@@ -62,7 +61,10 @@ const TaskComment: React.FC<props> = ({ task }) => {
             position="absolute"
             bottom="0"
             right="0"
-            width="50%"
+            width={{
+                xs: "100%",
+                md: "50%"
+            }}
             maxHeight={maxHeight}
             height="auto"
             zIndex={99999}

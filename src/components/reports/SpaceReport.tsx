@@ -36,8 +36,8 @@ const SpaceReport: React.FC<props> = ({ report }) => {
     ];
     return (
         <Grid container mt={2} spacing={3}>
-            <Grid item xs={12} sx={{ mb: 2 }}>
-                <Stack direction="row" justifyContent="center" spacing={1}>
+            <Grid item xs={12} sx={{ mb: 2 }} pt="0 !important">
+                <Stack direction="row" justifyContent="center" flexWrap="wrap" spacing={1} gap={1}>
                     <Chip icon={<TaskIcon />} label={`${report.total_tasks} Tasks`} />
                     <Chip icon={<TaskAltIcon />} label={`${report.completed_tasks ? report.completed_tasks : 0} Completed task`} />
                     <Chip icon={<ArchiveIcon />} label={`${report.archived_tasks ? report.archived_tasks : 0} Archived task`} />
@@ -45,7 +45,7 @@ const SpaceReport: React.FC<props> = ({ report }) => {
                     <Chip icon={<BusinessCenterIcon />} label={`${projects.length} Project`} />
                 </Stack>
             </Grid>
-            <Grid item xs={8}>
+            <Grid item md={8} xs={12}>
                 <Box
                     component="div"
                     sx={{
@@ -74,7 +74,7 @@ const SpaceReport: React.FC<props> = ({ report }) => {
                 </Box>
 
             </Grid>
-            <Grid item xs={4}>
+            <Grid item md={4} xs={12}>
                 <Box
                     component="div"
                     sx={{

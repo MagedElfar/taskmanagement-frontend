@@ -1,6 +1,6 @@
 import MuiDrawer from '@mui/material/Drawer';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
-import { styled, Theme, CSSObject } from '@mui/material/styles';
+import { styled, Theme, CSSObject, useTheme } from '@mui/material/styles';
 import store from '../../store';
 
 const drawerWidth = 300;
@@ -49,8 +49,17 @@ const AppBar = styled(MuiAppBar, {
         duration: theme.transitions.duration.leavingScreen,
     }),
     ...(open && {
+
         marginLeft: drawerWidth,
-        width: `calc(100% - ${drawerWidth}px)`,
+        // width:{
+        //     xs: "100%",
+        //     md: `calc(100% - ${drawerWidth}px)`
+        // },
+
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: `calc(100% - ${drawerWidth}px)`,
+        },
 
         transition: theme.transitions.create(['width', 'margin'], {
             easing: theme.transitions.easing.sharp,
@@ -59,12 +68,15 @@ const AppBar = styled(MuiAppBar, {
     }),
 }));
 
-const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+// const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+const Drawer = styled(MuiDrawer)(
+
     ({ theme, open }) => ({
         width: drawerWidth,
         flexShrink: 0,
         whiteSpace: 'nowrap',
         boxSizing: 'border-box',
+        zIndex: 9999,
         backgroundColor: localThem.colors.secondColor,
         ...(open && {
             ...openedMixin(theme),

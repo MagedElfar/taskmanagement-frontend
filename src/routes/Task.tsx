@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import TaskModel from '../models/TaskModel';
 import SingleTask from '../components/tasks/SingleTask';
-import { ITask, ISingleTask, IActivity } from '../interfaces/tasks';
+import { ISingleTask, IActivity } from '../interfaces/tasks';
 import { getTask } from '../utilities/api';
 import { Box, CircularProgress } from '@mui/material';
 import { TaskContext } from '../hooks/taskContext';

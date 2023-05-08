@@ -14,9 +14,10 @@ const AuthRootLayout: React.FC<Props> = ({ children }) => {
             sx={{
                 py: 6,
                 backgroundColor: "#F9F8F8",
-                minHeight: "100vh"
+                minHeight: "100vh",
+                px: 3
             }}
-            className={`flex justify-center items-center w-full	`}>
+            className={`flex justify-center items-center w-full	auth-form-layout`}>
             {children}
         </Box>
     )

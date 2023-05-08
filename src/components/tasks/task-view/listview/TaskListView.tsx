@@ -18,7 +18,7 @@ const TaskListView: React.FC<props> = ({ tasks }) => {
     }, [tasks])
 
     return (
-        <div>
+        <div className={style.table_container}>
             <table className={style.table}>
                 <colgroup>
                     <col span={1} style={{ width: "45%" }} />

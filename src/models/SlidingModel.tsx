@@ -34,15 +34,32 @@ const SlidingModel: React.FC<props> = ({ open, children, toggleOpen }) => {
             PaperProps={{
                 sx: {
                     position: "absolute",
-                    top: "15px",
-                    right: "15px",
+                    top: {
+                        xs: "50%",
+                        md: "15px"
+                    },
+                    right: {
+                        xs: "unset",
+                        md: "15px"
+                    },
+                    maxWidth: "100%",
+                    transform: {
+                        xs: "translate(-50% , -50%)",
+                        md: "translate(0 , 0)"
+                    },
                     margin: 0,
                     px: 3,
                     py: 5,
                     borderRadius: 0,
                     overflow: "auto",
-                    minWidth: "600px",
-                    height: "calc(100vh - 30px)",
+                    minWidth: {
+                        xs: "90%",
+                        md: "600px"
+                    },
+                    height: {
+                        xs: "auto",
+                        md: "calc(100vh - 30px)"
+                    },
                     boxShadow: "0 10px 25px #00000080",
                     '&::-webkit-scrollbar': {
                         width: 0,

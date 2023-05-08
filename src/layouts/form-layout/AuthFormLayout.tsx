@@ -21,7 +21,11 @@ const AuthFormLayout: React.FC<Props> = ({ children, title }) => {
             py: 6,
             backgroundColor: "#fff",
             borderRadius: "8px",
-            boxShadow: "0 5px 20px 0 rgba(109, 110, 111, 0.08)"
+            boxShadow: "0 5px 20px 0 rgba(109, 110, 111, 0.08)",
+            width: {
+                xs: "100%",
+                md: "auto"
+            }
         }}>
             {authStep === 1 ?
                 <Avatar

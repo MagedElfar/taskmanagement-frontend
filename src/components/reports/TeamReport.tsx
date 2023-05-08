@@ -49,7 +49,7 @@ const TeamReport: React.FC<props> = ({ report }) => {
                 </Typography>
 
                 <Grid container spacing={2}>
-                    {members.map(member => <Grid xs={4} key={member.memberId} item><UserCard report={member} /></Grid>)}
+                    {members.map(member => <Grid xs={12} md={4} key={member.memberId} item><UserCard report={member} /></Grid>)}
                 </Grid>
             </div>
 

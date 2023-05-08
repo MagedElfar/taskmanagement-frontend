@@ -63,13 +63,17 @@ const ProfilePhotoForm = () => {
                 onSubmit={onSubmit}
             >
                 <Grid container spacing={3}>
-                    <Grid item xs={6}>
+                    <Grid item xs={12} md={6}>
                         <Avatar
                             sx={{
                                 backgroundColor: "#ddd",
                                 marginX: "0",
                                 width: "250px",
                                 height: "250px",
+                                m: {
+                                    xs: "auto",
+                                    md: 0
+                                },
                                 objectFit: "cover",
                                 mb: 3,
                                 borderRadius: "12px"
@@ -83,9 +87,12 @@ const ProfilePhotoForm = () => {
 
                     </Grid>
                     <Grid
-                        item xs={6}
+                        item xs={12} md={6}
                         sx={{
-                            alignItems: "flex-start",
+                            alignItems: {
+                                xs: "center",
+                                md: "flex-start",
+                            },
                             display: "flex",
                             justifyContent: "center",
                             gap: "20px",

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useForm, Controller } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -10,8 +10,7 @@ import * as yup from "yup";
 import { useAppSelector, useAppDispatch } from '../../hooks/store.hook';
 import Errors from '../common/Errors';
 import Typography from '@mui/material/Typography';
-import { createProject } from '../../store/thunk-actions//project-actions';
-import { FormControl, FormHelperText, Grid, IconButton, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, Grid, InputLabel, MenuItem, Select } from '@mui/material';
 import AssigneeButton from './AssigneeButton';
 import { Member, Project } from '../../interfaces/space';
 import { createTask } from '../../store/thunk-actions/task-actions';
@@ -20,7 +19,6 @@ import { toggleCreateTaskModel } from '../../store/slices/model.slice';
 const schema = yup.object({
     title: yup.string().required('task name is required'),
     description: yup.string().required('description is required')
-    // project: yup.number().optional()
 
 }).required();
 
@@ -29,13 +27,13 @@ const CreateTaskForm = () => {
     const { id } = useParams();
 
 
-    const { them, task, space } = useAppSelector((state) => state)
+    const { task, space } = useAppSelector((state) => state)
 
     const [member, setMember] = useState<Member | Partial<Member> | null>(null)
 
     const dispatch = useAppDispatch()
 
-    const { control, handleSubmit, formState: { errors, isDirty, isValid } } = useForm({
+    const { control, handleSubmit, formState: { errors, isValid } } = useForm({
         mode: "onChange",
         resolver: yupResolver(schema),
         defaultValues: {

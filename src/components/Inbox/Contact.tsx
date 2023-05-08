@@ -1,10 +1,11 @@
 import { Avatar, Badge, Box, Typography } from '@mui/material'
 import { green, grey, purple, red } from '@mui/material/colors'
-import React from 'react'
+import React, { useContext } from 'react'
 import { IConnection } from '../../interfaces/inbox'
 import { useAppDispatch, useAppSelector } from '../../hooks/store.hook'
 import { fullName } from '../../utilities/helper'
 import { changeCurrentChat } from '../../store/slices/conversation.slice'
+import { MyContext } from '../../routes/Inbox'
 
 type props = {
     contact: IConnection,
@@ -14,10 +15,12 @@ type props = {
 const Contact: React.FC<props> = ({ contact, isHeader }) => {
     const { conversation } = useAppSelector(state => state);
     const dispatch = useAppDispatch();
+    const { setOpen } = useContext(MyContext)
 
     const onClick = () => {
         if (isHeader) return;
         dispatch(changeCurrentChat(contact))
+        setOpen()
     }
 
     return (

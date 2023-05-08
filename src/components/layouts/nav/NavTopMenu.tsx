@@ -35,7 +35,13 @@ const NavTopMenu = () => {
 
       <Notification />
       <Tooltip title="Open settings">
-        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+        <IconButton onClick={handleOpenUserMenu} sx={{
+          p: 0,
+          pt: {
+            sx: 2,
+            md: 0
+          }
+        }}>
           <Avatar
             alt={userState.user.username}
             src={userState.user.image.image_url || "/"}

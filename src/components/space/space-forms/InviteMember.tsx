@@ -67,11 +67,12 @@ const InviteMember = () => {
     return (
         <>
             {err.length > 0 && <Errors errors={err} />}
-            <Success text={success} />
-
+            {success ? <Success text={success} /> : null}
             <Typography variant="h1" component="h1" sx={{
-                fontSize: them.fonSize.title,
-                fontWeight: 500,
+                fontSize: {
+                    xs: "25px",
+                    md: them.fonSize.title
+                }, fontWeight: 500,
                 mb: 4,
                 textAlign: "left"
             }}>

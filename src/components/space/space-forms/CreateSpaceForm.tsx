@@ -40,7 +40,10 @@ const CreateSpaceForm = () => {
         <>
             {space.errors.length > 0 && <Errors errors={space.errors} />}
             <Typography variant="h1" component="h1" sx={{
-                fontSize: them.fonSize.title,
+                fontSize: {
+                    xs: "25px",
+                    md: them.fonSize.title
+                },
                 fontWeight: 500,
                 mb: 4,
                 textAlign: "center"

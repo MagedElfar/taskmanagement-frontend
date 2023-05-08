@@ -26,10 +26,21 @@ const SpaceMember: React.FC<props> = ({ member }) => {
     };
 
     return (
-        <Grid container spacing={2} sx={{ ml: 0, alignItems: 0 }}>
+        <Grid container spacing={{ md: 2, xs: 0 }} flexWrap="nowrap" sx={{ ml: 0, alignItems: 0 }}>
             <Grid item  >
                 <Avatar
-                    sx={{ width: "50px", height: "50px", bgcolor: purple[500], }}
+                    sx={{
+                        width: {
+                            xs: "35px",
+                            md: "50px"
+                        },
+                        height: {
+                            xs: "35px",
+                            md: "50px"
+                        },
+
+                        bgcolor: purple[500],
+                    }}
                     alt={member.username}
                     src={member.userImage || "/"}
                 />

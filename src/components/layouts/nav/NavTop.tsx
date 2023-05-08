@@ -70,6 +70,10 @@ const NavTop: React.FC<props> = ({ open, onClick }) => {
                 display: "flex",
                 width: "100%",
                 alignItems: "center",
+                pt: {
+                    xs: 2,
+                    md: 0
+                },
                 flexWrap: {
                     xs: "wrap",
                     md: "nowrap"
