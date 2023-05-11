@@ -22,6 +22,10 @@ function Root() {
 
     const dispatch = useAppDispatch();
 
+    useEffect(() => {
+        if (!isMobile) return;
+        setOpen(false)
+    }, [location])
 
     useEffect(() => {
 
