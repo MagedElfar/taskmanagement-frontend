@@ -215,7 +215,10 @@ const Notification = () => {
                     top="50px"
                     bgcolor="#FFF"
                     color="#0C1A3E"
-                    right="0"
+                    right={{
+                        xs: "-25px",
+                        md: "0"
+                    }}
                 >
                     {notifications.length > 0 ?
                         <>

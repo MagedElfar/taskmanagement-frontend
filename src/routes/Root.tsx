@@ -117,7 +117,7 @@ function Root() {
                         minHeight: "100vh",
                         overflow: "auto",
                         mt: {
-                            xs: "100px",
+                            xs: "120px",
                             md: "0"
                         },
                         "& ::-webkit-scrollbar": {

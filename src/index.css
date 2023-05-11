@@ -119,6 +119,14 @@
     right: 0;
   }
 
+  @media(max-width:767px){
+    .emoji-container{
+      right: unset;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+
   .chat-msg a{
     /* color: #FFF; */
     text-decoration: underline !important;

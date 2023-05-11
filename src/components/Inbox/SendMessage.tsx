@@ -5,7 +5,6 @@ import { Button, CircularProgress } from '@mui/material';
 import data from '@emoji-mart/data'
 import Picker from '@emoji-mart/react'
 import SnackError from '../common/SnackError';
-import { IMessage } from '../../interfaces/inbox';
 import { sendMessage } from '../../utilities/api';
 
 type props = {

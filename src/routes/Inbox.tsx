@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material'
+import { Grid, useMediaQuery } from '@mui/material'
 import { createContext, useState } from 'react'
 import { useAppSelector } from '../hooks/store.hook'
 import LeftSide from '../components/Inbox/LeftSide'
@@ -17,10 +17,12 @@ const Inbox = () => {
 
     const { them, conversation } = useAppSelector(state => state)
 
+    const isMobile = useMediaQuery('(max-width:600px)');
+
     const [isOpen, setIsOpen] = useState(true)
 
     const setOpen = () => {
-        console.log(isOpen)
+        if (!isMobile) return;
         setIsOpen(!isOpen);
     };
 

@@ -15,6 +15,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query'
+import React from 'react';
 
 const queryClient = new QueryClient()
 
@@ -24,7 +25,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <QueryClientProvider client={queryClient}>
     <Provider store={store}>
-      <App />
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
     </Provider>
   </QueryClientProvider>
 
