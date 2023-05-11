@@ -24,7 +24,7 @@ const AuthFormLayout: React.FC<Props> = ({ children, title }) => {
             boxShadow: "0 5px 20px 0 rgba(109, 110, 111, 0.08)",
             width: {
                 xs: "100%",
-                md: "auto"
+                md: "415px"
             }
         }}>
             {authStep === 1 ?

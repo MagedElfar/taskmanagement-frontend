@@ -6,7 +6,7 @@ import { CreateProjectDto, UpdateProjectDto, createSpaceDto } from '../interface
 import { CreateTaskDto, ITask } from '../interfaces/tasks';
 import { CreateMessageDto } from '../interfaces/inbox';
 
-const baseURL: string = "http://localhost:5000/api";
+const baseURL: string = `${process.env.REACT_APP_API_URL}/api`;
 
 const API = axios.create({ baseURL });
 

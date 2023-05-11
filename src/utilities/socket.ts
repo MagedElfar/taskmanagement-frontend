@@ -3,7 +3,7 @@ import { localUpdate, syncArchiveTask, syncCreateTask, syncDeleteTask, syncUpdat
 import { AppDispatch } from '../store';
 import { setNewConnect, setOnlineUsers } from '../store/slices/conversation.slice';
 
-const socket = io('http://localhost:5000/');
+const socket = io(process.env.REACT_APP_API_URL);
 
 function socketListener(dispatch: AppDispatch) {
 
