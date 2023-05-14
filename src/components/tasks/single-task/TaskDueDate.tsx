@@ -88,6 +88,9 @@ const TaskDueDate: React.FC<props> = ({ task }) => {
                                 actions: ['clear'],
                             },
                             popper: {
+                                sx: {
+                                    zIndex: "999999"
+                                },
                                 placement: "right-start"
                             }
                         }}
